@@ -10,4 +10,9 @@ export default defineConfig({
         }),
         react(),
     ],
+    server: {
+        cors: {
+            origin: ['https://sos-tools.dev'],
+        },
+    },
 });
