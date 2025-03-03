@@ -18,14 +18,6 @@ export default function Dashboard() {
                         <div className="p-6 text-gray-900">
                             You're logged in!
                         </div>
-                        <div className="p-6">
-                            <Link
-                                href={route('dashboard')}
-                                className="rounded-md text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
-                            >
-                                Add Player
-                            </Link>
-                        </div>
                     </div>
                 </div>
             </div>
