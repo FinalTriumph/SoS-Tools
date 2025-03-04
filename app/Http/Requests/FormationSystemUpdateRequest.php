@@ -30,8 +30,7 @@ class FormationSystemUpdateRequest extends FormRequest
                 'required',
                 'integer',
                 'exists:players,id',
-                // TODO
-                // Rule::unique('formation_systems', 'player_id')->ignore($this->route('formation-system')->id),
+                Rule::unique('formation_systems', 'player_id')->ignore($this->route('formation_system')->id),
             ],
             'level' => [
                 'sometimes',
