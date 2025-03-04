@@ -2,6 +2,11 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PlayerController;
+
+use App\Http\Controllers\Mk1Controller;
+use App\Http\Controllers\Mk2Controller;
+use App\Http\Controllers\FormationSystemController;
+
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -26,6 +31,10 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/players', [PlayerController::class, 'index'])->name('players.index');
     Route::resource('/player', PlayerController::class)->except(['index']);
+
+    Route::resource('/mk1', Mk1Controller::class)->only(['store', 'update']);
+    Route::resource('/mk2', Mk2Controller::class)->only(['store', 'update']);
+    Route::resource('/formation-system', FormationSystemController::class)->only(['store', 'update']);
 });
 
 require __DIR__.'/auth.php';

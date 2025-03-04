@@ -7,7 +7,11 @@ import { Transition } from '@headlessui/react';
 import { useForm } from '@inertiajs/react';
 import { FormEventHandler } from 'react';
 
-export default function Edit({ player }: { player: Player }) {
+export default function UpdatePlayerInformationForm({
+    player,
+}: {
+    player: Player,
+}) {
     const { data, setData, patch, processing, errors, recentlySuccessful } = useForm({
         username: player.username,
         behemoths_bp: player.behemoths_bp,

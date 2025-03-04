@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Http\Requests\PlayerStoreRequest;
 use App\Http\Requests\PlayerUpdateRequest;
 use App\Models\Player;
+
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -59,6 +61,10 @@ class PlayerController extends Controller
         if (auth()->user()->cannot('modify', $player)) {
             abort(403);
         }
+
+        $player->load('mk1');
+        $player->load('mk2');
+        $player->load('formationSystem');
 
         return Inertia::render('Player/Edit', [
             'player' => $player
