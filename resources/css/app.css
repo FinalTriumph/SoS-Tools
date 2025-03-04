@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    td, th {
+        @apply text-center p-2 border;
+    }
+}

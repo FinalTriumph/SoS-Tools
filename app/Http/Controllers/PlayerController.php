@@ -18,9 +18,9 @@ class PlayerController extends Controller
      */
     public function index(): Response
     {
-        $players = auth()->user()->players;
+        $players = auth()->user()->players()->orderByRaw('(behemoths_bp + squadron_bp) DESC')->get();
 
-        return Inertia::render('Players', [
+        return Inertia::render('Players/Index', [
             'players' => $players,
         ]);
     }
