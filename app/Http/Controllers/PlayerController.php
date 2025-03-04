@@ -77,7 +77,7 @@ class PlayerController extends Controller
         $player->fill($request->validated());
         $player->save();
     
-        return Redirect::route('players.index');
+        return Redirect::route('player.edit', $player);
     }
 
     /**
