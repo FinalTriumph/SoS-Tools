@@ -20,8 +20,8 @@ export default function PlayersTable({ players }: { players: Player[] }) {
                 <tr>
                     <th />
                     <th>Player</th>
-                    <th>Behemoths BP</th>
-                    <th>Squadron BP</th>
+                    <th>Behemoths</th>
+                    <th>Squadron</th>
                     <th>Behemoths BP + Squadron BP</th>
                     <th />
                 </tr>

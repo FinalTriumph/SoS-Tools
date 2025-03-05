@@ -4,6 +4,12 @@
 
 @layer base {
     td, th {
-        @apply text-center p-2 border;
+        @apply text-sm text-center p-1 border border-slate-300;
+    }
+}
+
+@layer utilities {
+    .cell {
+        @apply text-sm text-center p-1 border-b border-l border-slate-300;
     }
 }

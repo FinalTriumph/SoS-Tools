@@ -18,13 +18,13 @@ export default function UpdateFormationSystemInformationForm({
     const [showMainSkills, setShowMainSkills] = useState(false);
 
     const { data, setData, patch, post, processing, errors, recentlySuccessful } = useForm({
-        player_id: formationSystem ? formationSystem.player_id : playerId,
-        level: formationSystem ? formationSystem.level : null,
-        skill_1: formationSystem ? formationSystem.skill_1 : null,
-        skill_2: formationSystem ? formationSystem.skill_2 : null,
-        skill_3: formationSystem ? formationSystem.skill_3 : null,
-        skill_4: formationSystem ? formationSystem.skill_4 : null,
-        skill_5: formationSystem ? formationSystem.skill_5 : null,
+        player_id: formationSystem?.player_id ?? playerId,
+        level: formationSystem?.level ?? null,
+        skill_1: formationSystem?.skill_1 ?? null,
+        skill_2: formationSystem?.skill_2 ?? null,
+        skill_3: formationSystem?.skill_3 ?? null,
+        skill_4: formationSystem?.skill_4 ?? null,
+        skill_5: formationSystem?.skill_5 ?? null,
     });
 
     const submit: FormEventHandler = (e) => {

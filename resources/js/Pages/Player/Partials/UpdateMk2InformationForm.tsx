@@ -18,16 +18,16 @@ export default function UpdateMk2InformationForm({
     const [showMainSkills, setShowMainSkills] = useState(false);
 
     const { data, setData, patch, post, processing, errors, recentlySuccessful } = useForm({
-        player_id: mk2 ? mk2.player_id : playerId,
-        level: mk2 ? mk2.level : null,
-        stars: mk2 ? mk2.stars : null,
-        color: mk2 ? mk2.color : null,
-        skills: mk2 ? mk2.skills : null,
-        skill_1: mk2 ? mk2.skill_1 : null,
-        skill_2: mk2 ? mk2.skill_2 : null,
-        skill_3: mk2 ? mk2.skill_3 : null,
-        skill_4: mk2 ? mk2.skill_4 : null,
-        skill_5: mk2 ? mk2.skill_5 : null,
+        player_id: mk2?.player_id ?? playerId,
+        level: mk2?.level ?? null,
+        stars: mk2?.stars ?? null,
+        color: mk2?.color ?? null,
+        skills: mk2?.skills ?? null,
+        skill_1: mk2?.skill_1 ?? null,
+        skill_2: mk2?.skill_2 ?? null,
+        skill_3: mk2?.skill_3 ?? null,
+        skill_4: mk2?.skill_4 ?? null,
+        skill_5: mk2?.skill_5 ?? null,
     });
 
     const submit: FormEventHandler = (e) => {

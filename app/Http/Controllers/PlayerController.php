@@ -16,11 +16,14 @@ use Inertia\Response;
 class PlayerController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the players.
      */
     public function index(): Response
     {
-        $players = auth()->user()->players()->orderByRaw('(behemoths_bp + squadron_bp) DESC')->get();
+        $players = auth()->user()->players()
+            ->with('mk1', 'mk2', 'formationSystem')
+            ->orderByRaw('(behemoths_bp + squadron_bp) DESC')
+            ->get();
 
         return Inertia::render('Players/Index', [
             'players' => $players,
@@ -28,7 +31,7 @@ class PlayerController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new player.
      */
     public function create(): Response
     {
@@ -36,17 +39,17 @@ class PlayerController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created player in storage.
      */
-    public function store(PlayerStoreRequest $request)
+    public function store(PlayerStoreRequest $request): RedirectResponse
     {
         auth()->user()->players()->create($request->validated());
-    
+
         return Redirect::route('players.index');
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified player.
      */
     /* public function show(Player $player)
     {
@@ -54,17 +57,15 @@ class PlayerController extends Controller
     } */
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing the specified player.
      */
-    public function edit(Player $player)
+    public function edit(Player $player): Response
     {
         if (auth()->user()->cannot('modify', $player)) {
             abort(403);
         }
 
-        $player->load('mk1');
-        $player->load('mk2');
-        $player->load('formationSystem');
+        $player->load('mk1', 'mk2', 'formationSystem');
 
         return Inertia::render('Player/Edit', [
             'player' => $player
@@ -72,9 +73,9 @@ class PlayerController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified player in storage.
      */
-    public function update(PlayerUpdateRequest $request, Player $player)
+    public function update(PlayerUpdateRequest $request, Player $player): RedirectResponse
     {
         if (auth()->user()->cannot('modify', $player)) {
             abort(403);
@@ -82,14 +83,14 @@ class PlayerController extends Controller
 
         $player->fill($request->validated());
         $player->save();
-    
+
         return Redirect::route('player.edit', $player);
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified player from storage.
      */
-    public function destroy(Player $player)
+    public function destroy(Player $player): RedirectResponse
     {
         if (auth()->user()->cannot('modify', $player)) {
             abort(403);

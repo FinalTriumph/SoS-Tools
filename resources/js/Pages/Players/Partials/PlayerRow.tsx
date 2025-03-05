@@ -1,5 +1,7 @@
 import { Player } from '@/types';
 import { Link } from '@inertiajs/react';
+import BehemothsTd from './BehemothsTd';
+import SquadronTd from './SquadronTd';
 
 interface PlayerRowProps {
     player: Player;
@@ -16,8 +18,8 @@ export default function PlayerRow({ player, rank, onDelete }: PlayerRowProps) {
                     {player.username}
                 </Link>
             </td>
-            <td>{player.behemoths_bp}</td>
-            <td>{player.squadron_bp}</td>
+            <BehemothsTd player={player} />
+            <SquadronTd player={player} />
             <td>{player.behemoths_bp + player.squadron_bp}</td>
             <td>
                 <button
