@@ -21,7 +21,7 @@ class PlayerController extends Controller
     public function index(): Response
     {
         $players = auth()->user()->players()
-            ->with('mk1', 'mk2', 'formationSystem')
+            ->with('mk1', 'mk2', 'formationSystem', 'army')
             ->orderByRaw('(behemoths_bp + squadron_bp) DESC')
             ->get();
 

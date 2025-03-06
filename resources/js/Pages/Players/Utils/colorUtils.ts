@@ -3,6 +3,7 @@ export enum ColorType {
     MkSkills,
     Skill,
     FormationSystemLevel,
+    T12Skill,
 }
 
 interface CellColorConfig {
@@ -49,6 +50,15 @@ const colorConfigs: { [key in ColorType]: CellColorConfig } = {
             300: 'red',
             230: 'gold',
             150: 'purple',
+        },
+    },
+    [ColorType.T12Skill]: {
+        type: ColorType.T12Skill,
+        thresholds: {
+            13: 'red',
+            8: 'gold',
+            3: 'purple',
+            1: 'blue',
         },
     },
 };

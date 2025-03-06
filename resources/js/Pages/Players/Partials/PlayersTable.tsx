@@ -23,6 +23,7 @@ export default function PlayersTable({ players }: { players: Player[] }) {
                     <th>Behemoths</th>
                     <th>Squadron</th>
                     <th>Behemoths BP + Squadron BP</th>
+                    <th>Troops</th>
                     <th />
                 </tr>
             </thead>
