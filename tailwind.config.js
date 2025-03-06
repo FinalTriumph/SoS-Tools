@@ -15,20 +15,26 @@ export default {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
+            colors: {
+                custom: {
+                    'td-grey': '#E0FFFF',
+                    'td-green': '#AFE1AF',
+                    'td-blue': '#ADDFFF',
+                    'td-purple': '#DDA0DD',
+                    'td-gold': '#FBDB98',
+                    'td-red': '#F08080',
+                }
+            },
         },
     },
 
     plugins: [forms],
-    /* safelist: [
-        'bg-green-800',
-        'bg-blue-800',
-        'bg-purple-800',
-        'bg-orange-800',
-        'bg-red-800',
-    ], */
     safelist: [
-        {
-            pattern: /bg-(green|blue|purple|orange|red|slate)-\d{3}/,
-        },
+        'bg-custom-td-grey',
+        'bg-custom-td-green',
+        'bg-custom-td-blue',
+        'bg-custom-td-purple',
+        'bg-custom-td-gold',
+        'bg-custom-td-red',
     ],
 };
