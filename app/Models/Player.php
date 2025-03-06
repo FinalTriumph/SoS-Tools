@@ -38,4 +38,9 @@ class Player extends Model
     {
         return $this->hasOne(FormationSystem::class);
     }
+
+    public function army(): HasOne
+    {
+        return $this->hasOne(Army::class);
+    }
 }

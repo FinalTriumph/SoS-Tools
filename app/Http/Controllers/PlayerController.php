@@ -65,7 +65,7 @@ class PlayerController extends Controller
             abort(403);
         }
 
-        $player->load('mk1', 'mk2', 'formationSystem');
+        $player->load('mk1', 'mk2', 'formationSystem', 'army');
 
         return Inertia::render('Player/Edit', [
             'player' => $player

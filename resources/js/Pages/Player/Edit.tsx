@@ -5,6 +5,7 @@ import UpdatePlayerInformationForm from './Partials/UpdatePlayerInformationForm'
 import UpdateMk1InformationForm from './Partials/UpdateMk1InformationForm';
 import UpdateMk2InformationForm from './Partials/UpdateMk2InformationForm';
 import UpdateFormationSystemInformationForm from './Partials/UpdateFormationSystemInformationForm';
+import UpdateArmyInformationForm from './Partials/UpdateArmyInformationForm';
 
 export default function Edit({ player }: { player: Player }) {
     return (
@@ -43,6 +44,13 @@ export default function Edit({ player }: { player: Player }) {
                         <UpdateFormationSystemInformationForm
                             playerId={player.id}
                             formationSystem={player.formation_system}
+                        />
+                    </div>
+
+                    <div className="bg-white p-4 shadow sm:rounded-lg sm:p-8">
+                        <UpdateArmyInformationForm
+                            playerId={player.id}
+                            army={player.army}
                         />
                     </div>
                 </div>

@@ -6,6 +6,7 @@ use App\Http\Controllers\PlayerController;
 use App\Http\Controllers\Mk1Controller;
 use App\Http\Controllers\Mk2Controller;
 use App\Http\Controllers\FormationSystemController;
+use App\Http\Controllers\ArmyController;
 
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -35,6 +36,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('/mk1', Mk1Controller::class)->only(['store', 'update']);
     Route::resource('/mk2', Mk2Controller::class)->only(['store', 'update']);
     Route::resource('/formation-system', FormationSystemController::class)->only(['store', 'update']);
+    Route::resource('/army', ArmyController::class)->only(['store', 'update']);
 });
 
 require __DIR__.'/auth.php';
