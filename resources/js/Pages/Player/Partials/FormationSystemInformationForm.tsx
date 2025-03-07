@@ -8,6 +8,17 @@ import { Transition } from '@headlessui/react';
 import { useForm } from '@inertiajs/react';
 import { FormEventHandler, useState } from 'react';
 
+interface FormData {
+    player_id: number;
+    level: number | null;
+    skill_1: number | null;
+    skill_2: number | null;
+    skill_3: number | null;
+    skill_4: number | null;
+    skill_5: number | null;
+    [key: string]: any;
+}
+
 export default function FormationSystemInformationForm({
     playerId,
     formationSystem,
@@ -17,7 +28,15 @@ export default function FormationSystemInformationForm({
 }) {
     const [showMainSkills, setShowMainSkills] = useState(false);
 
-    const { data, setData, patch, post, processing, errors, recentlySuccessful } = useForm({
+    const {
+        data,
+        setData,
+        patch,
+        post,
+        processing,
+        errors,
+        recentlySuccessful
+    } = useForm<FormData>({
         player_id: formationSystem?.player_id ?? playerId,
         level: formationSystem?.level ?? null,
         skill_1: formationSystem?.skill_1 ?? null,
@@ -37,6 +56,14 @@ export default function FormationSystemInformationForm({
         }
     };
 
+    const handleNumberChange = (
+        e: React.ChangeEvent<HTMLInputElement>,
+        field: 'level' | 'skill_1' | 'skill_2' | 'skill_3' | 'skill_4' | 'skill_5'
+    ) => {
+        const value = e.target.value;
+        setData(field, value === '' ? null : Number(value));
+    };
+
     const toggleMainSkills = () => {
         setShowMainSkills(!showMainSkills);
     };
@@ -45,7 +72,7 @@ export default function FormationSystemInformationForm({
         <section className="max-w-xl">
             <header>
                 <h2 className="text-lg font-medium text-gray-900">
-                    Formation System Information
+                    Formation System
                 </h2>
 
                 <p className="mt-1 text-sm text-gray-600">
@@ -64,7 +91,7 @@ export default function FormationSystemInformationForm({
                         min="1"
                         value={data.level || ''}
                         className="mt-1 block w-full"
-                        onChange={(e) => setData('level', Number(e.target.value))}
+                        onChange={(e) => handleNumberChange(e, 'level')}
                     />
 
                     <InputError message={errors.level} className="mt-2" />
@@ -86,7 +113,7 @@ export default function FormationSystemInformationForm({
                                 min="1"
                                 value={data.skill_1 || ''}
                                 className="mt-1 block w-full"
-                                onChange={(e) => setData('skill_1', Number(e.target.value))}
+                                onChange={(e) => handleNumberChange(e, 'skill_1')}
                             />
 
                             <InputError message={errors.skill_1} className="mt-2" />
@@ -102,7 +129,7 @@ export default function FormationSystemInformationForm({
                                 min="1"
                                 value={data.skill_2 || ''}
                                 className="mt-1 block w-full"
-                                onChange={(e) => setData('skill_2', Number(e.target.value))}
+                                onChange={(e) => handleNumberChange(e, 'skill_2')}
                             />
 
                             <InputError message={errors.skill_2} className="mt-2" />
@@ -119,7 +146,7 @@ export default function FormationSystemInformationForm({
                                 min="1"
                                 value={data.skill_3 || ''}
                                 className="mt-1 block w-full"
-                                onChange={(e) => setData('skill_3', Number(e.target.value))}
+                                onChange={(e) => handleNumberChange(e, 'skill_3')}
                             />
 
                             <InputError message={errors.skill_3} className="mt-2" />
@@ -135,7 +162,7 @@ export default function FormationSystemInformationForm({
                                 min="1"
                                 value={data.skill_4 || ''}
                                 className="mt-1 block w-full"
-                                onChange={(e) => setData('skill_4', Number(e.target.value))}
+                                onChange={(e) => handleNumberChange(e, 'skill_4')}
                             />
 
                             <InputError message={errors.skill_4} className="mt-2" />
@@ -151,7 +178,7 @@ export default function FormationSystemInformationForm({
                                 min="1"
                                 value={data.skill_5  || ''}
                                 className="mt-1 block w-full"
-                                onChange={(e) => setData('skill_5', Number(e.target.value))}
+                                onChange={(e) => handleNumberChange(e, 'skill_5')}
                             />
 
                             <InputError message={errors.skill_5} className="mt-2" />

@@ -8,6 +8,20 @@ import { Transition } from '@headlessui/react';
 import { useForm } from '@inertiajs/react';
 import { FormEventHandler, useState } from 'react';
 
+interface FormData {
+    player_id: number;
+    level: number | null;
+    stars: number | null;
+    color: string;
+    skills: number | null;
+    skill_1: number | null;
+    skill_2: number | null;
+    skill_3: number | null;
+    skill_4: number | null;
+    skill_5: number | null;
+    [key: string]: any;
+}
+
 export default function Mk1InformationForm({
     playerId,
     mk1,
@@ -17,11 +31,19 @@ export default function Mk1InformationForm({
 }) {
     const [showMainSkills, setShowMainSkills] = useState(false);
 
-    const { data, setData, patch, post, processing, errors, recentlySuccessful } = useForm({
+    const {
+        data,
+        setData,
+        patch,
+        post,
+        processing,
+        errors,
+        recentlySuccessful
+    } = useForm<FormData>({
         player_id: mk1?.player_id ?? playerId,
         level: mk1?.level ?? null,
         stars: mk1?.stars ?? null,
-        color: mk1?.color ?? null,
+        color: mk1?.color ?? '',
         skills: mk1?.skills ?? null,
         skill_1: mk1?.skill_1 ?? null,
         skill_2: mk1?.skill_2 ?? null,
@@ -40,6 +62,14 @@ export default function Mk1InformationForm({
         }
     };
 
+    const handleNumberChange = (
+        e: React.ChangeEvent<HTMLInputElement>,
+        field: 'level' | 'stars' | 'skills' | 'skill_1' | 'skill_2' | 'skill_3' | 'skill_4' | 'skill_5'
+    ) => {
+        const value = e.target.value;
+        setData(field, value === '' ? null : Number(value));
+    };
+
     const toggleMainSkills = () => {
         setShowMainSkills(!showMainSkills);
     };
@@ -48,7 +78,7 @@ export default function Mk1InformationForm({
         <section className="max-w-xl">
             <header>
                 <h2 className="text-lg font-medium text-gray-900">
-                    Behemoth MK1 Information
+                    Behemoth MK1
                 </h2>
 
                 <p className="mt-1 text-sm text-gray-600">
@@ -67,7 +97,7 @@ export default function Mk1InformationForm({
                         min="1"
                         value={data.level || ''}
                         className="mt-1 block w-full"
-                        onChange={(e) => setData('level', Number(e.target.value))}
+                        onChange={(e) => handleNumberChange(e, 'level')}
                     />
 
                     <InputError message={errors.level} className="mt-2" />
@@ -83,7 +113,7 @@ export default function Mk1InformationForm({
                         min="1"
                         value={data.stars || ''}
                         className="mt-1 block w-full"
-                        onChange={(e) => setData('stars', Number(e.target.value))}
+                        onChange={(e) => handleNumberChange(e, 'stars')}
                     />
 
                     <InputError message={errors.stars} className="mt-2" />
@@ -110,10 +140,10 @@ export default function Mk1InformationForm({
                         id="skills"
                         type="number"
                         name="skills"
-                        min="0"
+                        min="1"
                         value={data.skills || ''}
                         className="mt-1 block w-full"
-                        onChange={(e) => setData('skills', Number(e.target.value))}
+                        onChange={(e) => handleNumberChange(e, 'skills')}
                     />
 
                     <InputError message={errors.skills} className="mt-2" />
@@ -135,7 +165,7 @@ export default function Mk1InformationForm({
                                 min="1"
                                 value={data.skill_1 || ''}
                                 className="mt-1 block w-full"
-                                onChange={(e) => setData('skill_1', Number(e.target.value))}
+                                onChange={(e) => handleNumberChange(e, 'skill_1')}
                             />
 
                             <InputError message={errors.skill_1} className="mt-2" />
@@ -151,7 +181,7 @@ export default function Mk1InformationForm({
                                 min="1"
                                 value={data.skill_2 || ''}
                                 className="mt-1 block w-full"
-                                onChange={(e) => setData('skill_2', Number(e.target.value))}
+                                onChange={(e) => handleNumberChange(e, 'skill_2')}
                             />
 
                             <InputError message={errors.skill_2} className="mt-2" />
@@ -168,7 +198,7 @@ export default function Mk1InformationForm({
                                 min="1"
                                 value={data.skill_3 || ''}
                                 className="mt-1 block w-full"
-                                onChange={(e) => setData('skill_3', Number(e.target.value))}
+                                onChange={(e) => handleNumberChange(e, 'skill_3')}
                             />
 
                             <InputError message={errors.skill_3} className="mt-2" />
@@ -184,7 +214,7 @@ export default function Mk1InformationForm({
                                 min="1"
                                 value={data.skill_4 || ''}
                                 className="mt-1 block w-full"
-                                onChange={(e) => setData('skill_4', Number(e.target.value))}
+                                onChange={(e) => handleNumberChange(e, 'skill_4')}
                             />
 
                             <InputError message={errors.skill_4} className="mt-2" />
@@ -200,7 +230,7 @@ export default function Mk1InformationForm({
                                 min="1"
                                 value={data.skill_5  || ''}
                                 className="mt-1 block w-full"
-                                onChange={(e) => setData('skill_5', Number(e.target.value))}
+                                onChange={(e) => handleNumberChange(e, 'skill_5')}
                             />
 
                             <InputError message={errors.skill_5} className="mt-2" />

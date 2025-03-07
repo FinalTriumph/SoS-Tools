@@ -7,6 +7,15 @@ import { Transition } from '@headlessui/react';
 import { useForm } from '@inertiajs/react';
 import { FormEventHandler } from 'react';
 
+interface FormData {
+    username: string;
+    alliance: string;
+    behemoths_bp: number | null;
+    squadron_bp: number | null;
+    fa1_stars: number | null;
+    [key: string]: any;
+}
+
 export default function PlayerInformationForm({
     player,
 }: {
@@ -20,13 +29,7 @@ export default function PlayerInformationForm({
         processing,
         errors,
         recentlySuccessful
-    } = useForm<{
-        username: string;
-        alliance: string;
-        behemoths_bp: number | null;
-        squadron_bp: number | null;
-        fa1_stars: number | null;
-     }>({
+    } = useForm<FormData>({
         username: player?.username ?? '',
         alliance: player?.alliance ?? '',
         behemoths_bp: player?.behemoths_bp ?? null,
@@ -63,6 +66,7 @@ export default function PlayerInformationForm({
             <form onSubmit={submit} className="mt-6 space-y-6">
                 <div>
                     <InputLabel htmlFor="username" value="Username" />
+
                     <TextInput
                         id="username"
                         name="username"
@@ -71,11 +75,13 @@ export default function PlayerInformationForm({
                         onChange={(e) => setData('username', e.target.value)}
                         required
                     />
+
                     <InputError message={errors.username} className="mt-2" />
                 </div>
 
                 <div className="mt-4">
                     <InputLabel htmlFor="alliance" value="Alliance" />
+
                     <TextInput
                         id="alliance"
                         name="alliance"
@@ -83,11 +89,13 @@ export default function PlayerInformationForm({
                         className="mt-1 block w-full"
                         onChange={(e) => setData('alliance', e.target.value)}
                     />
+ 
                     <InputError message={errors.alliance} className="mt-2" />
                 </div>
 
                 <div className="mt-4">
                     <InputLabel htmlFor="behemoths_bp" value="Behemoths BP" />
+
                     <TextInput
                         id="behemoths_bp"
                         type="number"
@@ -97,11 +105,13 @@ export default function PlayerInformationForm({
                         className="mt-1 block w-full"
                         onChange={(e) => handleNumberChange(e, 'behemoths_bp')}
                     />
+
                     <InputError message={errors.behemoths_bp} className="mt-2" />
                 </div>
 
                 <div className="mt-4">
                     <InputLabel htmlFor="squadron_bp" value="Squadron BP" />
+
                     <TextInput
                         id="squadron_bp"
                         type="number"
@@ -111,11 +121,13 @@ export default function PlayerInformationForm({
                         className="mt-1 block w-full"
                         onChange={(e) => handleNumberChange(e, 'squadron_bp')}
                     />
+
                     <InputError message={errors.squadron_bp} className="mt-2" />
                 </div>
 
                 <div className="mt-4">
                     <InputLabel htmlFor="fa1_stars" value="FA-1 Stars" />
+
                     <TextInput
                         id="fa1_stars"
                         type="number"
@@ -125,6 +137,7 @@ export default function PlayerInformationForm({
                         className="mt-1 block w-full"
                         onChange={(e) => handleNumberChange(e, 'fa1_stars')}
                     />
+
                     <InputError message={errors.fa1_stars} className="mt-2" />
                 </div>
 

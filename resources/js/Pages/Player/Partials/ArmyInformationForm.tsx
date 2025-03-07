@@ -7,6 +7,16 @@ import { Transition } from '@headlessui/react';
 import { useForm } from '@inertiajs/react';
 import { FormEventHandler } from 'react';
 
+interface FormData {
+    player_id: number;
+    plasma: number | null;
+    tier: number | null;
+    t12_infantry: number | null;
+    t12_rider: number | null;
+    t12_hunter: number | null;
+    [key: string]: any;
+}
+
 export default function ArmyInformationForm({
     playerId,
     army,
@@ -14,7 +24,15 @@ export default function ArmyInformationForm({
     playerId: number,
     army: Army | null,
 }) {
-    const { data, setData, patch, post, processing, errors, recentlySuccessful } = useForm({
+    const {
+        data,
+        setData,
+        patch,
+        post,
+        processing,
+        errors,
+        recentlySuccessful
+    } = useForm<FormData>({
         player_id: army?.player_id ?? playerId,
         plasma: army?.plasma ?? null,
         tier: army?.tier ?? null,
@@ -33,11 +51,19 @@ export default function ArmyInformationForm({
         }
     };
 
+    const handleNumberChange = (
+        e: React.ChangeEvent<HTMLInputElement>,
+        field: 'plasma' | 'tier' | 't12_infantry' | 't12_rider' | 't12_hunter'
+    ) => {
+        const value = e.target.value;
+        setData(field, value === '' ? null : Number(value));
+    };
+
     return (
         <section className="max-w-xl">
             <header>
                 <h2 className="text-lg font-medium text-gray-900">
-                    Army Information
+                    Army
                 </h2>
 
                 <p className="mt-1 text-sm text-gray-600">
@@ -56,7 +82,7 @@ export default function ArmyInformationForm({
                         min="1"
                         value={data.plasma || ''}
                         className="mt-1 block w-full"
-                        onChange={(e) => setData('plasma', Number(e.target.value))}
+                        onChange={(e) => handleNumberChange(e, 'plasma')}
                     />
 
                     <InputError message={errors.plasma} className="mt-2" />
@@ -73,7 +99,7 @@ export default function ArmyInformationForm({
                         min="1"
                         value={data.tier || ''}
                         className="mt-1 block w-full"
-                        onChange={(e) => setData('tier', Number(e.target.value))}
+                        onChange={(e) => handleNumberChange(e, 'tier')}
                     />
 
                     <InputError message={errors.tier} className="mt-2" />
@@ -89,7 +115,7 @@ export default function ArmyInformationForm({
                         min="1"
                         value={data.t12_infantry || ''}
                         className="mt-1 block w-full"
-                        onChange={(e) => setData('t12_infantry', Number(e.target.value))}
+                        onChange={(e) => handleNumberChange(e, 't12_infantry')}
                     />
 
                     <InputError message={errors.t12_infantry} className="mt-2" />
@@ -106,7 +132,7 @@ export default function ArmyInformationForm({
                         min="1"
                         value={data.t12_rider || ''}
                         className="mt-1 block w-full"
-                        onChange={(e) => setData('t12_rider', Number(e.target.value))}
+                        onChange={(e) => handleNumberChange(e, 't12_rider')}
                     />
 
                     <InputError message={errors.t12_rider} className="mt-2" />
@@ -122,7 +148,7 @@ export default function ArmyInformationForm({
                         min="1"
                         value={data.t12_hunter || ''}
                         className="mt-1 block w-full"
-                        onChange={(e) => setData('t12_hunter', Number(e.target.value))}
+                        onChange={(e) => handleNumberChange(e, 't12_hunter')}
                     />
 
                     <InputError message={errors.t12_hunter} className="mt-2" />
