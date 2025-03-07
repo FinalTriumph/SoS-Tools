@@ -8,7 +8,7 @@ import { Transition } from '@headlessui/react';
 import { useForm } from '@inertiajs/react';
 import { FormEventHandler, useState } from 'react';
 
-export default function UpdateMk2InformationForm({
+export default function Mk2InformationForm({
     playerId,
     mk2,
 }: {
