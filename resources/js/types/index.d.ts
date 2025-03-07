@@ -7,9 +7,12 @@ export interface User {
 
 export interface Player {
     id: number;
+    user_id: number;
     username: string;
-    behemoths_bp: number;
-    squadron_bp: number;
+    alliance: string | null;
+    behemoths_bp: number | null;
+    squadron_bp: number | null;
+    fa1_stars: number | null;
     mk1: Mk1 | null;
     mk2: Mk2 | null;
     formation_system: FormationSystem | null;

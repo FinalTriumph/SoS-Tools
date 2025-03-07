@@ -15,8 +15,10 @@ class Player extends Model
      */
     protected $fillable = [
         'username',
+        'alliance',
         'behemoths_bp',
         'squadron_bp',
+        'fa1_stars',
     ];
 
     public function user(): BelongsTo

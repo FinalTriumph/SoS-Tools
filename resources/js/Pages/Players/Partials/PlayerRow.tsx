@@ -21,7 +21,7 @@ export default function PlayerRow({ player, rank, onDelete }: PlayerRowProps) {
             </td>
             <BehemothsTd player={player} />
             <SquadronTd player={player} />
-            <td>{player.behemoths_bp + player.squadron_bp}</td>
+            <td>{(player.behemoths_bp || player.squadron_bp) ? ((player.behemoths_bp || 0) + (player.squadron_bp || 0)) : '-'}</td>
             <TroopsTd army={player.army} />
             <td>
                 <button

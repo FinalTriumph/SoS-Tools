@@ -34,19 +34,32 @@ class PlayerUpdateRequest extends FormRequest
                     ->where('user_id', auth()->id())
                     ->ignore($this->route('player')->id),
             ],
+            'alliance' => [
+                'sometimes',
+                'nullable',
+                'string',
+                'max:255',
+            ],
             'behemoths_bp' => [
                 'sometimes',
-                'required',
+                'nullable',
                 'integer',
                 'min:0',
                 'max:1000',
             ],
             'squadron_bp' => [
                 'sometimes',
-                'required',
+                'nullable',
                 'integer',
                 'min:0',
                 'max:1000',
+            ],
+            'fa1_stars' => [
+                'sometimes',
+                'nullable',
+                'integer',
+                'min:0',
+                'max:10',
             ],
         ];
     }

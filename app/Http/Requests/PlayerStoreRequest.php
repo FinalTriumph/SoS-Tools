@@ -31,17 +31,28 @@ class PlayerStoreRequest extends FormRequest
                 'max:255',
                 Rule::unique('players', 'username')->where('user_id', auth()->id()),
             ],
+            'alliance' => [
+                'nullable',
+                'string',
+                'max:255',
+            ],
             'behemoths_bp' => [
-                'required',
+                'nullable',
                 'integer',
                 'min:0',
                 'max:1000',
             ],
             'squadron_bp' => [
-                'required',
+                'nullable',
                 'integer',
                 'min:0',
                 'max:1000',
+            ],
+            'fa1_stars' => [
+                'nullable',
+                'integer',
+                'min:0',
+                'max:10',
             ],
         ];
     }

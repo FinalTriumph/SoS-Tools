@@ -15,8 +15,10 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->string('username');
-            $table->integer('behemoths_bp');
-            $table->integer('squadron_bp');
+            $table->string('alliance')->nullable();
+            $table->integer('behemoths_bp')->nullable();
+            $table->integer('squadron_bp')->nullable();
+            $table->integer('fa1_stars')->nullable();
             $table->timestamps();
 
             $table->unique(['user_id', 'username']);
