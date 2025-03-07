@@ -59,8 +59,12 @@ export default function PlayerInformationForm({
         <section className="max-w-xl">
             <header>
                 <h2 className="text-lg font-medium text-gray-900">
-                    Player Information
+                    Player
                 </h2>
+
+                <p className="mt-1 text-sm text-gray-600">
+                    {player ? 'Update player information' : 'Add player information'}
+                </p>
             </header>
 
             <form onSubmit={submit} className="mt-6 space-y-6">
