@@ -4,12 +4,20 @@
 
 @layer base {
     td, th {
-        @apply text-sm text-center p-1 border border-slate-300;
+        @apply text-xs text-center p-2;
+    }
+
+    table, th {
+        @apply bg-slate-300 border border-slate-400;
+    }
+
+    td {
+        @apply border-r border-slate-400;
     }
 }
 
 @layer utilities {
     .cell {
-        @apply text-sm text-center p-1 border-b border-l border-slate-300;
+        @apply text-xs text-center p-2 border-b border-l border-slate-400;
     }
 }

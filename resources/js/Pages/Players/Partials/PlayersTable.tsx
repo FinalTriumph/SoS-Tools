@@ -18,13 +18,23 @@ export default function PlayersTable({ players }: { players: Player[] }) {
         <table className="w-full table-auto mt-6">
             <thead className="bg-gray-100">
                 <tr>
-                    <th />
-                    <th>Player</th>
-                    <th>Behemoths</th>
-                    <th>Squadron</th>
-                    <th>Behemoths BP + Squadron BP</th>
-                    <th>Troops</th>
-                    <th />
+                    <th rowSpan={2} />
+                    <th rowSpan={2}>Player</th>
+                    <th colSpan={3}>Behemoths</th>
+                    <th colSpan={3}>Squadron</th>
+                    <th rowSpan={2}>Behemoths BP<br />+<br />Squadron BP</th>
+                    <th rowSpan={2}>Troops</th>
+                    <th rowSpan={2}>Player</th>
+                    <th rowSpan={2} />
+                    <th rowSpan={2}/>
+                </tr>
+                <tr>
+                    <th>BP</th>
+                    <th>MK1</th>
+                    <th>MK2</th>
+                    <th>BP</th>
+                    <th>Formation System</th>
+                    <th>FA-1 Specter</th>
                 </tr>
             </thead>
             <tbody>

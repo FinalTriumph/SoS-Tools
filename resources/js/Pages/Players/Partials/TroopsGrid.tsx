@@ -2,10 +2,21 @@ import { Army } from '@/types';
 import { ColorType } from '../Utils/colorUtils';
 import ColorCell from './ColorCell';
 
-export default function T12SkillsGrid({ army }: { army: Army | null }) {
+export default function TroopsGrid({ army }: { army: Army | null }) {
     return (
-        <div className="border border-slate-400">
-            <div className="cell">T12 Skills</div>
+        <div className="">
+            <div className="grid grid-cols-2">
+                <ColorCell
+                    type={ColorType.Plasma}
+                    value={army?.plasma ?? 0}
+                    prefix="P"
+                />
+                <ColorCell
+                    type={ColorType.TroopsTier}
+                    value={army?.tier ?? 0}
+                    prefix="T"
+                />
+            </div>
 
             <div className="grid grid-cols-3">
                 <ColorCell

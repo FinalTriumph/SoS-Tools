@@ -8,11 +8,7 @@ interface FormationSystemGridProps {
 
 export default function FormationSystemGrid({ formationSystem }: FormationSystemGridProps) {
     return (
-        <div className="border border-slate-400">
-            <div className="cell">
-                Formation System
-            </div>
-
+        <div>
             <ColorCell type={ColorType.FormationSystemLevel} value={formationSystem?.level ?? 0} />
 
             <div className="grid grid-cols-5">

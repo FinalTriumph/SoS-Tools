@@ -4,6 +4,9 @@ export enum ColorType {
     Skill,
     FormationSystemLevel,
     T12Skill,
+    Plasma,
+    TroopsTier,
+    PlaneStars,
 }
 
 interface CellColorConfig {
@@ -38,9 +41,9 @@ const colorConfigs: { [key in ColorType]: CellColorConfig } = {
         type: ColorType.Skill,
         thresholds: {
             20: 'red',
-            15: 'gold',
-            10: 'purple',
-            5: 'blue',
+            16: 'gold',
+            11: 'purple',
+            6: 'blue',
             1: 'green',
         },
     },
@@ -61,11 +64,44 @@ const colorConfigs: { [key in ColorType]: CellColorConfig } = {
             1: 'blue',
         },
     },
+    [ColorType.Plasma]: {
+        type: ColorType.Plasma,
+        thresholds: {
+            15: 'red',
+            14: 'gold',
+            13: 'purple',
+            12: 'blue',
+            11: 'green',
+            1: 'grey',
+        },
+    },
+    [ColorType.TroopsTier]: {
+        type: ColorType.TroopsTier,
+        thresholds: {
+            12: 'red',
+            11: 'gold',
+            10: 'purple',
+            9: 'blue',
+            8: 'green',
+            1: 'grey',
+        },
+    },
+    [ColorType.PlaneStars]: {
+        type: ColorType.MkSkills,
+        thresholds: {
+            6: 'red',
+            5: 'gold',
+            4: 'purple',
+            3: 'blue',
+            2: 'green',
+            1: 'grey',
+        },
+    },
 };
 
 export const getTailwindColorName = (color: string) => {
     if (!color) {
-        return 'white';
+        return '';
     }
 
     return `custom-td-${color}`;
@@ -73,7 +109,7 @@ export const getTailwindColorName = (color: string) => {
 
 export const getTailwindColor = (type: ColorType, value: number) => {
     const config = colorConfigs[type];
-    let color = 'white';
+    let color = '';
 
     for (const threshold of Object.keys(config.thresholds).sort((a, b) => parseInt(b) - parseInt(a))) {
         if (value >= parseInt(threshold)) {

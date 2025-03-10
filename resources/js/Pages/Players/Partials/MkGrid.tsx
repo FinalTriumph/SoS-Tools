@@ -4,17 +4,12 @@ import ColorCell from './ColorCell';
 import MkStarsCell from './MkStarsCell';
 
 interface MkGridProps {
-    title: string;
     mk: Mk1 | Mk2 | null;
 }
 
-export default function MkGrid({ title, mk }: MkGridProps) {
+export default function MkGrid({ mk }: MkGridProps) {
     return (
-        <div className="border border-slate-400">
-            <div className="cell">
-                {title}
-            </div>
-
+        <div className="">
             <div className="grid grid-cols-3">
                 <ColorCell type={ColorType.MkLevel} value={mk?.level ?? 0} />
                 <MkStarsCell color={mk?.color ?? ''} stars={mk?.stars ?? 0}/>
