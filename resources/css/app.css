@@ -3,16 +3,21 @@
 @tailwind utilities;
 
 @layer base {
-    td, th {
-        @apply text-xs text-center p-2;
-    }
 
     table, th {
         @apply bg-slate-300 border border-slate-400;
     }
 
+    th, td {
+        @apply text-xs text-center p-2;
+    }
+
     td {
         @apply border-r border-slate-400;
+    }
+
+    img {
+        @apply inline-block;
     }
 }
 
