@@ -13,13 +13,14 @@ interface PlayerRowProps {
 
 export default function PlayerRow({ player, rank, onDelete }: PlayerRowProps) {
     const rowThemes = [
-        'bg-custom-tr-1 border-b-2 border-custom-tr-1-b',
-        'bg-custom-tr-2 border-b-2 border-custom-tr-2-b',
+        'bg-custom-tr-1 border-b border-custom-tr-1-b',
+        'bg-custom-tr-2 border-b border-custom-tr-2-b',
     ];
 
     return (
         <tr className={rowThemes[rank % 2]}>
             <td>{rank}</td>
+            <td>{player.alliance || ''}</td>
             <td>
                 <Link href={route('player.edit', player.id)} className="hover:text-gray-500">
                     {player.username}

@@ -29,7 +29,8 @@ const colorConfigs: { [key in ColorType]: CellColorConfig } = {
     [ColorType.MkSkills]: {
         type: ColorType.MkSkills,
         thresholds: {
-            44: 'red',
+            44: 'red-d',
+            43: 'red',
             33: 'gold',
             20: 'purple',
             8: 'blue',

@@ -19,7 +19,7 @@ export default function PlayersTable({ players }: { players: Player[] }) {
             <thead className="bg-gray-100">
                 <tr>
                     <th rowSpan={2} />
-                    <th rowSpan={2}>Player</th>
+                    <th rowSpan={2} colSpan={2}>Player</th>
                     <th colSpan={3}>Behemoths</th>
                     <th colSpan={3}>Squadron</th>
                     <th rowSpan={2}>Behemoths BP<br />+<br />Squadron BP</th>
