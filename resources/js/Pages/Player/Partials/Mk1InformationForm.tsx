@@ -3,6 +3,7 @@ import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
 import SecondaryButton from '@/Components/SecondaryButton';
 import TextInput from '@/Components/TextInput';
+import SelectInput from '@/Components/SelectInput';
 import { Mk1 } from '@/types';
 import { Transition } from '@headlessui/react';
 import { useForm } from '@inertiajs/react';
@@ -122,10 +123,18 @@ export default function Mk1InformationForm({
                 <div>
                     <InputLabel htmlFor="color" value="Color" />
 
-                    <TextInput
+                    <SelectInput
                         id="color"
                         name="color"
                         value={data.color || ''}
+                        options={[
+                            { value: '', label: '' },
+                            { value: 'green', label: 'Green' },
+                            { value: 'blue', label: 'Blue' },
+                            { value: 'purple', label: 'Purple' },
+                            { value: 'gold', label: 'Gold' },
+                            { value: 'red', label: 'Red' },
+                        ]}
                         className="mt-1 block w-full"
                         onChange={(e) => setData('color', e.target.value)}
                     />
