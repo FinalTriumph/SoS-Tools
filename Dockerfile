@@ -2,6 +2,18 @@ FROM richarvey/nginx-php-fpm:latest
 
 COPY . .
 
+# Update package manager
+RUN apk update
+
+# Install Node.js and npm for building frontend assets
+RUN apk add --no-cache npm
+
+# Install NPM dependencies
+RUN npm install
+
+# Build Vite assets
+RUN npm run build
+
 # Image config
 ENV SKIP_COMPOSER 1
 ENV WEBROOT /var/www/html/public
