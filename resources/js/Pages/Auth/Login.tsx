@@ -2,17 +2,18 @@ import Checkbox from '@/Components/Checkbox';
 import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
+import SecondaryButton from '@/Components/SecondaryButton';
 import TextInput from '@/Components/TextInput';
 import GuestLayout from '@/Layouts/GuestLayout';
-import { Head, Link, useForm } from '@inertiajs/react';
+import { Head, /* Link, */ useForm, router } from '@inertiajs/react';
 import { FormEventHandler } from 'react';
 
 export default function Login({
     status,
-    canResetPassword,
+    // canResetPassword,
 }: {
     status?: string;
-    canResetPassword: boolean;
+    // canResetPassword: boolean;
 }) {
     const { data, setData, post, processing, errors, reset } = useForm({
         email: '',
@@ -26,6 +27,10 @@ export default function Login({
         post(route('login'), {
             onFinish: () => reset('password'),
         });
+    };
+
+    const handleRegisterClick = () => {
+        router.visit(route('register'));
     };
 
     return (
@@ -90,21 +95,35 @@ export default function Login({
                     </label>
                 </div>
 
-                <div className="mt-4 flex items-center justify-end">
-                    {canResetPassword && (
+                <div className="mt-4">
+                    {/* canResetPassword && (
                         <Link
                             href={route('password.request')}
                             className="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                         >
                             Forgot your password?
                         </Link>
-                    )}
+                    ) */}
 
-                    <PrimaryButton className="ms-4" disabled={processing}>
+                    <PrimaryButton
+                        className="w-full justify-center"
+                        disabled={processing}
+                    >
                         Log in
                     </PrimaryButton>
                 </div>
             </form>
+
+            <hr className="my-6" />
+
+            <div className="mt-6 mb-2">
+                <SecondaryButton
+                    className="w-full justify-center"
+                    onClick={handleRegisterClick}
+                >
+                    Register
+                </SecondaryButton>
+            </div>
         </GuestLayout>
     );
 }

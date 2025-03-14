@@ -1,9 +1,14 @@
+import SecondaryButton from '@/Components/SecondaryButton';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Player } from '@/types';
-import { Head, Link } from '@inertiajs/react';
+import { Head, router } from '@inertiajs/react';
 import PlayersTable from './Partials/PlayersTable';
 
 export default function Index({ players }: { players: Player[] }) {
+    const handleAddNewPlayerClick = () => {
+        router.visit(route('player.create'));
+    };
+
     return (
         <AuthenticatedLayout
             header={
@@ -18,12 +23,9 @@ export default function Index({ players }: { players: Player[] }) {
                 <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
                     <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg">
                         <div className="p-6 text-gray-900">
-                            <Link
-                                href={route('player.create')}
-                                className="rounded-md text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
-                            >
+                            <SecondaryButton onClick={handleAddNewPlayerClick}>
                                 Add New Player
-                            </Link>
+                            </SecondaryButton>
 
                             {(players.length > 0) && <PlayersTable players={players} />}
                         </div>

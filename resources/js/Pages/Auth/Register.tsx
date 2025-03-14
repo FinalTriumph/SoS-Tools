@@ -1,9 +1,10 @@
 import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
+import SecondaryButton from '@/Components/SecondaryButton';
 import TextInput from '@/Components/TextInput';
 import GuestLayout from '@/Layouts/GuestLayout';
-import { Head, Link, useForm } from '@inertiajs/react';
+import { Head, /* Link, */ useForm, router } from '@inertiajs/react';
 import { FormEventHandler } from 'react';
 
 export default function Register() {
@@ -20,6 +21,10 @@ export default function Register() {
         post(route('register'), {
             onFinish: () => reset('password', 'password_confirmation'),
         });
+    };
+
+    const handleLoginClick = () => {
+        router.visit(route('login'));
     };
 
     return (
@@ -103,19 +108,33 @@ export default function Register() {
                     />
                 </div>
 
-                <div className="mt-4 flex items-center justify-end">
-                    <Link
+                <div className="mt-6">
+                    {/* <Link
                         href={route('login')}
                         className="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                     >
                         Already registered?
-                    </Link>
+                    </Link> */}
 
-                    <PrimaryButton className="ms-4" disabled={processing}>
+                    <PrimaryButton
+                        className="w-full justify-center"
+                        disabled={processing}
+                    >
                         Register
                     </PrimaryButton>
                 </div>
             </form>
+
+            <hr className="my-6" />
+
+            <div className="mt-6 mb-2">
+                <SecondaryButton
+                    className="w-full justify-center"
+                    onClick={handleLoginClick}
+                >
+                    Log in
+                </SecondaryButton>
+            </div>
         </GuestLayout>
     );
 }
