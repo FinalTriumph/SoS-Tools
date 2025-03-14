@@ -15,7 +15,7 @@ export default function Authenticated({
         useState(false);
 
     return (
-        <div className="min-h-screen bg-gray-100">
+        <div className="min-h-screen flex flex-col bg-gray-100">
             <nav className="border-b border-gray-100 bg-white">
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div className="flex h-16 justify-between">
@@ -180,6 +180,37 @@ export default function Authenticated({
             )}
 
             <main>{children}</main>
+
+            <footer className="bg-white mt-auto">
+                <div className="flex justify-between mx-auto max-w-7xl text-sm px-4 py-8 sm:px-6 lg:px-8">
+                    <div className="flex gap-4">
+                        <Link
+                            href={route('dashboard')}
+                            className="text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                        >
+                            Dashboard
+                        </Link>
+
+                        <Link
+                            href={route('players.index')}
+                            className="text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                        >
+                            Players
+                        </Link>
+
+                        <Link
+                            href={route('profile.edit')}
+                            className="text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                        >
+                            Profile
+                        </Link>
+                    </div>
+
+                    <div className="text-gray-800">
+                        &copy; 2025 SoS Tools
+                    </div>
+                </div>
+            </footer>
         </div>
     );
 }
