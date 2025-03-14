@@ -1,39 +1,80 @@
+import Modal from '@/Components/Modal';
 import PrimaryButton from '@/Components/PrimaryButton';
+import SecondaryButton from '@/Components/SecondaryButton';
 import { Player } from '@/types';
-import { useForm } from '@inertiajs/react';
-import { useRef } from 'react';
+import { useState, useRef } from 'react';
 import html2canvas from 'html2canvas';
 import PlayerRow from './PlayerRow';
 
 export default function PlayersTable({ players }: { players: Player[] }) {
-    const { delete: destroy } = useForm();
     const tableRef = useRef<HTMLTableElement>(null);
 
-    const handleDelete = (id: number, username: string) => {
-        if (confirm(`Are you sure you want to delete ${username}?`)) {
-            destroy(route('player.destroy', id), {
-                preserveScroll: true,
-                onError: () => console.error('Error deleting player'),
-            });
-        }
-    };
+    const [isImagePreviewOpen, setIsImagePreviewOpen] = useState(false);
+    const [previewImage, setPreviewImage] = useState<string | undefined>(undefined);
 
-    const handleDownload = async () => {
+    const showImagePreview = async () => {
         if (!tableRef.current) return;
+
+        setIsImagePreviewOpen(true);
     
         const canvas = await html2canvas(tableRef.current, {
             scale: 2,
         });
     
         const dataURL = canvas.toDataURL('image/png');
+        setPreviewImage(dataURL);
+    };
+
+    const closeImagePreview = () => {
+        setIsImagePreviewOpen(false);
+        setPreviewImage(undefined);
+    };
+
+    const handleImageDownload = async () => {
+        if (!tableRef.current) return;
+
+        const canvas = await html2canvas(tableRef.current, {
+            scale: 2,
+        });
+
+        const dataURL = canvas.toDataURL('image/png');
         const link = document.createElement('a');
         link.href = dataURL;
-        link.download = `st_players.png`;
+        link.download = createImageFilename();
         link.click();
+    };
+
+    const createImageFilename = (): string => {
+        const now = new Date();
+        const hours = now.getHours().toString().padStart(2, '0');
+        const minutes = now.getMinutes().toString().padStart(2, '0');
+        const date = now.getDate().toString().padStart(2, '0');
+        const month = (now.getMonth() + 1).toString().padStart(2, '0');
+        const year = now.getFullYear();
+
+        return `sos_players_${hours}_${minutes}_${date}_${month}_${year}.png`;
     };
 
     return (
         <div>
+            <hr className="my-6"/>
+
+            <div className="flex justify-between items-center">
+                <div>
+                    TODO: Filters
+                </div>
+
+                <div className="flex gap-4">
+                    <SecondaryButton onClick={showImagePreview}>
+                        Image Preview
+                    </SecondaryButton>
+
+                    <PrimaryButton onClick={handleImageDownload}>
+                        Download Image
+                    </PrimaryButton>
+                </div>
+            </div>
+
             <table ref={tableRef} className="w-full table-auto mt-6">
                 <thead className="bg-gray-100">
                     <tr>
@@ -45,7 +86,6 @@ export default function PlayersTable({ players }: { players: Player[] }) {
                         <th rowSpan={2}>Troops</th>
                         <th rowSpan={2}>Player</th>
                         <th rowSpan={2} />
-                        <th rowSpan={2}/>
                     </tr>
                     <tr>
                         <th>BP</th>
@@ -62,18 +102,33 @@ export default function PlayersTable({ players }: { players: Player[] }) {
                             key={player.id}
                             player={player}
                             rank={index + 1}
-                            onDelete={() => handleDelete(player.id, player.username)}
                         />
                     ))}
                 </tbody>
             </table>
 
-            <PrimaryButton
-                className="mt-6"
-                onClick={() => handleDownload()}
-            >
-                Download
-            </PrimaryButton>
+            <Modal show={isImagePreviewOpen} onClose={closeImagePreview} maxWidth="7xl">
+                <div
+                    style={{ maxHeight: '90vh' }}
+                    className="w-full overflow-y-auto"
+                >
+                    {previewImage && (
+                        <img
+                            src={previewImage}
+                            alt="Players Image"
+                            className="w-full object-cover"
+                        />
+                    )}
+
+                    <button
+                        type="button"
+                        className="absolute top-2 right-3 text-lg font-bold text-slate-600 hover:text-slate-800"
+                        onClick={closeImagePreview}
+                    >
+                        &#x2715;
+                    </button>
+                </div>
+            </Modal>
         </div>
     );
 }

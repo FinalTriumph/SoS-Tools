@@ -8,10 +8,9 @@ import TroopsGrid from './TroopsGrid';
 interface PlayerRowProps {
     player: Player;
     rank: number;
-    onDelete: () => void;
 }
 
-export default function PlayerRow({ player, rank, onDelete }: PlayerRowProps) {
+export default function PlayerRow({ player, rank }: PlayerRowProps) {
     const rowThemes = [
         'bg-custom-tr-1 border-b border-custom-tr-1-b',
         'bg-custom-tr-2 border-b border-custom-tr-2-b',
@@ -21,7 +20,7 @@ export default function PlayerRow({ player, rank, onDelete }: PlayerRowProps) {
         <tr className={rowThemes[rank % 2]}>
             <td>{rank}</td>
             <td>{player.alliance || ''}</td>
-            <td>
+            <td className="text-left">
                 <Link href={route('player.edit', player.id)} className="hover:text-gray-500">
                     {player.username}
                 </Link>
@@ -44,22 +43,12 @@ export default function PlayerRow({ player, rank, onDelete }: PlayerRowProps) {
             <td className="p-0">
                 <TroopsGrid army={player.army} />
             </td>
-            <td>
+            <td className="text-left">
                 <Link href={route('player.edit', player.id)} className="hover:text-gray-500">
                     {player.username}
                 </Link>
             </td>
             <td>{rank}</td>
-            <td>
-                <button
-                    type="button"
-                    aria-label="Delete Player"
-                    className="text-gray-300 hover:text-red-600"
-                    onClick={onDelete}
-                >
-                    &#x2715;
-                </button>
-            </td>
         </tr>
     );
 }

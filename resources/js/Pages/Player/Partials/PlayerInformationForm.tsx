@@ -1,6 +1,7 @@
 import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
+import SecondaryButton from '@/Components/SecondaryButton';
 import TextInput from '@/Components/TextInput';
 import { Player } from '@/types';
 import { Transition } from '@headlessui/react';
@@ -37,6 +38,8 @@ export default function PlayerInformationForm({
         fa1_stars: player?.fa1_stars ?? null,
      });
 
+    const { delete: destroy } = useForm();
+
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
 
@@ -44,6 +47,14 @@ export default function PlayerInformationForm({
             patch(route('player.update', player.id));
         } else {
             post(route('player.store'));
+        }
+    };
+
+    const handleDelete = (id: number, username: string) => {
+        if (confirm(`Are you sure you want to delete ${username}?`)) {
+            destroy(route('player.destroy', id), {
+                onError: () => console.error('Error deleting player'),
+            });
         }
     };
 
@@ -159,6 +170,15 @@ export default function PlayerInformationForm({
                             Saved.
                         </p>
                     </Transition>
+
+                    {player && (
+                        <SecondaryButton
+                            className="ml-auto"
+                            onClick={() => handleDelete(player.id, player.username)}
+                        >
+                            Delete Player
+                        </SecondaryButton>
+                    )}
                 </div>
             </form>
         </section>
