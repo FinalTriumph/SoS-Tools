@@ -24,10 +24,6 @@ export default {
                     'td-gold': '#FBDB98',
                     'td-red' : '#FF8787',
                     'td-red-d': '#F08080',
-                    'tr-1': '#FFF0F0',
-                    'tr-2' : '#F5F5DC',
-                    'tr-1-b': '#F2727A',
-                    'tr-2-b' : '#D2B48C',
                 }
             },
         },
@@ -42,9 +38,8 @@ export default {
         'bg-custom-td-gold',
         'bg-custom-td-red',
         'bg-custom-td-red-d',
-        'bg-custom-tr-1',
-        'bg-custom-tr-2',
-        'border-custom-tr-1-b',
-        'border-custom-tr-2-b',
+        {
+            pattern: /(bg|border)-(red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose|slate|gray|zinc|neutral|stone)-\d{3}/,
+        },
     ],
 };

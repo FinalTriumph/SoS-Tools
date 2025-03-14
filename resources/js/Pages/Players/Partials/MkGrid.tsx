@@ -9,7 +9,7 @@ interface MkGridProps {
 
 export default function MkGrid({ mk }: MkGridProps) {
     return (
-        <div className="">
+        <div>
             <div className="grid grid-cols-3">
                 <ColorCell type={ColorType.MkLevel} value={mk?.level ?? 0} />
                 <MkStarsCell color={mk?.color ?? ''} stars={mk?.stars ?? 0}/>
