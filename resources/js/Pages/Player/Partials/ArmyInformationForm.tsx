@@ -63,11 +63,11 @@ export default function ArmyInformationForm({
         <section className="max-w-xl">
             <header>
                 <h2 className="text-lg font-medium text-gray-900">
-                    Army
+                    Troops
                 </h2>
 
                 <p className="mt-1 text-sm text-gray-600">
-                    Update army information.
+                    Update troops information.
                 </p>
             </header>
 

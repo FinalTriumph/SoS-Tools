@@ -5,7 +5,7 @@
 @layer base {
 
     table, th {
-        @apply bg-slate-300 border border-slate-400;
+        @apply bg-slate-200 border border-slate-400;
     }
 
     th, td {

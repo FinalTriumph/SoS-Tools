@@ -12,7 +12,7 @@ interface PlayerRowProps {
 
 export default function PlayerRow({ player, rank }: PlayerRowProps) {
     const rowThemes = [
-        'bg-slate-300 border-b border-slate-600',
+        'bg-slate-200 border-b border-slate-500',
         'bg-slate-100 border-b border-slate-400',
     ];
 
