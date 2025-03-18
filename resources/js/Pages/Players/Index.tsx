@@ -2,12 +2,29 @@ import SecondaryButton from '@/Components/SecondaryButton';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Player } from '@/types';
 import { Head, router } from '@inertiajs/react';
+import { useRef } from 'react';
+import Filters from './Partials/Filters';
+import ImageOptions from './Partials/ImageOptions';
 import PlayersTable from './Partials/PlayersTable';
 
-export default function Index({ players }: { players: Player[] }) {
+export default function Index({
+    players,
+    alliances,
+    topCount,
+    alliance,
+    rankBy,
+}: {
+    players: Player[],
+    alliances: string[],
+    topCount: number,
+    alliance: string | null,
+    rankBy: string | null,
+}) {
     const handleAddNewPlayerClick = () => {
         router.visit(route('player.create'));
     };
+
+    const tableRef = useRef<HTMLTableElement>(null);
 
     return (
         <AuthenticatedLayout
@@ -27,7 +44,27 @@ export default function Index({ players }: { players: Player[] }) {
                                 Add New Player
                             </SecondaryButton>
 
-                            {(players.length > 0) && <PlayersTable players={players} />}
+                            {(players.length > 0) && (
+                                <div>
+                                    <hr className="my-6"/>
+
+                                    <div className="flex justify-between items-end">
+                                        <Filters
+                                            alliances={alliances}
+                                            topCount={topCount}
+                                            alliance={alliance}
+                                            rankBy={rankBy}
+                                        />
+
+                                        <ImageOptions tableRef={tableRef} />
+                                    </div>
+
+                                    <PlayersTable
+                                        players={players}
+                                        tableRef={tableRef}
+                                    />
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>
