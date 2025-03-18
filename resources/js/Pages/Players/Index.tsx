@@ -56,13 +56,7 @@ export default function Index({
                                             rankBy={rankBy}
                                         />
 
-                                        <div className="flex flex-col gap-6">
-                                            <ImageOptions tableRef={tableRef} library="html2canvas" />
-                                            <ImageOptions tableRef={tableRef} library="dom-to-image" />
-                                            <ImageOptions tableRef={tableRef} library="dom-to-image-more" />
-                                            <ImageOptions tableRef={tableRef} library="html-to-image" />
-                                            <ImageOptions tableRef={tableRef} library="rasterizehtml" />
-                                        </div>
+                                        <ImageOptions tableRef={tableRef} />
                                     </div>
 
                                     <PlayersTable
