@@ -12,9 +12,6 @@ export default {
 
     theme: {
         extend: {
-            fontFamily: {
-                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
-            },
             colors: {
                 custom: {
                     'td-grey': '#E0FFFF',
