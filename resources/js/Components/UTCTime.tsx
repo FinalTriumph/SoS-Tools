@@ -13,7 +13,7 @@ const UTCTime = () => {
 
     return (
         <div>
-            <div className="font-bold">{utcTime}</div>
+            <div>{utcTime}</div>
         </div>
     );
 };

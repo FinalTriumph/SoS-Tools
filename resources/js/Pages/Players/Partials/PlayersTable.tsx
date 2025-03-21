@@ -10,7 +10,7 @@ export default function PlayersTable({
     tableRef: RefObject<HTMLTableElement>;
 }) {
     return (
-        <div className="mt-6">
+        <div className="overflow-x-auto mt-6">
             <table ref={tableRef} className="w-full table-auto">
                 <thead className="bg-gray-100">
                     <tr>

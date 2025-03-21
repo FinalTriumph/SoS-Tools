@@ -8,6 +8,10 @@
         @apply bg-slate-200 border border-slate-400;
     }
 
+    th {
+        @apply border-b-slate-500
+    }
+
     th, td {
         @apply text-xs text-center p-2;
     }
@@ -23,6 +27,6 @@
 
 @layer utilities {
     .cell {
-        @apply text-xs text-center p-2 border-b border-l border-slate-400;
+        @apply p-2 border-b border-l border-slate-400;
     }
 }

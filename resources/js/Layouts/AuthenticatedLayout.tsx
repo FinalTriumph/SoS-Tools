@@ -143,6 +143,12 @@ export default function Authenticated({
                         >
                             Dashboard
                         </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            href={route('players.index')}
+                            active={route().current('players.index')}
+                        >
+                            Players
+                        </ResponsiveNavLink>
                     </div>
 
                     <div className="border-t border-gray-200 pb-1 pt-4">

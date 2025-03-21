@@ -25,22 +25,22 @@ export default function PlayerRow({ player, rank }: PlayerRowProps) {
                     {player.username}
                 </Link>
             </td>
-            <td className="border-r-0">{player.behemoths_bp || '-'}</td>
-            <td className="p-0 border-r-0">
+            <td className="border-r-0 px-3">{player.behemoths_bp || '-'}</td>
+            <td className="p-0 border-r-0 min-w-[150px]">
                 <MkGrid mk={player.mk1} />
             </td>
-            <td className="p-0">
+            <td className="p-0 min-w-[150px]">
                 <MkGrid mk={player.mk2} />
             </td>
-            <td className="border-r-0">{player.squadron_bp || '-'}</td>
-            <td className="p-0">
+            <td className="border-r-0 px-3">{player.squadron_bp || '-'}</td>
+            <td className="p-0 min-w-[150px]">
                 <FormationSystemGrid formationSystem={player.formation_system} />
             </td>
             <PlaneStarsCell stars={player.fa1_stars || 0} />
-            <td className="border-r-0">
+            <td className="border-r-0 px-3">
                 {(player.behemoths_bp || player.squadron_bp) ? ((player.behemoths_bp || 0) + (player.squadron_bp || 0)) : '-'}
             </td>
-            <td className="p-0">
+            <td className="p-0 min-w-[90px]">
                 <TroopsGrid army={player.army} />
             </td>
             <td className="text-left">

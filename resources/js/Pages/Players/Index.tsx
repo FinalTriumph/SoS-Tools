@@ -48,13 +48,15 @@ export default function Index({
                                 <div>
                                     <hr className="my-6"/>
 
-                                    <div className="flex justify-between items-end">
+                                    <div className="flex flex-col lg:flex-row justify-start lg:justify-between lg:items-end">
                                         <Filters
                                             alliances={alliances}
                                             topCount={topCount}
                                             alliance={alliance}
                                             rankBy={rankBy}
                                         />
+
+                                        <hr className="my-6 lg:hidden"/>
 
                                         <ImageOptions tableRef={tableRef} />
                                     </div>

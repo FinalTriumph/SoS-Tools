@@ -19,7 +19,7 @@ export default function Filters({
     const [alliance, setAlliance] = useState<string | undefined>(initialAlliance || undefined);
     const [rankBy, setRankBy] = useState<string | undefined>(initialRankBy || undefined);
     const [topCount, setTopCount] = useState<number>(initialTopCount);
-    const [applyDisabled, setApplyDisabled] = useState(true);
+    const [applyDisabled, setApplyDisabled] = useState(false);
 
     const apply = useCallback(() => {
         setApplyDisabled(true);
@@ -30,11 +30,12 @@ export default function Filters({
             top: topCount,
         }, {
             preserveState: true,
+            onSuccess: () => setApplyDisabled(false),
         });
     }, [alliance, rankBy, topCount]);
 
     return (
-        <div className="flex items-end gap-2">
+        <div className="flex flex-col lg:flex-row justify-start lg:justify-between lg:items-end gap-6 lg:gap-2">
             <div>
                 <InputLabel htmlFor="alliance" value="Alliance" />
 
@@ -48,7 +49,7 @@ export default function Filters({
                             value: alliance, label: alliance
                         })),
                     ]}
-                    className="mt-1 block text-sm"
+                    className="mt-1 block text-sm w-full lg:w-auto"
                     onChange={(e) => {
                         setAlliance(e.target.value);
                         setApplyDisabled(false);
@@ -68,7 +69,7 @@ export default function Filters({
                         { value: 'behemoths_bp', label: 'Behemoths BP' },
                         { value: 'squadron_bp', label: 'Squadron BP' },
                     ]}
-                    className="mt-1 block text-sm"
+                    className="mt-1 block text-sm w-full lg:w-auto"
                     onChange={(e) => {
                         setRankBy(e.target.value);
                         setApplyDisabled(false);
@@ -84,8 +85,9 @@ export default function Filters({
                     type="number"
                     name="top"
                     min="1"
+                    max="1000"
                     value={topCount}
-                    className="mt-2 block text-sm"
+                    className="mt-2 block text-sm w-full lg:w-auto"
                     onChange={(e) => {
                         setTopCount(parseInt(e.target.value || '1', 10));
                         setApplyDisabled(false);
