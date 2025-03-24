@@ -8,6 +8,8 @@ use App\Http\Controllers\Mk2Controller;
 use App\Http\Controllers\FormationSystemController;
 use App\Http\Controllers\ArmyController;
 
+use App\Http\Controllers\TempestArmsController;
+
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -29,9 +31,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('/formation-system', FormationSystemController::class)->only(['store', 'update']);
     Route::resource('/army', ArmyController::class)->only(['store', 'update']);
 
-    Route::get('/tempest-arms', function () {
-        return Inertia::render('TempestArms/Index');
-    })->name('tempest-arms.index');
+    Route::get('/tempest-arms', [TempestArmsController::class, 'index'])->name('tempest-arms.index');
 });
 
 require __DIR__.'/auth.php';
