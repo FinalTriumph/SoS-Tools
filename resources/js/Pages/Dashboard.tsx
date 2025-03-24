@@ -8,6 +8,10 @@ export default function Dashboard() {
         router.visit(route('players.index'));
     };
 
+    const visitTempestArms = () => {
+        router.visit(route('tempest-arms.index'));
+    };
+
     return (
         <AuthenticatedLayout
             header={
@@ -28,6 +32,12 @@ export default function Dashboard() {
 
                             <PrimaryButton onClick={visitPlayers}>
                                 Players
+                            </PrimaryButton>
+
+                            <hr className="my-6"/>
+
+                            <PrimaryButton onClick={visitTempestArms}>
+                                Tempest Arms
                             </PrimaryButton>
                         </div>
                     </div>

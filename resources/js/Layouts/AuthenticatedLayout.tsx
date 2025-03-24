@@ -33,11 +33,19 @@ export default function Authenticated({
                                 >
                                     Dashboard
                                 </NavLink>
+
                                 <NavLink
                                     href={route('players.index')}
                                     active={route().current('players.index')}
                                 >
                                     Players
+                                </NavLink>
+
+                                <NavLink
+                                    href={route('tempest-arms.index')}
+                                    active={route().current('tempest-arms.index')}
+                                >
+                                    Tempest Arms
                                 </NavLink>
                             </div>
                         </div>
@@ -143,11 +151,19 @@ export default function Authenticated({
                         >
                             Dashboard
                         </ResponsiveNavLink>
+
                         <ResponsiveNavLink
                             href={route('players.index')}
                             active={route().current('players.index')}
                         >
                             Players
+                        </ResponsiveNavLink>
+
+                        <ResponsiveNavLink
+                            href={route('tempest-arms.index')}
+                            active={route().current('tempest-arms.index')}
+                        >
+                            Tempest Arms
                         </ResponsiveNavLink>
                     </div>
 
@@ -202,6 +218,13 @@ export default function Authenticated({
                             className="text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                         >
                             Players
+                        </Link>
+
+                        <Link
+                            href={route('tempest-arms.index')}
+                            className="text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                        >
+                            Tempest Arms
                         </Link>
 
                         <Link

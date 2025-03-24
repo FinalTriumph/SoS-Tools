@@ -28,6 +28,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('/mk2', Mk2Controller::class)->only(['store', 'update']);
     Route::resource('/formation-system', FormationSystemController::class)->only(['store', 'update']);
     Route::resource('/army', ArmyController::class)->only(['store', 'update']);
+
+    Route::get('/tempest-arms', function () {
+        return Inertia::render('TempestArms/Index');
+    })->name('tempest-arms.index');
 });
 
 require __DIR__.'/auth.php';
