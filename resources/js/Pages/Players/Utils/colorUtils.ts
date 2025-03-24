@@ -31,7 +31,7 @@ const colorConfigs: { [key in ColorType]: CellColorConfig } = {
         thresholds: {
             44: 'red-d',
             43: 'red',
-            33: 'gold',
+            32: 'gold',
             20: 'purple',
             8: 'blue',
             2: 'green',

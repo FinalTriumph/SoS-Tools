@@ -35,8 +35,5 @@ export default {
         'bg-custom-td-gold',
         'bg-custom-td-red',
         'bg-custom-td-red-d',
-        {
-            pattern: /(bg|border)-(red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose|slate|gray|zinc|neutral|stone)-\d{3}/,
-        },
     ],
 };

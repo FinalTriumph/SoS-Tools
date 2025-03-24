@@ -63,14 +63,8 @@ export default function ImageOptions({
 
     const createImageFilename = (): string => {
         const now = new Date();
-        const hours = now.getHours().toString().padStart(2, '0');
-        const minutes = now.getMinutes().toString().padStart(2, '0');
-        const date = now.getDate().toString().padStart(2, '0');
-        const month = (now.getMonth() + 1).toString().padStart(2, '0');
-        const year = now.getFullYear();
-
-        return `sos_players_${hours}_${minutes}_${date}_${month}_${year}.png`;
-    };
+        return `sos_players_${now.toISOString().replace(/[:.-]/g, '').slice(0, -3)}.png`;
+    }
 
     return (
         <div>
