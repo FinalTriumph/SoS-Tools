@@ -31,7 +31,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('/formation-system', FormationSystemController::class)->only(['store', 'update']);
     Route::resource('/army', ArmyController::class)->only(['store', 'update']);
 
-    Route::get('/tempest-arms', [TempestArmsController::class, 'index'])->name('tempest-arms.index');
+    Route::middleware('tempest-arms-enabled')->prefix('tempest-arms')->group(function () {
+        Route::get('/', [TempestArmsController::class, 'index'])->name('tempest-arms.index');
+    });
 });
 
 require __DIR__.'/auth.php';

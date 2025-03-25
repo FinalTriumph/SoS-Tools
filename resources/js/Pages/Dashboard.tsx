@@ -1,9 +1,11 @@
 import UTCTime from '@/Components/UTCTime';
 import PrimaryButton from '@/Components/PrimaryButton';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head, router } from '@inertiajs/react';
+import { Head, usePage, router } from '@inertiajs/react';
 
 export default function Dashboard() {
+    const tempestArms = usePage().props.features.tempestArms;
+
     const visitPlayers = () => {
         router.visit(route('players.index'));
     };
@@ -34,11 +36,15 @@ export default function Dashboard() {
                                 Players
                             </PrimaryButton>
 
-                            <hr className="my-6"/>
+                            {tempestArms && (
+                                <div>
+                                    <hr className="my-6"/>
 
-                            <PrimaryButton onClick={visitTempestArms}>
-                                Tempest Arms
-                            </PrimaryButton>
+                                    <PrimaryButton onClick={visitTempestArms}>
+                                        Tempest Arms
+                                    </PrimaryButton>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>
