@@ -9,7 +9,9 @@ export default function Authenticated({
     header,
     children,
 }: PropsWithChildren<{ header?: ReactNode }>) {
-    const user = usePage().props.auth.user;
+    const { auth, features } = usePage().props;
+    const user = auth.user;
+    const tempestArms = features.tempestArms;
 
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);
@@ -33,12 +35,22 @@ export default function Authenticated({
                                 >
                                     Dashboard
                                 </NavLink>
+
                                 <NavLink
                                     href={route('players.index')}
                                     active={route().current('players.index')}
                                 >
                                     Players
                                 </NavLink>
+
+                                {tempestArms && (
+                                    <NavLink
+                                        href={route('tempest-arms.index')}
+                                        active={route().current('tempest-arms.index')}
+                                    >
+                                        Tempest Arms
+                                    </NavLink>
+                                )}
                             </div>
                         </div>
 
@@ -143,12 +155,22 @@ export default function Authenticated({
                         >
                             Dashboard
                         </ResponsiveNavLink>
+
                         <ResponsiveNavLink
                             href={route('players.index')}
                             active={route().current('players.index')}
                         >
                             Players
                         </ResponsiveNavLink>
+
+                        {tempestArms && (
+                            <ResponsiveNavLink
+                                href={route('tempest-arms.index')}
+                                active={route().current('tempest-arms.index')}
+                            >
+                                Tempest Arms
+                            </ResponsiveNavLink>
+                        )}
                     </div>
 
                     <div className="border-t border-gray-200 pb-1 pt-4">
@@ -203,6 +225,15 @@ export default function Authenticated({
                         >
                             Players
                         </Link>
+
+                        {tempestArms && (
+                            <Link
+                                href={route('tempest-arms.index')}
+                                className="text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                            >
+                                Tempest Arms
+                            </Link>
+                        )}
 
                         <Link
                             href={route('profile.edit')}

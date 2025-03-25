@@ -74,4 +74,7 @@ export type PageProps<
     auth: {
         user: User;
     };
+    features: {
+        tempestArms: boolean;
+    };
 };
