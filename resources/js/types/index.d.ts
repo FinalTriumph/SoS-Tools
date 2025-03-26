@@ -68,6 +68,25 @@ export interface Army {
     t12_hunter: number | null;
 }
 
+export interface TempestArm {
+    id: number;
+    player_id: number;
+    troop_type: string;
+    type: string;
+    generation: string;
+    stats: {
+        name: string;
+        value: number;
+        is_percentage: boolean;
+        color: string;
+    }[];
+    skill: {
+        name: string;
+        level: number;
+        quality: string;
+    } | null;
+}
+
 export type PageProps<
     T extends Record<string, unknown> = Record<string, unknown>,
 > = T & {

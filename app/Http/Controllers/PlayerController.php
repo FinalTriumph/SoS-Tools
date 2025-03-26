@@ -65,7 +65,7 @@ class PlayerController extends Controller
     public function store(PlayerStoreRequest $request): RedirectResponse
     {
         $player = auth()->user()->players()->create($request->validated());
-    
+
         return Redirect::route('player.edit', $player->id);
     }
 

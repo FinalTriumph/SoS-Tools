@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Player extends Model
 {
@@ -44,5 +45,10 @@ class Player extends Model
     public function army(): HasOne
     {
         return $this->hasOne(Army::class);
+    }
+
+    public function tempestArms(): HasMany
+    {
+        return $this->hasMany(TempestArm::class);
     }
 }
