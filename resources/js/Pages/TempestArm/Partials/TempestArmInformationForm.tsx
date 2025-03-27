@@ -1,29 +1,25 @@
-import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
-import TextInput from '@/Components/TextInput';
-import SelectInput from '@/Components/SelectInput';
-import { TempestArm } from '@/types';
+import {
+    TempestArm,
+    TempestArmGeneral,
+    TempestArmStat,
+    TempestArmStats,
+    TempestArmSkill,
+} from '@/types';
 import { Transition } from '@headlessui/react';
 import { useForm } from '@inertiajs/react';
 import { FormEventHandler } from 'react';
+import General from './TempestArmInformationForm/General';
+import Stats from './TempestArmInformationForm/Stats';
+import Skill from './TempestArmInformationForm/Skill';
 
 interface FormData {
-    player_id: number;
-    troop_type: string;
-    type: string;
-    generation: string;
-    stats: {
-        name: string;
-        value: number;
-        is_percentage: boolean;
-        color: string;
-    }[];
-    skill: {
-        name: string;
-        level: number;
-        quality: string;
-    } | null;
+    player_id: number | null;
+    troop_type: string | null;
+    type: string | null;
+    generation: string | null;
+    stats: TempestArmStats;
+    skill: TempestArmSkill;
     [key: string]: any;
 }
 
@@ -43,58 +39,27 @@ export default function TempestArmInformationForm({
         errors,
         recentlySuccessful
     } = useForm<FormData>({
-        player_id: tempestArm?.player_id ?? 0,
-        troop_type: tempestArm?.troop_type ?? '',
-        type: tempestArm?.type ?? '',
-        generation: tempestArm?.generation ?? '',
+        player_id: tempestArm?.player_id ?? null,
+        troop_type: tempestArm?.troop_type ?? null,
+        type: tempestArm?.type ?? null,
+        generation: tempestArm?.generation ?? null,
         stats: tempestArm?.stats ?? [
-            { name: '', value: 0, is_percentage: false, color: '' },
-            { name: '', value: 0, is_percentage: false, color: '' },
-            { name: '', value: 0, is_percentage: false, color: '' },
-            { name: '', value: 0, is_percentage: false, color: '' },
+            { name: null, value: null, is_percentage: null, color: null },
+            { name: null, value: null, is_percentage: null, color: null },
+            { name: null, value: null, is_percentage: null, color: null },
+            { name: null, value: null, is_percentage: null, color: null },
         ],
-        skill: tempestArm?.skill ?? { name: '', level: 0, quality: '' },
+        skill: tempestArm?.skill ?? { name: null, level: null, quality: null },
     });
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
 
         if (tempestArm) {
-            console.log('Update');
-            // patch(route('tempest-arm.update', tempestArm.id), { preserveScroll: true });
+            patch(route('tempest-arm.update', tempestArm.id), { preserveScroll: true });
         } else {
             post(route('tempest-arm.store'), { preserveScroll: true });
         }
-    };
-
-    const handleStatChange = (
-        index: number,
-        field: 'name' | 'value' | 'is_percentage' | 'color',
-        value: string | number | boolean
-    ) => {
-        const newStats = [...data.stats];
-
-        if (field === 'name' || field === 'color') {
-            newStats[index][field] = value as string;
-        } else if (field === 'value') {
-            newStats[index][field] = value as number;
-        } else if (field === 'is_percentage') {
-            newStats[index][field] = value as boolean;
-        }
-
-        setData('stats', newStats);
-    };
-
-    const handleSkillChange = (
-        field: 'name' | 'level' | 'quality',
-        value: string | number | null
-    ) => {
-        setData('skill', { 
-            name: data.skill?.name ?? '', 
-            level: data.skill?.level ?? 0, 
-            quality: data.skill?.quality ?? '', 
-            [field]: value 
-        });
     };
 
     return (
@@ -110,228 +75,28 @@ export default function TempestArmInformationForm({
             </header>
 
             <form onSubmit={submit} className="mt-6 space-y-6">
-                <div>
-                    <InputLabel htmlFor="player_id" value="Player" />
+                <General
+                    players={players}
+                    data={data as TempestArmGeneral}
+                    setDataField={(field: keyof TempestArmGeneral, value: string | number) => setData(field, value)}
+                    getError={(field: keyof TempestArmGeneral) => errors[field]}
+                />
 
-                    <SelectInput
-                        id="player_id"
-                        name="player_id"
-                        value={data.player_id}
-                        options={[
-                            { value: '', label: '-' },
-                            ...(players?.map(player => ({
-                                value: player.id,
-                                label: player.username,
-                            })) || [])
-                        ]}
-                        className="mt-1 block w-full"
-                        onChange={(e) => setData('player_id', Number(e.target.value))}
-                    />
+                <hr className="my-6" />
 
-                    <InputError message={errors.player_id} />
-                </div>
+                <Stats
+                    stats={data.stats}
+                    setStats={(stats: TempestArmStats) => setData('stats', stats)}
+                    getError={(index: number, field: keyof TempestArmStat) => errors[`stats.${index}.${field}`]}
+                />
 
-                <div>
-                    <InputLabel htmlFor="troop_type" value="Troop Type" />
+                <hr className="my-6" />
 
-                    <SelectInput
-                        id="troop_type"
-                        name="troop_type"
-                        value={data.troop_type}
-                        options={[
-                            { value: '', label: '-' },
-                            { value: 'infantry', label: 'Infantry' },
-                            { value: 'riders', label: 'Riders' },
-                            { value: 'hunters', label: 'Hunters' },
-                        ]}
-                        className="mt-1 block w-full"
-                        onChange={(e) => setData('troop_type', e.target.value)}
-                    />
-
-                    <InputError message={errors.troop_type} />
-                </div>
-
-                <div>
-                    <InputLabel htmlFor="type" value="Type" />
-
-                    <SelectInput
-                        id="type"
-                        name="type"
-                        value={data.type}
-                        options={[
-                            { value: '', label: '-' },
-                            { value: 'attack', label: 'Attack' },
-                            { value: 'defense', label: 'Defense' },
-                        ]}
-                        className="mt-1 block w-full"
-                        onChange={(e) => setData('type', e.target.value)}
-                    />
-
-                    <InputError message={errors.type} />
-                </div>
-
-                <div>
-                    <InputLabel htmlFor="generation" value="Generation" />
-
-                    <SelectInput
-                        id="generation"
-                        name="generation"
-                        value={data.generation}
-                        options={[
-                            { value: '', label: '-' },
-                            { value: 'g1', label: 'G1' },
-                            { value: 'g2', label: 'G2' },
-                            { value: 'g3', label: 'G3' },
-                            { value: 's1', label: 'S1' },
-                        ]}
-                        className="mt-1 block w-full"
-                        onChange={(e) => setData('generation', e.target.value)}
-                    />
-
-                    <InputError message={errors.generation} />
-                </div>
-
-                <hr className="my-6"/>
-
-                <div className="space-y-6">
-                    <InputLabel value="Stats" />
-
-                    {data.stats.map((stat, index) => (
-                        <div key={index} className="flex gap-2">
-                            <div>
-                                <InputLabel htmlFor={`stat-${index}-name`} value="Stat" />
-
-                                <TextInput
-                                    id={`stat-${index}-name`}
-                                    name={`stats.${index}.name`}
-                                    value={stat.name}
-                                    className="mt-1 block"
-                                    onChange={(e) => handleStatChange(index, 'name', e.target.value)}
-                                />
-
-                                <InputError message={errors[`stats.${index}.name`]} />
-                            </div>
-
-                            <div>
-                                <InputLabel htmlFor={`stat-${index}-value`} value="Value" />
-
-                                <TextInput
-                                    id={`stat-${index}-value`}
-                                    type="number"
-                                    name={`stats.${index}.value`}
-                                    min="0"
-                                    max="1000"
-                                    value={stat.value}
-                                    className="mt-1 block"
-                                    onChange={(e) =>
-                                        handleStatChange(index, 'value', Number(e.target.value))
-                                    }
-                                />
-
-                                <InputError message={errors[`stats.${index}.value`]} />
-                            </div>
-
-                            <div>
-                                <InputLabel htmlFor={`stat-${index}-is_percentage`} value="Percentage" />
-
-                                <SelectInput
-                                    id={`stat-${index}-is_percentage`}
-                                    name={`stats.${index}.is_percentage`}
-                                    value={stat.is_percentage.toString()}
-                                    options={[
-                                        { value: 'true', label: 'Yes' },
-                                        { value: 'false', label: 'No' },
-                                    ]}
-                                    className="mt-1 block"
-                                    onChange={(e) => handleStatChange(index, 'is_percentage', e.target.value === 'true')}
-                                />
-
-                                <InputError message={errors[`stats.${index}.is_percentage`]} />
-                            </div>
-
-                            <div>
-                                <InputLabel htmlFor={`stat-${index}-color`} value="Color" />
-
-                                <SelectInput
-                                    id={`stat-${index}-color`}
-                                    name={`stats.${index}.color`}
-                                    value={stat.color}
-                                    options={[
-                                        { value: '', label: '-' },
-                                        { value: 'purple', label: 'Purple' },
-                                        { value: 'gold', label: 'Gold' },
-                                        { value: 'red', label: 'Red' },
-                                    ]}
-                                    className="mt-1 block"
-                                    onChange={(e) => handleStatChange(index, 'color', e.target.value)}
-                                />
-
-                                <InputError message={errors[`stats.${index}.color`]} />
-                            </div>
-                        </div>
-                    ))}
-                </div>
-
-                <hr className="my-6"/>
-
-                <div className="space-y-6">
-                    <InputLabel value="Skill" />
-
-                    <div className="flex gap-4">
-                        <div>
-                            <InputLabel htmlFor="skill-name" value="Name" />
-
-                            <TextInput
-                                id="skill-name"
-                                name="skill.name"
-                                value={data.skill?.name || ''}
-                                className="mt-1 block"
-                                onChange={(e) => handleSkillChange('name', e.target.value)}
-                            />
-
-                            <InputError message={errors['skill.name']} />
-                        </div>
-
-                        <div>
-                            <InputLabel htmlFor="skill-level" value="Level" />
-
-                            <TextInput
-                                id="skill-level"
-                                type="number"
-                                name="skill.level"
-                                min="1"
-                                max="4"
-                                value={data.skill?.level || ''}
-                                className="mt-1 block"
-                                onChange={(e) =>
-                                    handleSkillChange('level', Number(e.target.value))
-                                }
-                            />
-
-                            <InputError message={errors['skill.level']} />
-                        </div>
-
-                        <div>
-                            <InputLabel htmlFor="skill-quality" value="Quality" />
-
-                            <SelectInput
-                                id="skill-quality"
-                                name="skill.quality"
-                                value={data.skill?.quality || ''}
-                                options={[
-                                    { value: '', label: '-' },
-                                    { value: 'common', label: 'Common' },
-                                    { value: 'rare', label: 'Rare' },
-                                    { value: 'ultra', label: 'Ultra' },
-                                ]}
-                                className="mt-1 block w-full"
-                                onChange={(e) => handleSkillChange('quality', e.target.value)}
-                            />
-
-                            <InputError message={errors['skill.quality']} />
-                        </div>
-                    </div>
-                </div>
+                <Skill
+                    skill={data.skill}
+                    setSkill={(skill: TempestArmSkill) => setData('skill', skill)}
+                    getError={(field: keyof TempestArmSkill) => errors[`skill.${field}`]}
+                />
 
                 <div className="flex items-center gap-4">
                     <PrimaryButton disabled={processing}>Save</PrimaryButton>

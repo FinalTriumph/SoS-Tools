@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class TempestArmStoreRequest extends FormRequest
+class TempestArmUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,68 +25,81 @@ class TempestArmStoreRequest extends FormRequest
         return [
             // General
             'player_id' => [
+                'sometimes',
                 'required',
                 'integer',
                 'exists:players,id',
             ],
             'troop_type' => [
+                'sometimes',
                 'required',
                 'string',
                 Rule::in(['infantry', 'riders', 'hunters']),
             ],
             'type' => [
+                'sometimes',
                 'required',
                 'string',
                 Rule::in(['attack', 'defense']),
             ],
             'generation' => [
+                'sometimes',
                 'required',
                 'string',
                 Rule::in(['g1', 'g2', 'g3', 's1']),
             ],
             // Stats
             'stats' => [
+                'sometimes',
                 'required',
                 'array',
                 'size:4',
             ],
             'stats.*.name' => [
+                'sometimes',
                 'nullable',
                 'string',
                 'max:255',
             ],
             'stats.*.value' => [
+                'sometimes',
                 'nullable',
                 'numeric',
                 'min:0',
                 'max:1000',
             ],
             'stats.*.is_percentage' => [
+                'sometimes',
                 'nullable',
                 'boolean',
             ],
             'stats.*.color' => [
+                'sometimes',
                 'nullable',
                 'string',
                 Rule::in(['purple', 'gold', 'red']),
             ],
             // Skill
             'skill' => [
+                'sometimes',
                 'required',
                 'array',
             ],
             'skill.name' => [
+                'sometimes',
                 'nullable',
                 'string',
                 'max:255',
             ],
             'skill.level' => [
+                'sometimes',
                 'nullable',
                 'integer',
                 'min:1',
                 'max:4',
             ],
             'skill.quality' => [
+                'sometimes',
                 'nullable',
                 'string',
                 Rule::in(['common', 'rare', 'ultra']),

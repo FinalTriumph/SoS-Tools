@@ -19,8 +19,8 @@ return new class extends Migration
             $table->string('type');
             $table->string('generation');
 
-            $table->json('stats')->nullable();
-            $table->json('skill')->nullable();
+            $table->json('stats');
+            $table->json('skill');
 
             $table->timestamps();
         });
