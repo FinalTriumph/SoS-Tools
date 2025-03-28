@@ -83,7 +83,7 @@ class TempestArmStoreRequest extends FormRequest
             'skill.level' => [
                 'nullable',
                 'integer',
-                'min:1',
+                'min:0',
                 'max:4',
             ],
             'skill.quality' => [

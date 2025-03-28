@@ -50,7 +50,7 @@ export default function Skill({
                         id="skill-level"
                         type="number"
                         name="skill.level"
-                        min="1"
+                        min="0"
                         max="4"
                         value={skill.level || ''}
                         className="mt-1 block"

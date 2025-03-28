@@ -17,12 +17,19 @@ use Inertia\Response;
 class TempestArmController extends Controller
 {
     /**
-     * TODO
      * Display a listing of the tempest arms.
      */
     public function index(): Response
     {
-        return Inertia::render('TempestArms/Index');
+        $tempestArms = TempestArm::whereHas('player', function ($query) {
+            $query->whereBelongsTo(auth()->user());
+        })->get();
+
+        // $tempestArms = TempestArm::all();
+
+        return Inertia::render('TempestArms/Index', [
+            'tempestArms' => $tempestArms,
+        ]);
     }
 
     /**
@@ -46,11 +53,14 @@ class TempestArmController extends Controller
     }
 
     /**
-     * TODO
      * Show the form for editing the specified tempest arm.
      */
     public function edit(TempestArm $tempestArm): Response
     {
+        if (auth()->user()->cannot('modify', $tempestArm)) {
+            abort(403);
+        }
+
         return Inertia::render('TempestArm/Edit', [
             'players' => Auth::user()->players()->select('id', 'username')->get(),
             'tempestArm' => $tempestArm,
@@ -58,14 +68,31 @@ class TempestArmController extends Controller
     }
 
     /**
-     * TODO
      * Update the specified tempest arm in storage.
      */
     public function update(TempestArmUpdateRequest $request, TempestArm $tempestArm): RedirectResponse
     {
+        if (auth()->user()->cannot('modify', $tempestArm)) {
+            abort(403);
+        }
+
         $tempestArm->fill($request->validated());
         $tempestArm->save();
 
         return Redirect::route('tempest-arm.edit', $tempestArm);
+    }
+
+    /**
+     * Remove the specified tempest arm from storage.
+     */
+    public function destroy(TempestArm $tempestArm): RedirectResponse
+    {
+        if (auth()->user()->cannot('modify', $tempestArm)) {
+            abort(403);
+        }
+
+        $tempestArm->delete();
+
+        return Redirect::route('tempest-arms.index');
     }
 }
