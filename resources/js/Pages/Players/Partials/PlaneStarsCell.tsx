@@ -15,8 +15,8 @@ export default function PlaneStarsCell({ stars }: PlaneStarsCellProps) {
     };
     
     return (
-        <td className={`bg-${getTailwindColor(ColorType.PlaneStars, stars)}`}>
+        <div className={`cell cell--grow bg-${getTailwindColor(ColorType.PlaneStars, stars)}`}>
             {stars in starConfig ? starConfig[stars as keyof typeof starConfig] : '-'}
-        </td>
+        </div>
     );
 }

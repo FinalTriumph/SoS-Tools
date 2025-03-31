@@ -4,11 +4,12 @@ interface ColorCellProps {
     type: ColorType;
     value: number;
     prefix?: string;
+    className?: string;
 }
 
-export default function ColorCell({ type, value, prefix }: ColorCellProps) {
+export default function ColorCell({ type, value, prefix, className }: ColorCellProps) {
     return (
-        <div className={`cell bg-${getTailwindColor(type, value)}`}>
+        <div className={`cell bg-${getTailwindColor(type, value)} ${className ?? ''}`}>
             {`${prefix || ''}${value || '-'}`}
         </div>
     );

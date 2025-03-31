@@ -1,8 +1,9 @@
+import Checkbox from '@/Components/Checkbox';
 import SecondaryButton from '@/Components/SecondaryButton';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Player } from '@/types';
 import { Head, router } from '@inertiajs/react';
-import { useRef } from 'react';
+import { useState, useRef } from 'react';
 import Filters from './Partials/Filters';
 import ImageOptions from './Partials/ImageOptions';
 import PlayersTable from './Partials/PlayersTable';
@@ -20,6 +21,8 @@ export default function Index({
     alliance: string | null,
     rankBy: string | null,
 }) {
+    const [showWhenUpdated, setShowWhenUpdated] = useState<boolean>(false);
+
     const handleAddNewPlayerClick = () => {
         router.visit(route('player.create'));
     };
@@ -56,6 +59,19 @@ export default function Index({
                                             rankBy={rankBy}
                                         />
 
+                                        <div className="mt-6 lg:mt-0 lg:p-2">
+                                            <label className="flex items-center">
+                                                <Checkbox
+                                                    name="show_when_updated"
+                                                    checked={showWhenUpdated}
+                                                    onChange={(e) => setShowWhenUpdated((e.target.checked || false) as false)}
+                                                />
+                                                <span className="ms-2 text-sm font-medium text-gray-700">
+                                                    Show when last updated
+                                                </span>
+                                            </label>
+                                        </div>
+
                                         <hr className="my-6 lg:hidden"/>
 
                                         <ImageOptions tableRef={tableRef} />
@@ -64,6 +80,7 @@ export default function Index({
                                     <PlayersTable
                                         players={players}
                                         tableRef={tableRef}
+                                        showWhenUpdated={showWhenUpdated}
                                     />
                                 </div>
                             )}

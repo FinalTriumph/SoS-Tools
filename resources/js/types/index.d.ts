@@ -13,6 +13,7 @@ export interface Player {
     behemoths_bp: number | null;
     squadron_bp: number | null;
     fa1_stars: number | null;
+    updated_at: string | null;
     mk1: Mk1 | null;
     mk2: Mk2 | null;
     formation_system: FormationSystem | null;
@@ -31,6 +32,7 @@ export interface Mk1 {
     skill_3: number | null;
     skill_4: number | null;
     skill_5: number | null;
+    updated_at: string | null;
 }
 
 export interface Mk2 {
@@ -45,6 +47,7 @@ export interface Mk2 {
     skill_3: number | null;
     skill_4: number | null;
     skill_5: number | null;
+    updated_at: string | null;
 }
 
 export interface FormationSystem {
@@ -56,6 +59,7 @@ export interface FormationSystem {
     skill_3: number | null;
     skill_4: number | null;
     skill_5: number | null;
+    updated_at: string | null;
 }
 
 export interface Army {
@@ -66,6 +70,7 @@ export interface Army {
     t12_infantry: number | null;
     t12_rider: number | null;
     t12_hunter: number | null;
+    updated_at: string | null;
 }
 
 export interface TempestArmStat {

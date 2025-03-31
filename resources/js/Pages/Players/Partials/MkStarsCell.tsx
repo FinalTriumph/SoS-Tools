@@ -13,7 +13,7 @@ export default function MkStarCell({ color, stars }: MkStarCellProps) {
     };
     
     return (
-        <div className={`cell bg-${getTailwindColorName(color)}`}>
+        <div className={`cell border-x bg-${getTailwindColorName(color)}`}>
             {stars in starConfig ? starConfig[stars as keyof typeof starConfig] : '-'}
         </div>
     );

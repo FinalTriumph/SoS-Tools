@@ -4,10 +4,12 @@ import PlayerRow from './PlayerRow';
 
 export default function PlayersTable({
     players,
-    tableRef
+    tableRef,
+    showWhenUpdated,
 }: {
     players: Player[],
     tableRef: RefObject<HTMLTableElement>;
+    showWhenUpdated: boolean;
 }) {
     return (
         <div className="overflow-x-auto mt-6">
@@ -38,6 +40,7 @@ export default function PlayersTable({
                             key={player.id}
                             player={player}
                             rank={index + 1}
+                            showWhenUpdated={showWhenUpdated}
                         />
                     ))}
                 </tbody>
