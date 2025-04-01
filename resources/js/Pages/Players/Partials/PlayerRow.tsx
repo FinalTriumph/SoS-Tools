@@ -1,5 +1,7 @@
 import { Player } from '@/types';
 import { Link } from '@inertiajs/react';
+import { ModalType } from '../Utils/ModalTypes';
+import { useModalContext } from '../Utils/ModalContext';
 import MkGrid from './MkGrid';
 import FormationSystemGrid from './FormationSystemGrid';
 import PlaneStarsCell from './PlaneStarsCell';
@@ -18,6 +20,8 @@ export default function PlayerRow({ player, rank, showWhenUpdated }: PlayerRowPr
         'bg-slate-100 border-b border-slate-500',
     ];
 
+    const { openModal } = useModalContext();
+
     return (
         <tr className={rowThemes[rank % 2]}>
             <td>{rank}</td>
@@ -33,7 +37,12 @@ export default function PlayerRow({ player, rank, showWhenUpdated }: PlayerRowPr
                 </Link>
             </td>
 
-            <td className={showWhenUpdated ? 'flex flex-col p-0' : 'px-3'}>
+            <td
+                className={`${showWhenUpdated ? 'flex flex-col p-0' : 'px-3'} cell-clickable`}
+                onClick={() => openModal(ModalType.PLAYER, player)}
+                role="button"
+                tabIndex={0}
+            >
                 <div className={`${showWhenUpdated ? 'cell' : ''} cell-highlighted`}>
                     {player.behemoths_bp || '-'}
                 </div>
@@ -43,7 +52,12 @@ export default function PlayerRow({ player, rank, showWhenUpdated }: PlayerRowPr
                 )}
             </td>
 
-            <td className="p-0 min-w-[150px]">
+            <td
+                className="p-0 min-w-[150px] cell-clickable"
+                onClick={() => openModal(ModalType.MK1, player)}
+                role="button"
+                tabIndex={0}
+            >
                 <MkGrid mk={player.mk1} />
 
                 {showWhenUpdated && (
@@ -51,7 +65,12 @@ export default function PlayerRow({ player, rank, showWhenUpdated }: PlayerRowPr
                 )}
             </td>
 
-            <td className="p-0 min-w-[150px]">
+            <td
+                className="p-0 min-w-[150px] cell-clickable"
+                onClick={() => openModal(ModalType.MK2, player)}
+                role="button"
+                tabIndex={0}
+            >
                 <MkGrid mk={player.mk2} />
 
                 {showWhenUpdated && (
@@ -59,7 +78,12 @@ export default function PlayerRow({ player, rank, showWhenUpdated }: PlayerRowPr
                 )}
             </td>
 
-            <td className={showWhenUpdated ? 'flex flex-col p-0' : 'px-3'}>
+            <td
+                className={`${showWhenUpdated ? 'flex flex-col p-0' : 'px-3'} cell-clickable`}
+                onClick={() => openModal(ModalType.PLAYER, player)}
+                role="button"
+                tabIndex={0}
+            >
                 <div className={`${showWhenUpdated ? 'cell' : ''} cell-highlighted`}>
                     {player.squadron_bp || '-'}
                 </div>
@@ -69,7 +93,12 @@ export default function PlayerRow({ player, rank, showWhenUpdated }: PlayerRowPr
                 )}
             </td>
 
-            <td className="p-0 min-w-[150px]">
+            <td
+                className="p-0 min-w-[150px] cell-clickable"
+                onClick={() => openModal(ModalType.FORMATION_SYSTEM, player)}
+                role="button"
+                tabIndex={0}
+            >
                 <FormationSystemGrid formationSystem={player.formation_system} />
 
                 {showWhenUpdated && (
@@ -77,7 +106,12 @@ export default function PlayerRow({ player, rank, showWhenUpdated }: PlayerRowPr
                 )}
             </td>
 
-            <td className="p-0">
+            <td
+                className="p-0 cell-clickable"
+                onClick={() => openModal(ModalType.PLAYER, player)}
+                role="button"
+                tabIndex={0}
+            >
                 <div className="flex flex-col h-full">
                     <PlaneStarsCell stars={player.fa1_stars || 0} />
 
@@ -87,7 +121,12 @@ export default function PlayerRow({ player, rank, showWhenUpdated }: PlayerRowPr
                 </div>
             </td>
 
-            <td className={showWhenUpdated ? 'flex flex-col p-0' : 'px-3'}>
+            <td
+                className={`${showWhenUpdated ? 'flex flex-col p-0' : 'px-3'} cell-clickable`}
+                onClick={() => openModal(ModalType.PLAYER, player)}
+                role="button"
+                tabIndex={0}
+            >
                 <div className={`${showWhenUpdated ? 'cell' : ''} cell-highlighted`}>
                     {(player.behemoths_bp || player.squadron_bp) ? ((player.behemoths_bp || 0) + (player.squadron_bp || 0)) : '-'}
                 </div>
@@ -97,7 +136,12 @@ export default function PlayerRow({ player, rank, showWhenUpdated }: PlayerRowPr
                 )}
             </td>
 
-            <td className="p-0 min-w-[90px]">
+            <td
+                className="p-0 min-w-[90px] cell-clickable"
+                onClick={() => openModal(ModalType.ARMY, player)}
+                role="button"
+                tabIndex={0}
+            >
                 <TroopsGrid army={player.army} />
 
                 {showWhenUpdated && (

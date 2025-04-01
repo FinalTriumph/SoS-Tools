@@ -34,6 +34,10 @@
         @apply font-semibold text-slate-800;
     }
 
+    .cell-clickable {
+        @apply cursor-pointer hover:opacity-80;
+    }
+
     .cell--grow {
         @apply flex flex-grow items-center justify-center;
     }
