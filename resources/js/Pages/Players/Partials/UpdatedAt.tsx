@@ -1,45 +1,25 @@
-export default function UpdatedAt({ date }: { date: string | null}) {
-    const formatDate = (date: string | null): string => {
-        if (!date) {
-            return '-';
-        }
+import { ColorType, getTailwindColor } from '../Utils/colorUtils';
 
-        /* return new Date(date).toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-        }); */
+interface UpdatedAtProps {
+    date: string | null;
+    className?: string;
+}
 
-        return new Date(date).toLocaleDateString('de-DE', {
-            day: '2-digit',
-            month: '2-digit',
-            year: 'numeric'
-        });
-    };
+export default function UpdatedAt({ date, className }: UpdatedAtProps) {
+    if (!date) {
+        return (
+            <div className="cell">-</div>
+        );
+    }
 
-    const isOlderThan = (date: string, months: number): boolean => {
-        const givenDate = new Date(date);
-        const currentDate = new Date();
-
-        const comparisonDate = new Date();
-        comparisonDate.setMonth(currentDate.getMonth() - months);
-
-        return givenDate < comparisonDate;
-    };
-
-    const getBgColorClass = (date: string | null): string => {
-        if (!date || isOlderThan(date, 2)) {
-            return 'bg-red-100';
-        } else if (isOlderThan(date, 1)) {
-            return 'bg-orange-100';
-        }
-
-        return 'bg-green-100';
-    };
+    const daysBetween = Math.floor(
+        (new Date().getTime() - new Date(date).getTime()) / 
+        (1000 * 60 * 60 * 24)
+    );
 
     return (
-        <div className={`cell text-xs ${getBgColorClass(date)}`}>
-            {formatDate(date)}
+        <div className={`cell bg-${getTailwindColor(ColorType.UpdatedAt, daysBetween)} ${className ?? ''}`}>
+            {daysBetween === 0 ? 'Today' : daysBetween === 1 ? '1 day ago' : `${daysBetween} days ago`}
         </div>
     );
 }

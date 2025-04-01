@@ -7,6 +7,7 @@ export enum ColorType {
     Plasma,
     TroopsTier,
     PlaneStars,
+    UpdatedAt,
 }
 
 interface CellColorConfig {
@@ -96,6 +97,17 @@ const colorConfigs: { [key in ColorType]: CellColorConfig } = {
             3: 'blue',
             2: 'green',
             1: 'grey',
+        },
+    },
+    [ColorType.UpdatedAt]: {
+        type: ColorType.UpdatedAt,
+        thresholds: {
+            120: 'grey',
+            90: 'green',
+            60: 'blue',
+            30: 'purple',
+            14: 'gold',
+            0: 'red',
         },
     },
 };

@@ -24,19 +24,22 @@ export default function PlayerRow({ player, rank, showWhenUpdated }: PlayerRowPr
 
             <td>{player.alliance || ''}</td>
 
-            <td className="text-left">
-                <Link href={route('player.edit', player.id)} className="hover:text-gray-500">
+            <td className="cell-highlighted text-left">
+                <Link
+                    href={route('player.edit', player.id)}
+                    className="hover:text-slate-600"
+                >
                     {player.username}
                 </Link>
             </td>
 
             <td className={showWhenUpdated ? 'flex flex-col p-0' : 'px-3'}>
-                <div className={showWhenUpdated ? 'cell cell--grow' : ''}>
+                <div className={`${showWhenUpdated ? 'cell' : ''} cell-highlighted`}>
                     {player.behemoths_bp || '-'}
                 </div>
 
                 {showWhenUpdated && (
-                    <UpdatedAt date={player.updated_at} />
+                    <UpdatedAt date={player.updated_at} className="cell--grow" />
                 )}
             </td>
 
@@ -57,12 +60,12 @@ export default function PlayerRow({ player, rank, showWhenUpdated }: PlayerRowPr
             </td>
 
             <td className={showWhenUpdated ? 'flex flex-col p-0' : 'px-3'}>
-                <div className={showWhenUpdated ? 'cell cell--grow' : ''}>
+                <div className={`${showWhenUpdated ? 'cell' : ''} cell-highlighted`}>
                     {player.squadron_bp || '-'}
                 </div>
 
                 {showWhenUpdated && (
-                    <UpdatedAt date={player.updated_at} />
+                    <UpdatedAt date={player.updated_at} className="cell--grow" />
                 )}
             </td>
 
@@ -85,12 +88,12 @@ export default function PlayerRow({ player, rank, showWhenUpdated }: PlayerRowPr
             </td>
 
             <td className={showWhenUpdated ? 'flex flex-col p-0' : 'px-3'}>
-                <div className={showWhenUpdated ? 'cell cell--grow' : ''}>
+                <div className={`${showWhenUpdated ? 'cell' : ''} cell-highlighted`}>
                     {(player.behemoths_bp || player.squadron_bp) ? ((player.behemoths_bp || 0) + (player.squadron_bp || 0)) : '-'}
                 </div>
 
                 {showWhenUpdated && (
-                    <UpdatedAt date={player.updated_at} />
+                    <UpdatedAt date={player.updated_at} className="cell--grow" />
                 )}
             </td>
 
@@ -102,7 +105,7 @@ export default function PlayerRow({ player, rank, showWhenUpdated }: PlayerRowPr
                 )}
             </td>
 
-            <td className="text-left">
+            <td className="cell-highlighted text-left">
                 <Link href={route('player.edit', player.id)} className="hover:text-gray-500">
                     {player.username}
                 </Link>

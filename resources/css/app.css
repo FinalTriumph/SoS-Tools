@@ -30,6 +30,10 @@
         @apply p-2 border-b border-slate-400;
     }
 
+    .cell-highlighted {
+        @apply font-semibold text-slate-800;
+    }
+
     .cell--grow {
         @apply flex flex-grow items-center justify-center;
     }
