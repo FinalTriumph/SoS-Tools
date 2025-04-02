@@ -1,7 +1,7 @@
 import { Player } from '@/types';
 import { Link } from '@inertiajs/react';
-import { ModalType } from '../Utils/ModalTypes';
-import { useModalContext } from '../Utils/ModalContext';
+import { FormModalType } from '../Utils/FormModalType';
+import { useFormModalContext } from '../Utils/FormModalContext';
 import MkGrid from './MkGrid';
 import FormationSystemGrid from './FormationSystemGrid';
 import PlaneStarsCell from './PlaneStarsCell';
@@ -20,7 +20,7 @@ export default function PlayerRow({ player, rank, showWhenUpdated }: PlayerRowPr
         'bg-slate-100 border-b border-slate-500',
     ];
 
-    const { openModal } = useModalContext();
+    const { openModal } = useFormModalContext();
 
     return (
         <tr className={rowThemes[rank % 2]}>
@@ -39,7 +39,7 @@ export default function PlayerRow({ player, rank, showWhenUpdated }: PlayerRowPr
 
             <td
                 className={`${showWhenUpdated ? 'flex flex-col p-0' : 'px-3'} cell-clickable`}
-                onClick={() => openModal(ModalType.PLAYER, player)}
+                onClick={() => openModal(FormModalType.PLAYER, player)}
                 role="button"
                 tabIndex={0}
             >
@@ -54,7 +54,7 @@ export default function PlayerRow({ player, rank, showWhenUpdated }: PlayerRowPr
 
             <td
                 className="p-0 min-w-[150px] cell-clickable"
-                onClick={() => openModal(ModalType.MK1, player)}
+                onClick={() => openModal(FormModalType.MK1, player)}
                 role="button"
                 tabIndex={0}
             >
@@ -67,7 +67,7 @@ export default function PlayerRow({ player, rank, showWhenUpdated }: PlayerRowPr
 
             <td
                 className="p-0 min-w-[150px] cell-clickable"
-                onClick={() => openModal(ModalType.MK2, player)}
+                onClick={() => openModal(FormModalType.MK2, player)}
                 role="button"
                 tabIndex={0}
             >
@@ -80,7 +80,7 @@ export default function PlayerRow({ player, rank, showWhenUpdated }: PlayerRowPr
 
             <td
                 className={`${showWhenUpdated ? 'flex flex-col p-0' : 'px-3'} cell-clickable`}
-                onClick={() => openModal(ModalType.PLAYER, player)}
+                onClick={() => openModal(FormModalType.PLAYER, player)}
                 role="button"
                 tabIndex={0}
             >
@@ -95,7 +95,7 @@ export default function PlayerRow({ player, rank, showWhenUpdated }: PlayerRowPr
 
             <td
                 className="p-0 min-w-[150px] cell-clickable"
-                onClick={() => openModal(ModalType.FORMATION_SYSTEM, player)}
+                onClick={() => openModal(FormModalType.FORMATION_SYSTEM, player)}
                 role="button"
                 tabIndex={0}
             >
@@ -108,7 +108,7 @@ export default function PlayerRow({ player, rank, showWhenUpdated }: PlayerRowPr
 
             <td
                 className="p-0 cell-clickable"
-                onClick={() => openModal(ModalType.PLAYER, player)}
+                onClick={() => openModal(FormModalType.PLAYER, player)}
                 role="button"
                 tabIndex={0}
             >
@@ -123,7 +123,7 @@ export default function PlayerRow({ player, rank, showWhenUpdated }: PlayerRowPr
 
             <td
                 className={`${showWhenUpdated ? 'flex flex-col p-0' : 'px-3'} cell-clickable`}
-                onClick={() => openModal(ModalType.PLAYER, player)}
+                onClick={() => openModal(FormModalType.PLAYER, player)}
                 role="button"
                 tabIndex={0}
             >
@@ -138,7 +138,7 @@ export default function PlayerRow({ player, rank, showWhenUpdated }: PlayerRowPr
 
             <td
                 className="p-0 min-w-[90px] cell-clickable"
-                onClick={() => openModal(ModalType.ARMY, player)}
+                onClick={() => openModal(FormModalType.ARMY, player)}
                 role="button"
                 tabIndex={0}
             >

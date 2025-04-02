@@ -1,17 +1,17 @@
 import { Player } from '@/types';
-import { ModalType } from './ModalTypes';
-import { ModalContext } from './ModalContext';
+import { FormModalType } from './FormModalType';
+import { FormModalContext } from './FormModalContext';
 import React, { useState, useCallback } from 'react';
 
-interface ModalProviderProps {
+interface FormModalProviderProps {
     children: React.ReactNode;
 }
 
-export const ModalProvider = ({ children }: ModalProviderProps) => {
-    const [activeModal, setActiveModal] = useState<ModalType | null>(null);
+export const FormModalProvider = ({ children }: FormModalProviderProps) => {
+    const [activeModal, setActiveModal] = useState<FormModalType | null>(null);
     const [player, setPlayer] = useState<Player | null>(null);
 
-    const openModal = useCallback((type: ModalType, player: Player) => {
+    const openModal = useCallback((type: FormModalType, player: Player) => {
         setActiveModal(type);
         setPlayer(player);
     }, []);
@@ -22,13 +22,13 @@ export const ModalProvider = ({ children }: ModalProviderProps) => {
     }, []);
 
     return (
-        <ModalContext.Provider value={{
+        <FormModalContext.Provider value={{
             openModal, 
             closeModal, 
             activeModal, 
             player 
         }}>
             {children}
-        </ModalContext.Provider>
+        </FormModalContext.Provider>
     );
 };

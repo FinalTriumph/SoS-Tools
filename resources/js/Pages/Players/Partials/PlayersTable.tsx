@@ -1,7 +1,7 @@
 import { Player } from '@/types';
 import { RefObject } from 'react';
-import { ModalProvider } from '../Utils/ModalProvider';
-import ModalManager from './Modals/ModalManager';
+import { FormModalProvider } from '../Utils/FormModalProvider';
+import FormModalManager from './FormModalManager';
 import PlayerRow from './PlayerRow';
 
 export default function PlayersTable({
@@ -15,7 +15,7 @@ export default function PlayersTable({
 }) {
     return (
         <div className="overflow-x-auto mt-6">
-            <ModalProvider>
+            <FormModalProvider>
                 <table ref={tableRef} className="w-full table-auto">
                     <thead className="bg-gray-100">
                         <tr>
@@ -48,8 +48,9 @@ export default function PlayersTable({
                         ))}
                     </tbody>
                 </table>
-                <ModalManager />
-            </ModalProvider>
+
+                <FormModalManager />
+            </FormModalProvider>
         </div>
     );
 }

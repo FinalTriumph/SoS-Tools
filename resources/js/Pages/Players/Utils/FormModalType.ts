@@ -1,4 +1,4 @@
-export enum ModalType {
+export enum FormModalType {
     PLAYER = 'player',
     MK1 = 'mk1',
     MK2 = 'mk2',
