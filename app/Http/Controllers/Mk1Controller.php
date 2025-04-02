@@ -26,7 +26,13 @@ class Mk1Controller extends Controller
      */
     public function update(Mk1UpdateRequest $request, Mk1 $mk1): RedirectResponse
     {
-        $mk1->update($request->validated());
+        $mk1->fill($request->validated());
+
+        if ($mk1->isDirty()) {
+            $mk1->save();
+        } else {
+            $mk1->touch();
+        }
 
         return back();
     }

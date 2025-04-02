@@ -26,7 +26,13 @@ class ArmyController extends Controller
      */
     public function update(ArmyUpdateRequest $request, Army $army): RedirectResponse
     {
-        $army->update($request->validated());
+        $army->fill($request->validated());
+
+        if ($army->isDirty()) {
+            $army->save();
+        } else {
+            $army->touch();
+        }
 
         return back();
     }

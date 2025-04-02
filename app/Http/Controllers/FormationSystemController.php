@@ -26,7 +26,13 @@ class FormationSystemController extends Controller
      */
     public function update(FormationSystemUpdateRequest $request, FormationSystem $formationSystem): RedirectResponse
     {
-        $formationSystem->update($request->validated());
+        $formationSystem->fill($request->validated());
+
+        if ($formationSystem->isDirty()) {
+            $formationSystem->save();
+        } else {
+            $formationSystem->touch();
+        }
 
         return back();
     }
