@@ -7,6 +7,7 @@ import { FormationSystem } from '@/types';
 import { Transition } from '@headlessui/react';
 import { useForm } from '@inertiajs/react';
 import { FormEventHandler, useState } from 'react';
+import UpdatedAt from './UpdatedAt';
 
 interface FormData {
     player_id: number;
@@ -19,13 +20,17 @@ interface FormData {
     [key: string]: any;
 }
 
+interface FormationSystemInformationFormProps {
+    playerId: number,
+    formationSystem: FormationSystem | null,
+    onSuccess?: () => void;
+}
+
 export default function FormationSystemInformationForm({
     playerId,
     formationSystem,
-}: {
-    playerId: number,
-    formationSystem: FormationSystem | null,
-}) {
+    onSuccess,
+}: FormationSystemInformationFormProps) {
     const [showMainSkills, setShowMainSkills] = useState(false);
 
     const {
@@ -49,10 +54,17 @@ export default function FormationSystemInformationForm({
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
 
+        const options = {
+            preserveScroll: true,
+            onSuccess: () => {
+                if (onSuccess) onSuccess();
+            },
+        };
+
         if (formationSystem) {
-            patch(route('formation-system.update', formationSystem.id), { preserveScroll: true });
+            patch(route('formation-system.update', formationSystem.id), options);
         } else {
-            post(route('formation-system.store'), { preserveScroll: true });
+            post(route('formation-system.store'), options);
         }
     };
 
@@ -75,9 +87,15 @@ export default function FormationSystemInformationForm({
                     Formation System
                 </h2>
 
-                <p className="mt-1 text-sm text-gray-600">
-                    Update Formation System information.
-                </p>
+                <div className="flex items-center justify-between mt-1 text-sm text-gray-600">
+                    <p>
+                        Update Formation System information.
+                    </p>
+
+                    {formationSystem && (
+                        <UpdatedAt date={formationSystem.updated_at} />
+                    )}
+                </div>
             </header>
 
             <form onSubmit={submit} className="mt-6 space-y-6">

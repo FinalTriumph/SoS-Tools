@@ -6,6 +6,7 @@ import { Army } from '@/types';
 import { Transition } from '@headlessui/react';
 import { useForm } from '@inertiajs/react';
 import { FormEventHandler } from 'react';
+import UpdatedAt from './UpdatedAt';
 
 interface FormData {
     player_id: number;
@@ -17,13 +18,17 @@ interface FormData {
     [key: string]: any;
 }
 
+interface ArmyInformationFormProps {
+    playerId: number,
+    army: Army | null,
+    onSuccess?: () => void;
+}
+
 export default function ArmyInformationForm({
     playerId,
     army,
-}: {
-    playerId: number,
-    army: Army | null,
-}) {
+    onSuccess,
+}: ArmyInformationFormProps) {
     const {
         data,
         setData,
@@ -44,10 +49,17 @@ export default function ArmyInformationForm({
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
 
+        const options = {
+            preserveScroll: true,
+            onSuccess: () => {
+                if (onSuccess) onSuccess();
+            },
+        };
+
         if (army) {
-            patch(route('army.update', army.id), { preserveScroll: true });
+            patch(route('army.update', army.id), options);
         } else {
-            post(route('army.store'), { preserveScroll: true });
+            post(route('army.store'), options);
         }
     };
 
@@ -66,9 +78,15 @@ export default function ArmyInformationForm({
                     Troops
                 </h2>
 
-                <p className="mt-1 text-sm text-gray-600">
-                    Update troops information.
-                </p>
+                <div className="flex items-center justify-between mt-1 text-sm text-gray-600">
+                    <p>
+                        Update troops information.
+                    </p>
+
+                    {army && (
+                        <UpdatedAt date={army.updated_at} />
+                    )}
+                </div>
             </header>
 
             <form onSubmit={submit} className="mt-6 space-y-6">

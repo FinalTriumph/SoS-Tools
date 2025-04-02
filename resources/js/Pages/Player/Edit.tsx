@@ -20,34 +20,34 @@ export default function Edit({ player }: { player: Player }) {
 
             <div className="py-12">
                 <div className="grid grid-cols-1 gap-6 mx-auto max-w-7xl sm:grid-cols-2 sm:px-6 lg:px-8">
-                    <div className="bg-white p-4 shadow sm:rounded-lg sm:p-8">
+                    <div className="bg-white py-6 px-4 shadow sm:rounded-lg sm:p-8">
                         <PlayerInformationForm
                             player={player}
                         />
                     </div>
 
-                    <div className="bg-white p-4 shadow sm:rounded-lg sm:p-8">
+                    <div className="bg-white py-6 px-4 shadow sm:rounded-lg sm:p-8">
                         <ArmyInformationForm
                             playerId={player.id}
                             army={player.army}
                         />
                     </div>
 
-                    <div className="bg-white p-4 shadow sm:rounded-lg sm:p-8">
+                    <div className="bg-white py-6 px-4 shadow sm:rounded-lg sm:p-8">
                         <Mk1InformationForm
                             playerId={player.id}
                             mk1={player.mk1}
                         />
                     </div>
 
-                    <div className="bg-white p-4 shadow sm:rounded-lg sm:p-8">
+                    <div className="bg-white py-6 px-4 shadow sm:rounded-lg sm:p-8">
                         <Mk2InformationForm
                             playerId={player.id}
                             mk2={player.mk2}
                         />
                     </div>
 
-                    <div className="bg-white p-4 shadow sm:rounded-lg sm:p-8">
+                    <div className="bg-white py-6 px-4 shadow sm:rounded-lg sm:p-8">
                         <FormationSystemInformationForm
                             playerId={player.id}
                             formationSystem={player.formation_system}

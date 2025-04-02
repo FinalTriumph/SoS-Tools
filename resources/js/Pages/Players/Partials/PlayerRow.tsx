@@ -1,5 +1,5 @@
 import { Player } from '@/types';
-import { Link } from '@inertiajs/react';
+import { router } from '@inertiajs/react';
 import { FormModalType } from '../Utils/FormModalType';
 import { useFormModalContext } from '../Utils/FormModalContext';
 import MkGrid from './MkGrid';
@@ -26,15 +26,22 @@ export default function PlayerRow({ player, rank, showWhenUpdated }: PlayerRowPr
         <tr className={rowThemes[rank % 2]}>
             <td>{rank}</td>
 
-            <td>{player.alliance || ''}</td>
+            <td
+                className="cell-clickable"
+                onClick={() => openModal(FormModalType.PLAYER, player)}
+                role="button"
+                tabIndex={0}
+            >
+                {player.alliance || ''}
+            </td>
 
-            <td className="cell-highlighted text-left">
-                <Link
-                    href={route('player.edit', player.id)}
-                    className="hover:text-slate-600"
-                >
-                    {player.username}
-                </Link>
+            <td
+                className="text-left cell-highlighted cell-clickable"
+                onClick={() => router.visit(route('player.edit', player.id))}
+                role="button"
+                tabIndex={0}
+            >
+                {player.username}
             </td>
 
             <td
@@ -149,10 +156,13 @@ export default function PlayerRow({ player, rank, showWhenUpdated }: PlayerRowPr
                 )}
             </td>
 
-            <td className="cell-highlighted text-left">
-                <Link href={route('player.edit', player.id)} className="hover:text-gray-500">
-                    {player.username}
-                </Link>
+            <td
+                className="text-left cell-highlighted cell-clickable"
+                onClick={() => router.visit(route('player.edit', player.id))}
+                role="button"
+                tabIndex={0}
+            >
+                {player.username}
             </td>
 
             <td>{rank}</td>

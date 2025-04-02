@@ -8,6 +8,7 @@ import { Mk1 } from '@/types';
 import { Transition } from '@headlessui/react';
 import { useForm } from '@inertiajs/react';
 import { FormEventHandler, useState } from 'react';
+import UpdatedAt from './UpdatedAt';
 
 interface FormData {
     player_id: number;
@@ -23,13 +24,17 @@ interface FormData {
     [key: string]: any;
 }
 
+interface Mk1InformationFormProps {
+    playerId: number,
+    mk1: Mk1 | null,
+    onSuccess?: () => void;
+}
+
 export default function Mk1InformationForm({
     playerId,
     mk1,
-}: {
-    playerId: number,
-    mk1: Mk1 | null,
-}) {
+    onSuccess,
+}: Mk1InformationFormProps) {
     const [showMainSkills, setShowMainSkills] = useState(false);
 
     const {
@@ -56,10 +61,17 @@ export default function Mk1InformationForm({
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
 
+        const options = {
+            preserveScroll: true,
+            onSuccess: () => {
+                if (onSuccess) onSuccess();
+            },
+        };
+
         if (mk1) {
-            patch(route('mk1.update', mk1.id), { preserveScroll: true });
+            patch(route('mk1.update', mk1.id), options);
         } else {
-            post(route('mk1.store'), { preserveScroll: true });
+            post(route('mk1.store'), options);
         }
     };
 
@@ -82,9 +94,15 @@ export default function Mk1InformationForm({
                     Behemoth MK1
                 </h2>
 
-                <p className="mt-1 text-sm text-gray-600">
-                    Update Behemoth MK1 information.
-                </p>
+                <div className="flex items-center justify-between mt-1 text-sm text-gray-600">
+                    <p>
+                        Update Behemoth MK1 information.
+                    </p>
+
+                    {mk1 && (
+                        <UpdatedAt date={mk1.updated_at} />
+                    )}
+                </div>
             </header>
 
             <form onSubmit={submit} className="mt-6 space-y-6">

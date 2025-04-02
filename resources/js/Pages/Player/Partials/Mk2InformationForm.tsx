@@ -8,6 +8,7 @@ import { Mk2 } from '@/types';
 import { Transition } from '@headlessui/react';
 import { useForm } from '@inertiajs/react';
 import { FormEventHandler, useState } from 'react';
+import UpdatedAt from './UpdatedAt';
 
 interface FormData {
     player_id: number;
@@ -23,13 +24,17 @@ interface FormData {
     [key: string]: any;
 }
 
+interface Mk2InformationFormProps {
+    playerId: number,
+    mk2: Mk2 | null,
+    onSuccess?: () => void;
+}
+
 export default function Mk2InformationForm({
     playerId,
     mk2,
-}: {
-    playerId: number,
-    mk2: Mk2 | null,
-}) {
+    onSuccess,
+}: Mk2InformationFormProps) {
     const [showMainSkills, setShowMainSkills] = useState(false);
 
      const {
@@ -56,10 +61,17 @@ export default function Mk2InformationForm({
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
 
+        const options = {
+            preserveScroll: true,
+            onSuccess: () => {
+                if (onSuccess) onSuccess();
+            },
+        };
+
         if (mk2) {
-            patch(route('mk2.update', mk2.id), { preserveScroll: true });
+            patch(route('mk2.update', mk2.id), options);
         } else {
-            post(route('mk2.store'), { preserveScroll: true });
+            post(route('mk2.store'), options);
         }
     };
 
@@ -82,9 +94,15 @@ export default function Mk2InformationForm({
                     Behemoth MK2
                 </h2>
 
-                <p className="mt-1 text-sm text-gray-600">
-                    Update Behemoth MK2 information.
-                </p>
+                <div className="flex items-center justify-between mt-1 text-sm text-gray-600">
+                    <p>
+                        Update Behemoth MK2 information.
+                    </p>
+
+                    {mk2 && (
+                        <UpdatedAt date={mk2.updated_at} />
+                    )}
+                </div>
             </header>
 
             <form onSubmit={submit} className="mt-6 space-y-6">

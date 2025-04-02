@@ -7,6 +7,7 @@ import { Player } from '@/types';
 import { Transition } from '@headlessui/react';
 import { useForm } from '@inertiajs/react';
 import { FormEventHandler } from 'react';
+import UpdatedAt from './UpdatedAt';
 
 interface FormData {
     username: string;
@@ -17,11 +18,15 @@ interface FormData {
     [key: string]: any;
 }
 
+interface PlayerInformationFormProps {
+    player?: Player;
+    onSuccess?: () => void;
+}
+
 export default function PlayerInformationForm({
     player,
-}: {
-    player?: Player,
-}) {
+    onSuccess,
+}: PlayerInformationFormProps) {
     const {
         data,
         setData,
@@ -43,10 +48,17 @@ export default function PlayerInformationForm({
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
 
+        const options = {
+            preserveScroll: true,
+            onSuccess: () => {
+                if (onSuccess) onSuccess();
+            },
+        };
+
         if (player) {
-            patch(route('player.update', player.id));
+            patch(route('player.update', player.id), options);
         } else {
-            post(route('player.store'));
+            post(route('player.store'), options);
         }
     };
 
@@ -54,6 +66,9 @@ export default function PlayerInformationForm({
         if (confirm(`Are you sure you want to delete ${username}?`)) {
             destroy(route('player.destroy', id), {
                 onError: () => console.error('Error deleting player'),
+                onSuccess: () => {
+                    if (onSuccess) onSuccess();
+                },
             });
         }
     };
@@ -73,9 +88,15 @@ export default function PlayerInformationForm({
                     Player
                 </h2>
 
-                <p className="mt-1 text-sm text-gray-600">
-                    {player ? 'Update player information' : 'Add player information'}
-                </p>
+                <div className="flex items-center justify-between mt-1 text-sm text-gray-600">
+                    <p>
+                        {player ? 'Update player information' : 'Add player information'}
+                    </p>
+
+                    {player && (
+                        <UpdatedAt date={player.updated_at} />
+                    )}
+                </div>
             </header>
 
             <form onSubmit={submit} className="mt-6 space-y-6">

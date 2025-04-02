@@ -22,30 +22,35 @@ export default function FormModal({
         [FormModalType.PLAYER]: (
             <PlayerInformationForm
                 player={player}
+                onSuccess={closeModal}
             />
         ),
         [FormModalType.MK1]: (
             <Mk1InformationForm
                 playerId={player.id}
                 mk1={player.mk1}
+                onSuccess={closeModal}
             />
         ),
         [FormModalType.MK2]: (
             <Mk2InformationForm
                 playerId={player.id}
                 mk2={player.mk2}
+                onSuccess={closeModal}
             />
         ),
         [FormModalType.FORMATION_SYSTEM]: (
             <FormationSystemInformationForm
                 playerId={player.id}
                 formationSystem={player.formation_system}
+                onSuccess={closeModal}
             />
         ),
         [FormModalType.ARMY]: (
             <ArmyInformationForm
                 playerId={player.id}
                 army={player.army}
+                onSuccess={closeModal}
             />
         ),
     }[modalType];
