@@ -29,6 +29,7 @@ class TempestArmController extends Controller
 
         return Inertia::render('TempestArms/Index', [
             'tempestArms' => $tempestArms,
+            'players' => Auth::user()->players()->select('id', 'username')->get(),
         ]);
     }
 

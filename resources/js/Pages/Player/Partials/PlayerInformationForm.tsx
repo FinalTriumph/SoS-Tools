@@ -41,7 +41,7 @@ export default function PlayerInformationForm({
         behemoths_bp: player?.behemoths_bp ?? null,
         squadron_bp: player?.squadron_bp ?? null,
         fa1_stars: player?.fa1_stars ?? null,
-     });
+    });
 
     const { delete: destroy } = useForm();
 

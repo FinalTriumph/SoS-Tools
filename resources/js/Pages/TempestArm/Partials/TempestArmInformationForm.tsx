@@ -1,4 +1,5 @@
 import PrimaryButton from '@/Components/PrimaryButton';
+import SecondaryButton from '@/Components/SecondaryButton';
 import {
     TempestArm,
     TempestArmGeneral,
@@ -23,13 +24,15 @@ interface FormData {
     [key: string]: any;
 }
 
+interface TempestArmInformationFormProps {
+    tempestArm?: TempestArm | null;
+    players: { id: number; username: string }[];
+}
+
 export default function TempestArmInformationForm({
     tempestArm,
     players,
-}: {
-    tempestArm?: TempestArm | null;
-    players: { id: number; username: string }[];
-}) {
+}: TempestArmInformationFormProps) {
     const {
         data,
         setData,
@@ -52,6 +55,8 @@ export default function TempestArmInformationForm({
         skill: tempestArm?.skill ?? { name: null, level: null, quality: null },
     });
 
+    const { delete: destroy } = useForm();
+
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
 
@@ -59,6 +64,14 @@ export default function TempestArmInformationForm({
             patch(route('tempest-arm.update', tempestArm.id), { preserveScroll: true });
         } else {
             post(route('tempest-arm.store'), { preserveScroll: true });
+        }
+    };
+
+    const handleDelete = (id: number) => {
+        if (confirm(`Are you sure you want to delete this tempest arm?`)) {
+            destroy(route('tempest-arm.destroy', id), {
+                onError: () => console.error('Error deleting tempest arm'),
+            });
         }
     };
 
@@ -112,6 +125,15 @@ export default function TempestArmInformationForm({
                             Saved.
                         </p>
                     </Transition>
+
+                    {tempestArm && (
+                        <SecondaryButton
+                            className="ml-auto"
+                            onClick={() => handleDelete(tempestArm.id)}
+                        >
+                            Delete Tempest Arm
+                        </SecondaryButton>
+                    )}
                 </div>
             </form>
         </section>
