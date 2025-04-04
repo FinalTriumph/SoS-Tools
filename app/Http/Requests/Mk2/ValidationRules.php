@@ -1,35 +1,22 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Mk2;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\Shared\BaseValidationRules;
+
 use Illuminate\Validation\Rule;
 
-class Mk1StoreRequest extends FormRequest
+trait ValidationRules
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return true;
-    }
+    use BaseValidationRules;
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-     */
-    public function rules(): array
+    public function getValidationRules(): array
     {
         return [
             'player_id' => [
                 'required',
                 'integer',
                 'exists:players,id',
-                Rule::unique('mk1s', 'player_id'),
             ],
             'level' => [
                 'nullable',
@@ -58,43 +45,32 @@ class Mk1StoreRequest extends FormRequest
                 'nullable',
                 'integer',
                 'min:1',
-                'max:30',
+                'max:20',
             ],
             'skill_2' => [
                 'nullable',
                 'integer',
                 'min:1',
-                'max:30',
+                'max:20',
             ],
             'skill_3' => [
                 'nullable',
                 'integer',
                 'min:1',
-                'max:30',
+                'max:20',
             ],
             'skill_4' => [
                 'nullable',
                 'integer',
                 'min:1',
-                'max:30',
+                'max:20',
             ],
             'skill_5' => [
                 'nullable',
                 'integer',
                 'min:1',
-                'max:30',
+                'max:20',
             ],
-        ];
-    }
-
-    /**
-     * Define custom validation messages.
-     */
-    public function messages()
-    {
-        return [
-            'player_id.exists' => 'The player does not exist.',
-            'player_id.unique' => 'Player already has an Mk1.',
         ];
     }
 }

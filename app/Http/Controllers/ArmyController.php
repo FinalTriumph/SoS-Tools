@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ArmyStoreRequest;
-use App\Http\Requests\ArmyUpdateRequest;
+use App\Http\Requests\Army\StoreRequest;
+use App\Http\Requests\Army\UpdateRequest;
 use App\Models\Army;
 
 use Illuminate\Http\Request;
@@ -14,7 +14,7 @@ class ArmyController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(ArmyStoreRequest $request): RedirectResponse
+    public function store(StoreRequest $request): RedirectResponse
     {
         Army::create($request->validated());
 
@@ -24,7 +24,7 @@ class ArmyController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(ArmyUpdateRequest $request, Army $army): RedirectResponse
+    public function update(UpdateRequest $request, Army $army): RedirectResponse
     {
         $army->fill($request->validated());
 

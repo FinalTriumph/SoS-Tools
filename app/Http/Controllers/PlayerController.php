@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\PlayerStoreRequest;
-use App\Http\Requests\PlayerUpdateRequest;
+use App\Http\Requests\Player\StoreRequest;
+use App\Http\Requests\Player\UpdateRequest;
 use App\Models\Player;
 use App\Utilities\PlayerQueryBuilder;
 
@@ -62,7 +62,7 @@ class PlayerController extends Controller
     /**
      * Store a newly created player in storage.
      */
-    public function store(PlayerStoreRequest $request): RedirectResponse
+    public function store(StoreRequest $request): RedirectResponse
     {
         $player = auth()->user()->players()->create($request->validated());
 
@@ -96,7 +96,7 @@ class PlayerController extends Controller
     /**
      * Update the specified player in storage.
      */
-    public function update(PlayerUpdateRequest $request, Player $player): RedirectResponse
+    public function update(UpdateRequest $request, Player $player): RedirectResponse
     {
         if (auth()->user()->cannot('modify', $player)) {
             abort(403);

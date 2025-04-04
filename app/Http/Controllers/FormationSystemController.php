@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\FormationSystemStoreRequest;
-use App\Http\Requests\FormationSystemUpdateRequest;
+use App\Http\Requests\FormationSystem\StoreRequest;
+use App\Http\Requests\FormationSystem\UpdateRequest;
 use App\Models\FormationSystem;
 
 use Illuminate\Http\Request;
@@ -14,7 +14,7 @@ class FormationSystemController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(FormationSystemStoreRequest $request): RedirectResponse
+    public function store(StoreRequest $request): RedirectResponse
     {
         FormationSystem::create($request->validated());
 
@@ -24,7 +24,7 @@ class FormationSystemController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(FormationSystemUpdateRequest $request, FormationSystem $formationSystem): RedirectResponse
+    public function update(UpdateRequest $request, FormationSystem $formationSystem): RedirectResponse
     {
         $formationSystem->fill($request->validated());
 

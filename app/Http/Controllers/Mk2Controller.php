@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Mk2StoreRequest;
-use App\Http\Requests\Mk2UpdateRequest;
+use App\Http\Requests\Mk2\StoreRequest;
+use App\Http\Requests\Mk2\UpdateRequest;
 use App\Models\Mk2;
 
 use Illuminate\Http\Request;
@@ -14,7 +14,7 @@ class Mk2Controller extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Mk2StoreRequest $request): RedirectResponse
+    public function store(StoreRequest $request): RedirectResponse
     {
         Mk2::create($request->validated());
 
@@ -24,7 +24,7 @@ class Mk2Controller extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Mk2UpdateRequest $request, Mk2 $mk2): RedirectResponse
+    public function update(UpdateRequest $request, Mk2 $mk2): RedirectResponse
     {
         $mk2->fill($request->validated());
 

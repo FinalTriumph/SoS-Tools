@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\TempestArmStoreRequest;
-use App\Http\Requests\TempestArmUpdateRequest;
+use App\Http\Requests\TempestArm\StoreRequest;
+use App\Http\Requests\TempestArm\UpdateRequest;
 use App\Models\TempestArm;
 
 use Illuminate\Http\RedirectResponse;
@@ -46,7 +46,7 @@ class TempestArmController extends Controller
     /**
      * Store a newly created tempest arm in storage.
      */
-    public function store(TempestArmStoreRequest $request): RedirectResponse
+    public function store(StoreRequest $request): RedirectResponse
     {
         $tempestArm = TempestArm::create($request->validated());
 
@@ -71,7 +71,7 @@ class TempestArmController extends Controller
     /**
      * Update the specified tempest arm in storage.
      */
-    public function update(TempestArmUpdateRequest $request, TempestArm $tempestArm): RedirectResponse
+    public function update(UpdateRequest $request, TempestArm $tempestArm): RedirectResponse
     {
         if (auth()->user()->cannot('modify', $tempestArm)) {
             abort(403);
