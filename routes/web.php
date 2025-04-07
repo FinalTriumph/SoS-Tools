@@ -32,7 +32,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('/army', ArmyController::class)->only(['store', 'update']);
 
     Route::middleware('tempest-arms-enabled')->group(function () {
-        Route::get('/tempest-arms', [TempestArmController::class, 'index'])->name('tempest-arms.index');
+        Route::get('/tempest-arms/{player_id?}', [TempestArmController::class, 'index'])->name('tempest-arms.index');
         Route::resource('/tempest-arm', TempestArmController::class)->except(['index', 'show']);
     });
 });

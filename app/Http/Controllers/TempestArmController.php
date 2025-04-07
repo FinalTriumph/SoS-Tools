@@ -19,17 +19,23 @@ class TempestArmController extends Controller
     /**
      * Display a listing of the tempest arms.
      */
-    public function index(): Response
+    public function index(Request $request): Response|RedirectResponse
     {
-        $tempestArms = TempestArm::whereHas('player', function ($query) {
-            $query->whereBelongsTo(auth()->user());
-        })->get();
+        $players = Auth::user()->players()
+            ->whereHas('tempestArms')
+            ->select('id', 'username')
+            ->get();
+        $playerIds = $players->pluck('id')->toArray();
 
-        // $tempestArms = TempestArm::all();
+        $playerId = $request->route('player_id') ?? null;
+        if ($playerId && !in_array($playerId, $playerIds)) {
+            return Redirect::route('tempest-arms.index');
+        }
 
         return Inertia::render('TempestArms/Index', [
-            'tempestArms' => $tempestArms,
-            'players' => Auth::user()->players()->select('id', 'username')->get(),
+            'tempestArms' => TempestArm::whereIn('player_id', $playerId ? [$playerId] : $playerIds)->get(),
+            'players' => $players,
+            'selectedPlayerId' => $playerId,
         ]);
     }
 
