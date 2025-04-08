@@ -50,7 +50,7 @@ export default function TempestArmItem({
             tabIndex={0}
         >
             <div className="flex justify-between items-center font-bold">
-                <div>{ucfirst(tempestArm.troop_type)} {ucfirst(tempestArm.type)}</div>
+                <div>{ucfirst(tempestArm.type)}</div>
                 <div className="inline-block p-2 bg-orange-200 rounded-lg">{ucfirst(tempestArm.generation)}</div>
             </div>
 

@@ -5,7 +5,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { TempestArm } from '@/types';
 import { Head, router } from '@inertiajs/react';
 import { useState } from 'react';
-import TempestArmItem from './Partials/TempestArmItem';
+import TempestArmsGrid from './Partials/TempestArmsGrid';
 
 interface IndexProps {
     tempestArms: TempestArm[],
@@ -73,19 +73,10 @@ export default function Index({
                             </div>
 
                             {(tempestArms.length > 0) && (
-                                <div>
-                                    <hr className="my-6"/>
-
-                                    <div className="grid grid-cols-4 gap-4">
-                                        {tempestArms.map((tempestArm, index) => (
-                                            <TempestArmItem
-                                                key={index}
-                                                tempestArm={tempestArm}
-                                                playerUsername={tempestArm.player_id ? playersById[tempestArm.player_id] : '-'}
-                                            />
-                                        ))}
-                                    </div>
-                                </div>
+                                <TempestArmsGrid
+                                    tempestArms={tempestArms}
+                                    playersById={playersById}
+                                />
                             )}
                         </div>
                     </div>
