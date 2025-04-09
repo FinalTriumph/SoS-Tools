@@ -5,6 +5,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { TempestArm } from '@/types';
 import { Head, router } from '@inertiajs/react';
 import { useState } from 'react';
+import { PlayersProvider } from './Utils/PlayersProvider';
 import TempestArmsGrid from './Partials/TempestArmsGrid';
 
 interface IndexProps {
@@ -30,8 +31,6 @@ export default function Index({
         setSelectedPlayer(playerId);
         router.visit(route('tempest-arms.index', playerId ?? undefined), { preserveScroll: true });
     };
-
-    const playersById = Object.fromEntries(players.map((player) => [player.id, player.username]));
 
     return (
         <AuthenticatedLayout
@@ -73,10 +72,11 @@ export default function Index({
                             </div>
 
                             {(tempestArms.length > 0) && (
-                                <TempestArmsGrid
-                                    tempestArms={tempestArms}
-                                    playersById={playersById}
-                                />
+                                <PlayersProvider players={players}>
+                                    <TempestArmsGrid
+                                        tempestArms={tempestArms}
+                                    />
+                                </PlayersProvider>
                             )}
                         </div>
                     </div>
