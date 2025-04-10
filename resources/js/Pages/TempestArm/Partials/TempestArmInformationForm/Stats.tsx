@@ -34,8 +34,6 @@ export default function Stats({
 
     return (
         <div className="space-y-6">
-            <InputLabel value="Stats" />
-
             {stats.map((stat, index) => (
                 <div key={index} className="flex gap-2">
                     <div>

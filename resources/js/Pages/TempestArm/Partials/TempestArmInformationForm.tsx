@@ -76,7 +76,7 @@ export default function TempestArmInformationForm({
     };
 
     return (
-        <section className="max-w-xl">
+        <section>
             <header>
                 <h2 className="text-lg font-medium text-gray-900">
                     Tempest Arm
@@ -88,20 +88,22 @@ export default function TempestArmInformationForm({
             </header>
 
             <form onSubmit={submit} className="mt-6 space-y-6">
-                <General
-                    players={players}
-                    data={data as TempestArmGeneral}
-                    setDataField={(field: keyof TempestArmGeneral, value: string | number) => setData(field, value)}
-                    getError={(field: keyof TempestArmGeneral) => errors[field]}
-                />
+                <div className="flex flex-col justify-between lg:flex-row lg:gap-8">
+                    <General
+                        players={players}
+                        data={data as TempestArmGeneral}
+                        setDataField={(field: keyof TempestArmGeneral, value: string | number) => setData(field, value)}
+                        getError={(field: keyof TempestArmGeneral) => errors[field]}
+                    />
 
-                <hr className="my-6" />
+                    <hr className="my-6 lg:hidden" />
 
-                <Stats
-                    stats={data.stats}
-                    setStats={(stats: TempestArmStats) => setData('stats', stats)}
-                    getError={(index: number, field: keyof TempestArmStat) => errors[`stats.${index}.${field}`]}
-                />
+                    <Stats
+                        stats={data.stats}
+                        setStats={(stats: TempestArmStats) => setData('stats', stats)}
+                        getError={(index: number, field: keyof TempestArmStat) => errors[`stats.${index}.${field}`]}
+                    />
+                </div>
 
                 <hr className="my-6" />
 

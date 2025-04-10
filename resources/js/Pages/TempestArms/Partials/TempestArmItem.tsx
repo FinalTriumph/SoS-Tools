@@ -20,7 +20,7 @@ export default function TempestArmItem({
 
     return (
         <div
-            className="p-4 bg-orange-100 text-sm"
+            className="p-4 bg-slate-100 text-sm"
             onClick={() => handleTempestArmClick()}
             role="button"
             tabIndex={0}

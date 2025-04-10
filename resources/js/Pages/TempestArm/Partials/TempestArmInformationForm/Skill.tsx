@@ -26,11 +26,9 @@ export default function Skill({
 
     return (
         <div className="space-y-6">
-            <InputLabel value="Skill" />
-
             <div className="flex gap-4">
                 <div>
-                    <InputLabel htmlFor="skill-name" value="Name" />
+                    <InputLabel htmlFor="skill-name" value="Skill Name" />
 
                     <TextInput
                         id="skill-name"

@@ -15,7 +15,7 @@ export default function General({
     getError: (field: keyof TempestArmGeneral) => string | undefined;
 }) {
     return(
-        <div className="space-y-6">
+        <div className="flex-grow space-y-6">
             <div>
                 <InputLabel htmlFor="player_id" value="Player" />
 
