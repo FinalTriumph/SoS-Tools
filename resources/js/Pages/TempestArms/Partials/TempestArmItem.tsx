@@ -1,5 +1,4 @@
 import { TempestArm } from '@/types';
-import { router } from '@inertiajs/react';
 import { ucfirst } from '../../../Utils/stringUtils';
 import { usePlayersContext } from '../Utils/PlayersContext';
 import TempestArmItemStats from './TempestArmItemStats';
@@ -14,16 +13,9 @@ export default function TempestArmItem({
 }: TempestArmItemProps) {
     const { playersById } = usePlayersContext();
 
-    const handleTempestArmClick = (): void => {
-        router.visit(route('tempest-arm.edit', tempestArm.id));
-    };
-
     return (
         <div
             className="p-4 bg-slate-100 text-sm"
-            onClick={() => handleTempestArmClick()}
-            role="button"
-            tabIndex={0}
         >
             <div className="flex justify-between items-center font-bold">
                 <div>{ucfirst(tempestArm.type)}</div>
