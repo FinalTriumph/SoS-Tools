@@ -1,4 +1,4 @@
-import SecondaryButton from '@/Components/SecondaryButton';
+import PrimaryButton from '@/Components/PrimaryButton';
 import { TempestArm } from '@/types';
 import { router } from '@inertiajs/react';
 import { useState } from 'react';
@@ -48,9 +48,9 @@ export default function TempestArmsGrid({
                         <h3 className="font-bold">{ucfirst(troopType)}</h3>
 
                         {groupedTempestArms[troopType] && (
-                            <SecondaryButton onClick={() => toggleComparisonGrid(troopType)}>
+                            <PrimaryButton onClick={() => toggleComparisonGrid(troopType)}>
                                 {comparisonGridStates[troopType] ? 'Close Comparison' : 'Open Comparison'}
-                            </SecondaryButton>
+                            </PrimaryButton>
                         )}
                     </div>
 

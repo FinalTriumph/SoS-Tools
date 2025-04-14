@@ -1,9 +1,11 @@
+import SecondaryButton from '@/Components/SecondaryButton';
 import Modal from '@/Components/Modal';
 import { useState } from 'react';
 import { TempestArm } from '@/types';
 import { ucfirst } from '../../../Utils/stringUtils';
 import { Type } from '../Utils/TempestArmTypes';
 import TempestArmItem from './TempestArmItem';
+import ComparisonTotalStats from './ComparisonTotalStats';
 
 interface ComparisonGridProps {
     tempestArmsByType: { [key in Type]?: TempestArm[] };
@@ -116,28 +118,24 @@ export default function ComparisonGrid({
                     >
                         {getSlotContent(index, Type.ATTACK)}
                         {getSlotContent(index, Type.DEFENSE)}
-                        {row.totalStats && (
-                            <div className="flex flex-col justify-center">
-                                <h4>Total Stats:</h4>
-                                <ul>
-                                    {Object.keys(row.totalStats).map((key, index) => (
-                                        <li key={index}>
-                                            {key.replace('_', ' ')}: {row.totalStats[key].is_percentage ? `${row.totalStats[key].value}%` : row.totalStats[key].value}
-                                        </li>
-                                    ))}
-                                </ul>
+
+                        <ComparisonTotalStats stats={row.totalStats} />
+
+                        {index > 0 && (
+                            <div className="flex items-center justify-center">
+                                <SecondaryButton onClick={() => removeRow(index)}>
+                                    Remove Row
+                                </SecondaryButton>
                             </div>
                         )}
-                        <div className="flex justify-center">
-                            {index > 0 && (
-                                <button onClick={() => removeRow(index)}>Remove Row</button>
-                            )}
-                        </div>
+
                     </div>
                 ))}
             </div>
 
-            <button onClick={addRow}>Add Row</button>
+            <SecondaryButton onClick={addRow}>
+                Add Row
+            </SecondaryButton>
 
             <hr className="my-6"/>
 
