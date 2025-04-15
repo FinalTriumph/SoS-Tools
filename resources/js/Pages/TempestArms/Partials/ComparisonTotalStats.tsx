@@ -20,7 +20,7 @@ export default function ComparisonTotalStats({
                         className={`flex justify-between mt-1 py-1 px-3 bg-${getTailwindColorName('grey')}`}
                     >
                         <div>{key.replace('_', ' ')}</div>
-                        <div>{stats[key].value}{stats[key].is_percentage ? '%' : ''}</div>
+                        <div>{stats[key].value.toFixed(2)}{stats[key].is_percentage ? '%' : ''}</div>
                     </div>
                 ))}
             </div>

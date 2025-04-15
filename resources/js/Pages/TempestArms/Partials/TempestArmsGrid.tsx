@@ -38,10 +38,7 @@ export default function TempestArmsGrid({
     return (
         <>
             {Object.values(TroopType).map((troopType) => (
-                <div
-                    key={troopType}
-                    className="space-y-6"
-                >
+                <div key={troopType}>
                     <hr className="my-6"/>
 
                     <div className="flex items-center justify-between">
@@ -54,31 +51,34 @@ export default function TempestArmsGrid({
                         )}
                     </div>
 
-                    {comparisonGridStates[troopType] && (
-                        <ComparisonGrid
-                            tempestArmsByType={groupedTempestArms[troopType] ?? null}
-                        />
-                    )}
+                    <ComparisonGrid
+                        show={comparisonGridStates[troopType]}
+                        tempestArmsByType={groupedTempestArms[troopType]}
+                    />
 
-                    {Object.values(Type).map((type) => (
-                        <div
-                            key={type}
-                            className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4"
-                        >
-                            {(groupedTempestArms[troopType]?.[type] ?? []).map((tempestArm) => (
-                                <div
-                                    key={tempestArm.id}
-                                    onClick={() => handleTempestArmClick(tempestArm.id)}
-                                    role="button"
-                                    tabIndex={0}
-                                >
-                                    <TempestArmItem
-                                        tempestArm={tempestArm}
-                                    />
-                                </div>
-                            ))}
+                    {groupedTempestArms[troopType] ? (
+                        Object.values(Type).filter(type => (groupedTempestArms[troopType][type] ?? []).length > 0).map(type => (
+                            <div
+                                key={type}
+                                className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4"
+                            >
+                                {groupedTempestArms[troopType][type].map(tempestArm => (
+                                    <div
+                                        key={tempestArm.id}
+                                        onClick={() => handleTempestArmClick(tempestArm.id)}
+                                        role="button"
+                                        tabIndex={0}
+                                    >
+                                        <TempestArmItem tempestArm={tempestArm} />
+                                    </div>
+                                ))}
+                            </div>
+                        ))
+                    ) : (
+                        <div className="mt-4">
+                            <p>{`No tempest arms for ${troopType} added.`}</p>
                         </div>
-                    ))}
+                    )}
                 </div>
             ))}
         </>
