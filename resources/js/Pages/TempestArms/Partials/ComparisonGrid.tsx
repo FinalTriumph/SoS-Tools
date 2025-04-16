@@ -1,11 +1,12 @@
 import SecondaryButton from '@/Components/SecondaryButton';
 import Modal from '@/Components/Modal';
 import SlideDown from '@/Components/SlideDown';
-import { TempestArm } from '@/types';
+import { TempestArm, TempestArmStat } from '@/types';
 import { useState } from 'react';
-import { ucfirst } from '../../../Utils/stringUtils';
 import { Type } from '../Utils/TempestArmTypes';
+import { initializeTotalStats, addStats, subtractStats } from '../Utils/statsUtils';
 import TempestArmItem from './TempestArmItem';
+import ComparisonSlot from './ComparisonSlot';
 import ComparisonTotalStats from './ComparisonTotalStats';
 
 interface ComparisonGridProps {
@@ -14,9 +15,9 @@ interface ComparisonGridProps {
 }
 
 interface ComparisonRow {
-    attack: TempestArm | null;
-    defense: TempestArm | null;
-    totalStats: { [key: string]: { value: number; is_percentage: boolean } };
+    [Type.ATTACK]?: TempestArm;
+    [Type.DEFENSE]?: TempestArm;
+    totalStats: { [key: string]: TempestArmStat };
 }
 
 export default function ComparisonGrid({
@@ -24,7 +25,7 @@ export default function ComparisonGrid({
     tempestArmsByType,
 }: ComparisonGridProps) {
     const [comparisonRows, setComparisonRows] = useState<ComparisonRow[]>([
-        { attack: null, defense: null, totalStats: {} },
+        { totalStats: initializeTotalStats() },
     ]);
 
     const [selectedRow, setSelectedRow] = useState<number | null>(null);
@@ -42,83 +43,41 @@ export default function ComparisonGrid({
     };
 
     const selectTempestArm = (tempestArm: TempestArm): void => {
-        if (selectedRow === null || selectedSlotType === null) {
-            return;
-        }
+        if (selectedRow === null || selectedSlotType === null) return;
 
-        const newRows = [...comparisonRows];
-        if (selectedSlotType === Type.ATTACK) {
-            newRows[selectedRow].attack = tempestArm;
+        setComparisonRows(prevRows => {
+            const newRows = [...prevRows];
+            const currentRow = newRows[selectedRow];
+            const slotKey = selectedSlotType;
 
-            tempestArm.stats.forEach((stat) => {
-                const statName = stat.name?.replace(' ', '_') ?? '';
-                if (!newRows[selectedRow].totalStats[statName]) {
-                    newRows[selectedRow].totalStats[statName] = {
-                        value: 0,
-                        is_percentage: stat.is_percentage ?? false,
-                    };
-                }
+            const oldTempestArm = currentRow[slotKey];
 
-                newRows[selectedRow].totalStats[statName].value += stat.value ?? 0;
-            });
-        } else {
-            newRows[selectedRow].defense = tempestArm;
+            if (oldTempestArm?.id === tempestArm.id) {
+                return prevRows;
+            }
 
-            tempestArm.stats.forEach((stat) => {
-                const statName = stat.name?.replace(' ', '_') ?? '';
-                if (!newRows[selectedRow].totalStats[statName]) {
-                    newRows[selectedRow].totalStats[statName] = {
-                        value: 0,
-                        is_percentage: stat.is_percentage ?? false,
-                    };
-                }
+            let updatedTotalStats = { ...currentRow.totalStats };
+            if (oldTempestArm) {
+                updatedTotalStats = subtractStats(updatedTotalStats, oldTempestArm.stats);
+            }
 
-                newRows[selectedRow].totalStats[statName].value += stat.value ?? 0;
-            });
-        }
+            updatedTotalStats = addStats(updatedTotalStats, tempestArm.stats);
 
-        setComparisonRows(newRows);
+            return prevRows.map((row, index) => index === selectedRow ? { ...row, [slotKey]: tempestArm, totalStats: updatedTotalStats } : row);
+        });
+
         closeModal();
     };
 
-    const getSlotContent = (rowIndex: number, slotType: Type) => {
-        const slotValue = comparisonRows[rowIndex][slotType];
-
-        if (slotValue) {
-            return (
-                <div
-                    onClick={() => openModal(rowIndex, slotType)}
-                    role="button"
-                    tabIndex={0}
-                >
-                    <TempestArmItem tempestArm={slotValue} />
-                </div>
-            );
-        }
-
-        return (
-            <div
-                className="w-full h-64 border-2 border-dashed border-gray-400 font-bold text-gray-200 flex flex-col items-center justify-center p-4"
-                onClick={() => openModal(rowIndex, slotType)}
-                role="button"
-                tabIndex={0}
-            >
-                <div>{ucfirst(slotType)}</div>
-                <div>+</div>
-            </div>
-        );
+    const addRow = (): void => {
+        setComparisonRows([...comparisonRows, { totalStats: initializeTotalStats() }]);
     };
 
-    const addRow = () => {
-        setComparisonRows([...comparisonRows, { attack: null, defense: null, totalStats: {} }]);
-    };
-
-    const removeRow = (rowIndex: number) => {
-        if (!rowIndex) {
-            return;
-        }
-        
-        setComparisonRows(comparisonRows.filter((_, index) => index !== rowIndex));
+    const removeRow = (rowIndex: number): void => {
+        setComparisonRows(prev => {
+            const newRows = prev.filter((_, index) => index !== rowIndex);
+            return newRows.length > 0 ? newRows : [{ totalStats: initializeTotalStats() }];
+        });
     };
 
     return (
@@ -130,19 +89,29 @@ export default function ComparisonGrid({
                             key={index}
                             className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4"
                         >
-                            {getSlotContent(index, Type.ATTACK)}
-                            {getSlotContent(index, Type.DEFENSE)}
+                            <ComparisonSlot
+                                rowIndex={index}
+                                slotType={Type.ATTACK}
+                                slotValue={row[Type.ATTACK]}
+                                openModal={openModal}
+                            />
+
+                            <ComparisonSlot
+                                rowIndex={index}
+                                slotType={Type.DEFENSE}
+                                slotValue={row[Type.DEFENSE]}
+                                openModal={openModal}
+                            />
 
                             <ComparisonTotalStats stats={row.totalStats} />
 
-                            {index > 0 && (
+                            {(Object.keys(row.totalStats).length > 0 || comparisonRows.length > 1) && (
                                 <div className="flex items-center justify-center">
                                     <SecondaryButton onClick={() => removeRow(index)}>
                                         Remove Row
                                     </SecondaryButton>
                                 </div>
                             )}
-
                         </div>
                     ))}
                 </div>

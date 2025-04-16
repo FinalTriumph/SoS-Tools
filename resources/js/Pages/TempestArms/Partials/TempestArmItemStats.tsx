@@ -1,5 +1,6 @@
 import { TempestArmStats } from '@/types';
 import { getTailwindColorName } from '../../Players/Utils/colorUtils';
+import { formatStatValue } from '../Utils/statsUtils';
 
 interface TempestArmItemStatsProps {
     stats: TempestArmStats;
@@ -16,7 +17,7 @@ export default function TempestArmItemStats({
                     className={`flex justify-between mt-1 py-1 px-3 bg-${getTailwindColorName(stat.color ?? '')}`}
                 >
                     <div>{stat.name}</div>
-                    <div>{stat.value && stat.is_percentage ? stat.value.toFixed(2) + '%' : stat.value}</div>
+                    <div>{formatStatValue(stat)}</div>
                 </div>
             ))}
         </div>

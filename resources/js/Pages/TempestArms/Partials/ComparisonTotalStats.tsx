@@ -1,7 +1,9 @@
+import { TempestArmStat } from '@/types';
 import { getTailwindColorName } from '../../Players/Utils/colorUtils';
+import { formatStatValue } from '../Utils/statsUtils';
 
 interface ComparisonTotalStatsProps {
-    stats: { [key: string]: { value: number; is_percentage: boolean } };
+    stats: { [key: string]: TempestArmStat };
 }
 
 export default function ComparisonTotalStats({
@@ -14,13 +16,13 @@ export default function ComparisonTotalStats({
             </div>
 
             <div className="mt-3">
-                {Object.keys(stats).map((key, index) => (
+                {Object.values(stats).map((stat) => (
                     <div
-                        key={index}
-                        className={`flex justify-between mt-1 py-1 px-3 bg-${getTailwindColorName('grey')}`}
+                        key={stat.name}
+                        className={`flex justify-between mt-1 py-1 px-3 bg-${getTailwindColorName(stat.color ?? '')}`}
                     >
-                        <div>{key.replace('_', ' ')}</div>
-                        <div>{stats[key].value.toFixed(2)}{stats[key].is_percentage ? '%' : ''}</div>
+                        <div>{stat.name}</div>
+                        <div>{formatStatValue(stat)}</div>
                     </div>
                 ))}
             </div>
