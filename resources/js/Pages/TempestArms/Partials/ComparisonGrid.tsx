@@ -2,7 +2,9 @@ import SecondaryButton from '@/Components/SecondaryButton';
 import Modal from '@/Components/Modal';
 import SlideDown from '@/Components/SlideDown';
 import { TempestArm, TempestArmStat } from '@/types';
+import { generateUniqueId } from '@/Utils/idUtils';
 import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Type } from '../Utils/TempestArmTypes';
 import { initializeTotalStats, addStats, subtractStats } from '../Utils/statsUtils';
 import TempestArmItem from './TempestArmItem';
@@ -15,6 +17,7 @@ interface ComparisonGridProps {
 }
 
 interface ComparisonRow {
+    id: string;
     [Type.ATTACK]?: TempestArm;
     [Type.DEFENSE]?: TempestArm;
     totalStats: { [key: string]: TempestArmStat };
@@ -25,7 +28,7 @@ export default function ComparisonGrid({
     tempestArmsByType,
 }: ComparisonGridProps) {
     const [comparisonRows, setComparisonRows] = useState<ComparisonRow[]>([
-        { totalStats: initializeTotalStats() },
+        { id: generateUniqueId(),totalStats: initializeTotalStats() },
     ]);
 
     const [selectedRow, setSelectedRow] = useState<number | null>(null);
@@ -70,13 +73,13 @@ export default function ComparisonGrid({
     };
 
     const addRow = (): void => {
-        setComparisonRows([...comparisonRows, { totalStats: initializeTotalStats() }]);
+        setComparisonRows([...comparisonRows, { id: generateUniqueId(), totalStats: initializeTotalStats() }]);
     };
 
-    const removeRow = (rowIndex: number): void => {
+    const removeRow = (id: string): void => {
         setComparisonRows(prev => {
-            const newRows = prev.filter((_, index) => index !== rowIndex);
-            return newRows.length > 0 ? newRows : [{ totalStats: initializeTotalStats() }];
+            const newRows = prev.filter(row => row.id !== id);
+            return newRows.length > 0 ? newRows : [{ id: generateUniqueId(), totalStats: initializeTotalStats() }];
         });
     };
 
@@ -84,36 +87,44 @@ export default function ComparisonGrid({
         <SlideDown show={show}>
             <div className="bg-gray-600 mt-6 p-4 space-y-4 rounded-lg">
                 <div className="space-y-4">
-                    {comparisonRows.map((row, index) => (
-                        <div
-                            key={index}
-                            className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4"
-                        >
-                            <ComparisonSlot
-                                rowIndex={index}
-                                slotType={Type.ATTACK}
-                                slotValue={row[Type.ATTACK]}
-                                openModal={openModal}
-                            />
+                    <AnimatePresence>
+                        {comparisonRows.map((row, index) => (
+                            <motion.div
+                                key={row.id}
+                                initial={{ height: 0 }}
+                                animate={{ height: 'auto' }}
+                                exit={{ height: 0 }}
+                                style={{ overflow: 'hidden' }}
+                                transition={{ duration: 0.3, ease: 'easeInOut' }}
+                            >
+                                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                                    <ComparisonSlot
+                                        rowIndex={index}
+                                        slotType={Type.ATTACK}
+                                        slotValue={row[Type.ATTACK]}
+                                        openModal={openModal}
+                                    />
 
-                            <ComparisonSlot
-                                rowIndex={index}
-                                slotType={Type.DEFENSE}
-                                slotValue={row[Type.DEFENSE]}
-                                openModal={openModal}
-                            />
+                                    <ComparisonSlot
+                                        rowIndex={index}
+                                        slotType={Type.DEFENSE}
+                                        slotValue={row[Type.DEFENSE]}
+                                        openModal={openModal}
+                                    />
 
-                            <ComparisonTotalStats stats={row.totalStats} />
+                                    <ComparisonTotalStats stats={row.totalStats} />
 
-                            {(Object.keys(row.totalStats).length > 0 || comparisonRows.length > 1) && (
-                                <div className="flex items-center justify-center">
-                                    <SecondaryButton onClick={() => removeRow(index)}>
-                                        Remove Row
-                                    </SecondaryButton>
+                                    {(Object.keys(row.totalStats).length > 0 || comparisonRows.length > 1) && (
+                                        <div className="flex items-center justify-center">
+                                            <SecondaryButton onClick={() => removeRow(row.id)}>
+                                                Remove Row
+                                            </SecondaryButton>
+                                        </div>
+                                    )}
                                 </div>
-                            )}
-                        </div>
-                    ))}
+                            </motion.div>
+                        ))}
+                    </AnimatePresence>
                 </div>
 
                 <SecondaryButton onClick={addRow}>
