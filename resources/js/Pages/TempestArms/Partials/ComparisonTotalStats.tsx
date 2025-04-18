@@ -1,6 +1,6 @@
 import { TempestArmStat } from '@/types';
 import { getTailwindColorName } from '../../Players/Utils/colorUtils';
-import { sortStats, formatStatValue } from '../Utils/statsUtils';
+import { sortStats, getStatNameStyle, formatStatValue } from '../Utils/statsUtils';
 
 interface ComparisonTotalStatsProps {
     stats: { [key: string]: TempestArmStat };
@@ -19,9 +19,9 @@ export default function ComparisonTotalStats({
                 {Object.entries(sortStats(stats)).map(([statKey, stat]) => (
                     <div
                         key={statKey}
-                        className={`flex justify-between mt-1 py-1 px-3 bg-${getTailwindColorName(stat.color ?? '')}`}
+                        className={`flex justify-between items-center mt-1 px-3 h-8 bg-${getTailwindColorName(stat.color ?? '')}`}
                     >
-                        <div>{stat.name}</div>
+                        <div style={getStatNameStyle(stat.name ?? '')}>{stat.name}</div>
                         <div>{formatStatValue(stat)}</div>
                     </div>
                 ))}

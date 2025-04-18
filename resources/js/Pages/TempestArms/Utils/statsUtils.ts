@@ -1,4 +1,5 @@
 import { TempestArmStat, TempestArmStats } from '@/types';
+import { CSSProperties } from 'react';
 
 type StatColor = 'red' | 'gold' | 'purple';
 type StatGroup = 'troopType' | 'general';
@@ -6,6 +7,41 @@ type StatGroup = 'troopType' | 'general';
 interface TotalStats {
     [key: string]: TempestArmStat;
 }
+
+interface FontSizeThreshold {
+    minLength: number;
+    style: CSSProperties;
+}
+
+const fontSizeThresholds: FontSizeThreshold[] = [
+    {
+        minLength: 31,
+        style: {
+            fontSize: '0.75rem',
+            whiteSpace: 'normal',
+            overflowWrap: 'break-word',
+            lineHeight: 1,
+        },
+    },
+    {
+        minLength: 21,
+        style: {
+            fontSize: '0.875rem',
+            whiteSpace: 'nowrap',
+            textOverflow: 'ellipsis',
+            overflow: 'hidden',
+        },
+    },
+    {
+        minLength: 0,
+        style: {
+            fontSize: '1rem',
+            whiteSpace: 'nowrap',
+            textOverflow: 'ellipsis',
+            overflow: 'hidden',
+        },
+    },
+];
 
 export const initializeTotalStats = (): TotalStats => ({});
 
@@ -52,6 +88,16 @@ export const subtractStats = (totalStats: TotalStats, tempestArmStats: TempestAr
     return updatedStats;
 };
 
+export const getStatNameStyle = (statName: string): CSSProperties => {
+    for (const threshold of fontSizeThresholds) {
+        if (statName.length >= threshold.minLength) {
+            return threshold.style;
+        }
+    }
+
+    return {};
+};
+
 export const formatStatValue = (stat: TempestArmStat): string => {
     return stat.value === null ? '' : stat.is_percentage ? `${stat.value.toFixed(2)}%` : stat.value.toString();
 };
@@ -86,7 +132,11 @@ export const statColors: Record<StatGroup, Record<StatColor, string[]>> = {
         ],
         gold: [
             'behemoth_damage',
-            'behemoth_damage_reduction',
+            'enemy_behemoth_damage_reduction',
+            'aircraft_damage',
+            'enemy_aircraft_damage_reduction',
+            'lethality_amplification',
+            'health_amplification',
         ],
         purple: [],
     },
@@ -100,6 +150,7 @@ export const getStatColor = (statKey: string): StatColor => {
             }
         }
     }
+
     return 'purple';
 };
 
