@@ -10,7 +10,7 @@ export default function ComparisonTotalStats({
     stats,
 }: ComparisonTotalStatsProps) {
     return (
-        <div className="p-4 bg-blue-100 text-sm">
+        <div className="p-4 bg-slate-100 text-sm">
             <div className="py-2 font-bold">
                 <div>Total Stats</div>
             </div>

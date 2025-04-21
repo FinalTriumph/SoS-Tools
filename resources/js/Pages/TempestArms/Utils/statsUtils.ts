@@ -15,18 +15,18 @@ interface FontSizeThreshold {
 
 const fontSizeThresholds: FontSizeThreshold[] = [
     {
-        minLength: 31,
+        minLength: 28,
         style: {
-            fontSize: '0.75rem',
+            fontSize: '85%',
             whiteSpace: 'normal',
             overflowWrap: 'break-word',
             lineHeight: 1,
         },
     },
     {
-        minLength: 21,
+        minLength: 18,
         style: {
-            fontSize: '0.875rem',
+            fontSize: '90%',
             whiteSpace: 'nowrap',
             textOverflow: 'ellipsis',
             overflow: 'hidden',
@@ -35,7 +35,6 @@ const fontSizeThresholds: FontSizeThreshold[] = [
     {
         minLength: 0,
         style: {
-            fontSize: '1rem',
             whiteSpace: 'nowrap',
             textOverflow: 'ellipsis',
             overflow: 'hidden',

@@ -85,7 +85,7 @@ export default function ComparisonGrid({
 
     return (
         <SlideDown show={show}>
-            <div className="bg-gray-600 mt-6 p-4 space-y-4 rounded-lg">
+            <div className="bg-slate-200 mt-6 p-4 space-y-4 rounded-lg">
                 <div className="space-y-4">
                     <AnimatePresence>
                         {comparisonRows.map((row, index) => (
@@ -112,14 +112,17 @@ export default function ComparisonGrid({
                                         openModal={openModal}
                                     />
 
-                                    <ComparisonTotalStats stats={row.totalStats} />
-
                                     {(Object.keys(row.totalStats).length > 0 || comparisonRows.length > 1) && (
-                                        <div className="flex items-center justify-center">
-                                            <SecondaryButton onClick={() => removeRow(row.id)}>
-                                                Remove Row
-                                            </SecondaryButton>
-                                        </div>
+                                        <>
+                                            {(Object.keys(row.totalStats).length > 0) && (
+                                                <ComparisonTotalStats stats={row.totalStats} />
+                                            )}
+                                            <div className="flex items-center justify-center">
+                                                <SecondaryButton onClick={() => removeRow(row.id)}>
+                                                    Remove Row
+                                                </SecondaryButton>
+                                            </div>
+                                        </>
                                     )}
                                 </div>
                             </motion.div>

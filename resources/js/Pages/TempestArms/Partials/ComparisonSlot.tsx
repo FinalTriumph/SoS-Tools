@@ -26,7 +26,7 @@ export default function ComparisonSlot({
                 <TempestArmItem tempestArm={slotValue} />
             ) : (
                 <div
-                    className="w-full h-64 border-2 border-dashed border-gray-400 font-bold text-gray-200 flex flex-col items-center justify-center p-4"
+                    className="w-full h-full min-h-64 border-2 border-dashed border-gray-400 font-bold text-gray-600 flex flex-col items-center justify-center p-4"
                 >
                     <div>{ucfirst(slotType)}</div>
                     <div>+</div>
