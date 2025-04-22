@@ -38,4 +38,19 @@ class TempestArm extends Model
     {
         return $this->belongsTo(Player::class);
     }
+
+    public function heroAsAttack(): BelongsTo
+    {
+        return $this->belongsTo(Hero::class, 'attack_tempest_arm_id');
+    }
+
+    public function heroAsDefense(): BelongsTo
+    {
+        return $this->belongsTo(Hero::class, 'defense_tempest_arm_id');
+    }
+
+    public function getHeroAttribute(): ?Hero
+    {
+        return $this->heroAsAttack ?? $this->heroAsDefense;
+    }
 }
