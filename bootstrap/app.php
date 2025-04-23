@@ -18,6 +18,7 @@ return Application::configure(basePath: dirname(__DIR__))
 
         $middleware->alias([
             'tempest-arms-enabled' => \App\Http\Middleware\CheckTempestArmsFeature::class,
+            'heroes-enabled' => \App\Http\Middleware\CheckHeroesFeature::class,
         ]);
 
         //

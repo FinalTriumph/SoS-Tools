@@ -7,6 +7,11 @@ use Laravel\Pennant\Feature;
 
 class FeatureFlagsServiceProvider extends ServiceProvider
 {
+    private $featureFlags = [
+        'tempest-arms' => 'TEMPEST_ARMS_ENABLED',
+        'heroes' => 'HEROES_ENABLED',
+    ];
+
     /**
      * Register services.
      */
@@ -20,12 +25,19 @@ class FeatureFlagsServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        $tempestArmsEnabled = env('TEMPEST_ARMS_ENABLED', false);
+        foreach ($this->featureFlags as $feature => $envVariable) {
+            $this->bootFeature($feature, $envVariable);
+        }
+    }
 
-        Feature::define('tempest-arms', fn () => $tempestArmsEnabled);
-
-        if (Feature::for(null)->active('tempest-arms') !== $tempestArmsEnabled) {
-            Feature::for(null)->activate('tempest-arms', $tempestArmsEnabled);
+    private function bootFeature(string $feature, string $envVariable): void
+    {
+        $isEnabled = filter_var(env($envVariable, false), FILTER_VALIDATE_BOOL);
+        
+        Feature::define($feature, fn() => $isEnabled);
+        
+        if (Feature::for(null)->active($feature) !== $isEnabled) {
+            Feature::for(null)->activate($feature, $isEnabled);
         }
     }
 }

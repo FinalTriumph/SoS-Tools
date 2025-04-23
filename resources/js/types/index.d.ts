@@ -113,5 +113,6 @@ export type PageProps<
     };
     features: {
         tempestArms: boolean;
+        heroes: boolean;
     };
 };

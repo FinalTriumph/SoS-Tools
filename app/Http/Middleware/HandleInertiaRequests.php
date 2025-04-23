@@ -37,6 +37,7 @@ class HandleInertiaRequests extends Middleware
             ],
             'features' => [
                 'tempestArms' => Feature::for(null)->active('tempest-arms'),
+                'heroes' => Feature::for(null)->active('heroes'),
             ],
         ];
     }

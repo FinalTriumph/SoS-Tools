@@ -12,6 +12,7 @@ export default function Authenticated({
     const { auth, features } = usePage().props;
     const user = auth.user;
     const tempestArms = features.tempestArms;
+    const heroes = features.heroes;
 
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);
@@ -49,6 +50,15 @@ export default function Authenticated({
                                         active={route().current('tempest-arms.index')}
                                     >
                                         Tempest Arms
+                                    </NavLink>
+                                )}
+
+                                {heroes && (
+                                    <NavLink
+                                        href={route('heroes.index')}
+                                        active={route().current('heroes.index')}
+                                    >
+                                        Heroes
                                     </NavLink>
                                 )}
                             </div>
@@ -171,6 +181,15 @@ export default function Authenticated({
                                 Tempest Arms
                             </ResponsiveNavLink>
                         )}
+
+                        {heroes && (
+                            <ResponsiveNavLink
+                                href={route('heroes.index')}
+                                active={route().current('heroes.index')}
+                            >
+                                Heroes
+                            </ResponsiveNavLink>
+                        )}
                     </div>
 
                     <div className="border-t border-gray-200 pb-1 pt-4">
@@ -232,6 +251,15 @@ export default function Authenticated({
                                 className="text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                             >
                                 Tempest Arms
+                            </Link>
+                        )}
+
+                        {heroes && (
+                            <Link
+                                href={route('heroes.index')}
+                                className="text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                            >
+                                Heroes
                             </Link>
                         )}
 

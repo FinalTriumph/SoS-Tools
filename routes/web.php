@@ -9,6 +9,7 @@ use App\Http\Controllers\FormationSystemController;
 use App\Http\Controllers\ArmyController;
 
 use App\Http\Controllers\TempestArmController;
+use App\Http\Controllers\HeroController;
 
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -34,6 +35,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::middleware('tempest-arms-enabled')->group(function () {
         Route::get('/tempest-arms/{player_id?}', [TempestArmController::class, 'index'])->name('tempest-arms.index');
         Route::resource('/tempest-arm', TempestArmController::class)->except(['index', 'show']);
+    });
+
+    Route::middleware('heroes-enabled')->group(function () {
+        Route::get('/heroes', [HeroController::class, 'index'])->name('heroes.index');
     });
 });
 

@@ -5,6 +5,7 @@ import { Head, usePage, router } from '@inertiajs/react';
 
 export default function Dashboard() {
     const tempestArms = usePage().props.features.tempestArms;
+    const heroes = usePage().props.features.heroes;
 
     const visitPlayers = () => {
         router.visit(route('players.index'));
@@ -12,6 +13,10 @@ export default function Dashboard() {
 
     const visitTempestArms = () => {
         router.visit(route('tempest-arms.index'));
+    };
+
+    const visitHeroes = () => {
+        router.visit(route('heroes.index'));
     };
 
     return (
@@ -42,6 +47,16 @@ export default function Dashboard() {
 
                                     <PrimaryButton onClick={visitTempestArms}>
                                         Tempest Arms
+                                    </PrimaryButton>
+                                </div>
+                            )}
+
+                            {heroes && (
+                                <div>
+                                    <hr className="my-6"/>
+
+                                    <PrimaryButton onClick={visitHeroes}>
+                                        Heroes
                                     </PrimaryButton>
                                 </div>
                             )}
