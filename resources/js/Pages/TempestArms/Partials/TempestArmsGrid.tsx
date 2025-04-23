@@ -68,6 +68,7 @@ export default function TempestArmsGrid({
                                         onClick={() => handleTempestArmClick(tempestArm.id)}
                                         role="button"
                                         tabIndex={0}
+                                        className="hover:opacity-80"
                                     >
                                         <TempestArmItem tempestArm={tempestArm} />
                                     </div>

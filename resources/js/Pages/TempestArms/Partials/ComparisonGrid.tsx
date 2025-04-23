@@ -147,6 +147,7 @@ export default function ComparisonGrid({
                                         onClick={() => selectTempestArm(arm)}
                                         role="button"
                                         tabIndex={0}
+                                        className="hover:opacity-80"
                                     >
                                         <TempestArmItem tempestArm={arm} />
                                     </div>

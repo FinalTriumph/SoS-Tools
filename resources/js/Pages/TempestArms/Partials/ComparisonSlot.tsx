@@ -21,6 +21,7 @@ export default function ComparisonSlot({
             onClick={() => openModal(rowIndex, slotType)}
             role="button"
             tabIndex={0}
+            className="hover:opacity-80"
         >
             {slotValue ? (
                 <TempestArmItem tempestArm={slotValue} />
