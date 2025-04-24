@@ -103,6 +103,18 @@ export interface TempestArm {
     skill: TempestArmSkill;
 }
 
+export interface Hero {
+    id: number;
+    player_id: number | null;
+    name: string | null;
+    generation: number | null;
+    troop_type: string | null;
+    type: string | null;
+    attack_defense_stats: number | null;
+    attack_tempest_arm_id: number | null;
+    defense_tempest_arm_id: number | null;
+}
+
 export type TempestArmGeneral = Omit<TempestArm, 'id' | 'stats' | 'skill'>;
 
 export type PageProps<

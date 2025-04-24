@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Hero;
+
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 use Inertia\Inertia;
 use Inertia\Response;
@@ -19,12 +21,14 @@ class HeroController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new hero.
      */
-    /* public function create()
+    public function create(): Response
     {
-        //
-    } */
+        return Inertia::render('Hero/Create', [
+            'players' => Auth::user()->players()->select('id', 'username')->get(),
+        ]);
+    }
 
     /**
      * Store a newly created resource in storage.
