@@ -50,17 +50,11 @@ export default function HeroInformationForm({
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
 
-        console.log({
-            hero,
-            data,
-            route: hero ? route('hero.update', hero.id) : route('hero.store'),
-        });
-
-        /* if (hero) {
+        if (hero) {
             patch(route('hero.update', hero.id), { preserveScroll: true });
         } else {
             post(route('hero.store'), { preserveScroll: true });
-        } */
+        }
     };
 
     const handleDelete = (id: number) => {

@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Hero\StoreRequest;
+use App\Http\Requests\Hero\UpdateRequest;
 use App\Models\Hero;
 
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Auth;
 
 use Inertia\Inertia;
@@ -31,12 +35,14 @@ class HeroController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created hero in storage.
      */
-    /* public function store(Request $request)
+    public function store(StoreRequest $request): RedirectResponse
     {
-        //
-    } */
+        $hero = Hero::create($request->validated());
+
+        return Redirect::route('hero.edit', $hero->id);
+    }
 
     /**
      * Display the specified resource.
@@ -47,20 +53,26 @@ class HeroController extends Controller
     } */
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing the specified hero.
      */
-    /* public function edit(Hero $hero)
+    public function edit(Hero $hero): Response
     {
-        //
-    } */
+        return Inertia::render('Hero/Edit', [
+            'players' => Auth::user()->players()->select('id', 'username')->get(),
+            'hero' => $hero,
+        ]);
+    }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified hero in storage.
      */
-    /* public function update(Request $request, Hero $hero)
+    public function update(UpdateRequest $request, Hero $hero): RedirectResponse
     {
-        //
-    } */
+        $hero->fill($request->validated());
+        $hero->save();
+
+        return Redirect::route('hero.edit', $hero);
+    }
 
     /**
      * Remove the specified resource from storage.
