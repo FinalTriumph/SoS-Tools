@@ -1,10 +1,35 @@
 import SecondaryButton from '@/Components/SecondaryButton';
+import InputLabel from '@/Components/InputLabel';
+import SelectInput from '@/Components/SelectInput';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+import { Hero } from '@/types';
+import { PlayersListProvider } from '@/Utils/PlayersListProvider';
 import { Head, router } from '@inertiajs/react';
+import { useState } from 'react';
+import HeroesGrid from './Partials/HeroesGrid';
 
-export default function Index() {
+interface IndexProps {
+    heroes: Hero[],
+    players: { id: number; username: string }[],
+    selectedPlayerId: number | null,
+}
+
+export default function Index({
+    heroes,
+    players,
+    selectedPlayerId
+}: IndexProps) {
+    const [selectedPlayer, setSelectedPlayer] = useState<number | null>(selectedPlayerId);
+
     const handleAddNewHeroClick = () => {
         router.visit(route('hero.create'));
+    };
+
+    const handlePlayerChange = (id: string) => {
+        let playerId = id ? Number(id) : null;
+
+        setSelectedPlayer(playerId);
+        router.visit(route('heroes.index', playerId ?? undefined), { preserveScroll: true });
     };
 
     return (
@@ -24,6 +49,35 @@ export default function Index() {
                             <SecondaryButton onClick={handleAddNewHeroClick}>
                                 Add New Hero
                             </SecondaryButton>
+
+                            <hr className="my-6"/>
+
+                            <div className="max-w-sm">
+                                <InputLabel htmlFor="player_id" value="Player" />
+                
+                                <SelectInput
+                                    id="player_id"
+                                    name="player_id"
+                                    value={selectedPlayer || ''}
+                                    options={[
+                                        { value: '', label: '' },
+                                        ...(players?.map(player => ({
+                                            value: player.id,
+                                            label: player.username,
+                                        })) || [])
+                                    ]}
+                                    className="mt-1 block w-full"
+                                    onChange={(e) => handlePlayerChange(e.target.value)}
+                                />
+                            </div>
+
+                            {(heroes.length > 0) && (
+                                <PlayersListProvider players={players}>
+                                    <HeroesGrid
+                                        heroes={heroes}
+                                    />
+                                </PlayersListProvider>
+                            )}
                         </div>
                     </div>
                 </div>

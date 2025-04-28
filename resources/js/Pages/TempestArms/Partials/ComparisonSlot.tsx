@@ -1,5 +1,5 @@
 import { TempestArm } from '@/types';
-import { ucfirst } from '../../../Utils/stringUtils';
+import { ucfirst } from '@/Utils/stringUtils';
 import { Type } from '../Utils/TempestArmTypes';
 import TempestArmItem from './TempestArmItem';
 
@@ -27,7 +27,7 @@ export default function ComparisonSlot({
                 <TempestArmItem tempestArm={slotValue} />
             ) : (
                 <div
-                    className="w-full h-full min-h-64 border-2 border-dashed border-gray-400 font-bold text-gray-600 flex flex-col items-center justify-center p-4"
+                    className="w-full h-full min-h-80 bg-slate-50 border-2 border-dashed border-gray-400 font-bold text-gray-600 flex flex-col items-center justify-center p-4 shadow rounded-lg"
                 >
                     <div>{ucfirst(slotType)}</div>
                     <div>+</div>

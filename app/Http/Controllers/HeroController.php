@@ -17,11 +17,26 @@ use Inertia\Response;
 class HeroController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of heroes.
      */
-    public function index(): Response
+    public function index(Request $request): Response|RedirectResponse
     {
-        return Inertia::render('Heroes/Index');
+        $players = Auth::user()->players()
+            ->whereHas('heroes')
+            ->select('id', 'username')
+            ->get();
+        $playerIds = $players->pluck('id')->toArray();
+
+        $playerId = $request->route('player_id') ?? null;
+        if ($playerId && !in_array($playerId, $playerIds)) {
+            return Redirect::route('heroes.index');
+        }
+
+        return Inertia::render('Heroes/Index', [
+            'heroes' => Hero::whereIn('player_id', $playerId ? [$playerId] : $playerIds)->get(),
+            'players' => $players,
+            'selectedPlayerId' => $playerId,
+        ]);
     }
 
     /**

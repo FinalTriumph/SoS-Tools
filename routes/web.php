@@ -38,7 +38,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     });
 
     Route::middleware('heroes-enabled')->group(function () {
-        Route::get('/heroes', [HeroController::class, 'index'])->name('heroes.index');
+        Route::get('/heroes/{player_id?}', [HeroController::class, 'index'])->name('heroes.index');
         Route::resource('/hero', HeroController::class)->except('index');
     });
 });

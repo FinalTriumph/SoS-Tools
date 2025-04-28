@@ -85,7 +85,7 @@ export default function ComparisonGrid({
 
     return (
         <SlideDown show={show}>
-            <div className="bg-slate-200 mt-6 p-4 space-y-4 rounded-lg">
+            <div className="bg-gray-100 mt-6 p-4 space-y-4 shadow rounded-lg">
                 <div className="space-y-4">
                     <AnimatePresence>
                         {comparisonRows.map((row, index) => (

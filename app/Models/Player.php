@@ -51,4 +51,9 @@ class Player extends Model
     {
         return $this->hasMany(TempestArm::class);
     }
+
+    public function heroes(): HasMany
+    {
+        return $this->hasMany(Hero::class);
+    }
 }

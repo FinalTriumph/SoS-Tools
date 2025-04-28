@@ -3,9 +3,9 @@ import InputLabel from '@/Components/InputLabel';
 import SelectInput from '@/Components/SelectInput';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { TempestArm } from '@/types';
+import { PlayersListProvider } from '@/Utils/PlayersListProvider';
 import { Head, router } from '@inertiajs/react';
 import { useState } from 'react';
-import { PlayersProvider } from './Utils/PlayersProvider';
 import TempestArmsGrid from './Partials/TempestArmsGrid';
 
 interface IndexProps {
@@ -72,11 +72,11 @@ export default function Index({
                             </div>
 
                             {(tempestArms.length > 0) && (
-                                <PlayersProvider players={players}>
+                                <PlayersListProvider players={players}>
                                     <TempestArmsGrid
                                         tempestArms={tempestArms}
                                     />
-                                </PlayersProvider>
+                                </PlayersListProvider>
                             )}
                         </div>
                     </div>

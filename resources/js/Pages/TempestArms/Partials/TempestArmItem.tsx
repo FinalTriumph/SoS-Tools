@@ -1,6 +1,6 @@
 import { TempestArm } from '@/types';
-import { ucfirst } from '../../../Utils/stringUtils';
-import { usePlayersContext } from '../Utils/PlayersContext';
+import { usePlayersListContext } from '@/Utils/PlayersListContext';
+import { ucfirst } from '@/Utils/stringUtils';
 import TempestArmItemStats from './TempestArmItemStats';
 import TempestArmItemSkill from './TempestArmItemSkill';
 
@@ -11,11 +11,11 @@ interface TempestArmItemProps {
 export default function TempestArmItem({
     tempestArm,
 }: TempestArmItemProps) {
-    const { playersById } = usePlayersContext();
+    const { playersById } = usePlayersListContext();
 
     return (
         <div
-            className="p-4 bg-slate-100 text-sm"
+            className="p-4 bg-slate-50 text-sm shadow rounded-lg"
         >
             <div className="flex justify-between items-center font-bold">
                 <div>{ucfirst(tempestArm.type)}</div>

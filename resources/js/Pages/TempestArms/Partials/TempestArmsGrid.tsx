@@ -1,8 +1,8 @@
 import PrimaryButton from '@/Components/PrimaryButton';
 import { TempestArm } from '@/types';
+import { ucfirst } from '@/Utils/stringUtils';
 import { router } from '@inertiajs/react';
 import { useState } from 'react';
-import { ucfirst } from '../../../Utils/stringUtils';
 import { groupByTroopType } from '../Utils/groupingUtils';
 import { TroopType, Type } from '../Utils/TempestArmTypes';
 import TempestArmItem from './TempestArmItem';
