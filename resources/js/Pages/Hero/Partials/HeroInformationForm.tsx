@@ -59,10 +59,9 @@ export default function HeroInformationForm({
 
     const handleDelete = (id: number) => {
         if (confirm(`Are you sure you want to delete this hero?`)) {
-            console.log('Deleting hero with ID:', id);
-            /* destroy(route('hero.destroy', id), {
+            destroy(route('hero.destroy', id), {
                 onError: () => console.error('Error deleting hero'),
-            }); */
+            });
         }
     };
 

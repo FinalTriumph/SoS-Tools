@@ -60,18 +60,14 @@ class HeroController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    /* public function show(Hero $hero)
-    {
-        //
-    } */
-
-    /**
      * Show the form for editing the specified hero.
      */
     public function edit(Hero $hero): Response
     {
+        if (auth()->user()->cannot('modify', $hero)) {
+            abort(403);
+        }
+
         return Inertia::render('Hero/Edit', [
             'players' => Auth::user()->players()->select('id', 'username')->get(),
             'hero' => $hero,
@@ -83,6 +79,10 @@ class HeroController extends Controller
      */
     public function update(UpdateRequest $request, Hero $hero): RedirectResponse
     {
+        if (auth()->user()->cannot('modify', $hero)) {
+            abort(403);
+        }
+
         $hero->fill($request->validated());
         $hero->save();
 
@@ -90,10 +90,16 @@ class HeroController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified hero from storage.
      */
-    /* public function destroy(Hero $hero)
+    public function destroy(Hero $hero): RedirectResponse
     {
-        //
-    } */
+        if (auth()->user()->cannot('modify', $hero)) {
+            abort(403);
+        }
+
+        $hero->delete();
+
+        return Redirect::route('heroes.index');
+    }
 }
