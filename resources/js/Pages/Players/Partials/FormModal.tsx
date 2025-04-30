@@ -1,5 +1,5 @@
 import Modal from '@/Components/Modal';
-import { Player } from '@/types';
+import { Player } from '@/types/entities/player';
 import { FormModalType } from '../Utils/FormModalType';
 import PlayerInformationForm from '../../Player/Partials/PlayerInformationForm';
 import Mk1InformationForm from '../../Player/Partials/Mk1InformationForm';

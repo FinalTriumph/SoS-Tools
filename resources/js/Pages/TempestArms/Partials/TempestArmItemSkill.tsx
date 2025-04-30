@@ -1,4 +1,4 @@
-import { TempestArmSkill } from '@/types';
+import { TempestArmSkill } from '@/types/entities/tempestArm';
 import { getSkillColor, skillLevelToRoman } from '../Utils/skillUtils';
 import { getTailwindColorName } from '../../Players/Utils/colorUtils';
 

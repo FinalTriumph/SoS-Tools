@@ -2,7 +2,7 @@ import SecondaryButton from '@/Components/SecondaryButton';
 import InputLabel from '@/Components/InputLabel';
 import SelectInput from '@/Components/SelectInput';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { TempestArm } from '@/types';
+import { TempestArm } from '@/types/entities/tempestArm';
 import { PlayersListProvider } from '@/Utils/PlayersListProvider';
 import { Head, router } from '@inertiajs/react';
 import { useState } from 'react';

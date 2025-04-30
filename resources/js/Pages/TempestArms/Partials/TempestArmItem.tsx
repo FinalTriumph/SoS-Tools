@@ -1,4 +1,4 @@
-import { TempestArm } from '@/types';
+import { TempestArm } from '@/types/entities/tempestArm';
 import { usePlayersListContext } from '@/Utils/PlayersListContext';
 import { ucfirst } from '@/Utils/stringUtils';
 import TempestArmItemStats from './TempestArmItemStats';

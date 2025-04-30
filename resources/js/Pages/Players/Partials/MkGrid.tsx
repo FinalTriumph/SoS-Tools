@@ -1,4 +1,4 @@
-import { Mk1, Mk2 } from '@/types';
+import { Mk } from '@/types/entities/mk';
 import { ColorType } from '../Utils/colorUtils';
 import ColorCell from './ColorCell';
 import MkStarsCell from './MkStarsCell';
@@ -6,7 +6,7 @@ import MkStarsCell from './MkStarsCell';
 export default function MkGrid({
     mk,
 }: {
-    mk: Mk1 | Mk2 | null;
+    mk: Mk | null;
 }) {
     return (
         <div>

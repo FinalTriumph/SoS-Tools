@@ -1,4 +1,4 @@
-import { Hero } from "@/types";
+import { Hero } from '@/types/entities/hero';
 import { router } from '@inertiajs/react';
 import HeroItem from "./HeroItem";
 

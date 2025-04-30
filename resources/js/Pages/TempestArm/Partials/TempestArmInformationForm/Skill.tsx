@@ -3,7 +3,7 @@ import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import TextInput from '@/Components/TextInput';
 import SelectInput from '@/Components/SelectInput';
-import { TempestArmSkill } from '@/types';
+import { TempestArmSkill } from '@/types/entities/tempestArm';
 
 export default function Skill({
     skill,

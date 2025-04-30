@@ -1,4 +1,4 @@
-import { TempestArm } from '@/types';
+import { TempestArm } from '@/types/entities/tempestArm';
 import { isValidTroopTypeAndType, TroopType, Type } from './TempestArmTypes';
 
 type GroupedTempestArms = Record<string, Record<string, TempestArm[]>>;

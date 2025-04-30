@@ -1,5 +1,5 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Player } from '@/types';
+import { Player } from '@/types/entities/player';
 import { Head } from '@inertiajs/react';
 import PlayerInformationForm from './Partials/PlayerInformationForm';
 import Mk1InformationForm from './Partials/Mk1InformationForm';

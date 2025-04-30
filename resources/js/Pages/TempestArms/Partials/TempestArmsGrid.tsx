@@ -1,5 +1,5 @@
 import PrimaryButton from '@/Components/PrimaryButton';
-import { TempestArm } from '@/types';
+import { TempestArm } from '@/types/entities/tempestArm';
 import { ucfirst } from '@/Utils/stringUtils';
 import { router } from '@inertiajs/react';
 import { useState } from 'react';

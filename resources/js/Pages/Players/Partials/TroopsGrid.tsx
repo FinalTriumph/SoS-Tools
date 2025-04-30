@@ -1,4 +1,4 @@
-import { Army } from '@/types';
+import { Army } from '@/types/entities/army';
 import { ColorType } from '../Utils/colorUtils';
 import ColorCell from './ColorCell';
 

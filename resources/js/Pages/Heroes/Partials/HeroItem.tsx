@@ -1,4 +1,4 @@
-import { Hero } from '@/types';
+import { Hero } from '@/types/entities/hero';
 import { usePlayersListContext } from '@/Utils/PlayersListContext';
 import { ucfirst } from '@/Utils/stringUtils';
 

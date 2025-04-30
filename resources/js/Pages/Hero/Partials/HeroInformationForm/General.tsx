@@ -1,7 +1,8 @@
 import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
+import TextInput from '@/Components/TextInput';
 import SelectInput from '@/Components/SelectInput';
-import { TempestArmGeneral } from '@/types/entities/tempestArm';
+import { HeroGeneral } from '@/types/entities/hero';
 
 export default function General({
     players,
@@ -10,9 +11,9 @@ export default function General({
     getError,
 }: {
     players: { id: number; username: string }[];
-    data: TempestArmGeneral;
-    setDataField: (field: keyof TempestArmGeneral, value: string | number) => void;
-    getError: (field: keyof TempestArmGeneral) => string | undefined;
+    data: HeroGeneral;
+    setDataField: (field: keyof HeroGeneral, value: string | number) => void;
+    getError: (field: keyof HeroGeneral) => string | undefined;
 }) {
     return(
         <div className="flex-grow space-y-6">
@@ -22,7 +23,7 @@ export default function General({
                 <SelectInput
                     id="player_id"
                     name="player_id"
-                    value={data.player_id || ''}
+                    value={data.player_id ?? ''}
                     options={[
                         { value: '', label: '' },
                         ...(players?.map(player => ({
@@ -37,13 +38,43 @@ export default function General({
                 <InputError message={getError('player_id')} />
             </div>
 
+            <div className="mt-4">
+                <InputLabel htmlFor="name" value="Name" />
+
+                <TextInput
+                    id="name"
+                    name="name"
+                    value={data.name ?? ''}
+                    className="mt-1 block w-full"
+                    onChange={(e) => setDataField('name', e.target.value)}
+                />
+
+                <InputError message={getError('name')} className="mt-2" />
+            </div>
+
+            <div className="mt-4">
+                <InputLabel htmlFor="generation" value="Generation" />
+
+                <TextInput
+                    id="generation"
+                    type="number"
+                    name="generation"
+                    min="1"
+                    value={data.generation ?? ''}
+                    className="mt-1 block w-full"
+                    onChange={(e) => setDataField('generation', Number(e.target.value))}
+                />
+
+                <InputError message={getError('generation')} className="mt-2" />
+            </div>
+
             <div>
                 <InputLabel htmlFor="troop_type" value="Troop Type" />
 
                 <SelectInput
                     id="troop_type"
                     name="troop_type"
-                    value={data.troop_type || ''}
+                    value={data.troop_type ?? ''}
                     options={[
                         { value: '', label: '' },
                         { value: 'infantry', label: 'Infantry' },
@@ -63,11 +94,12 @@ export default function General({
                 <SelectInput
                     id="type"
                     name="type"
-                    value={data.type || ''}
+                    value={data.type ?? ''}
                     options={[
                         { value: '', label: '' },
-                        { value: 'attack', label: 'Attack' },
-                        { value: 'defense', label: 'Defense' },
+                        { value: 'berserk', label: 'Berserk' },
+                        { value: 'resilience', label: 'Resilience' },
+                        { value: 'control', label: 'Control' },
                     ]}
                     className="mt-1 block w-full"
                     onChange={(e) => setDataField('type', e.target.value)}
@@ -76,25 +108,20 @@ export default function General({
                 <InputError message={getError('type')} />
             </div>
 
-            <div>
-                <InputLabel htmlFor="generation" value="Generation" />
+            <div className="mt-4">
+                <InputLabel htmlFor="attack_defense_stats" value="Attack/Defense Stats" />
 
-                <SelectInput
-                    id="generation"
-                    name="generation"
-                    value={data.generation || ''}
-                    options={[
-                        { value: '', label: '' },
-                        { value: 'g1', label: 'G1' },
-                        { value: 'g2', label: 'G2' },
-                        { value: 'g3', label: 'G3' },
-                        { value: 's1', label: 'S1' },
-                    ]}
+                <TextInput
+                    id="attack_defense_stats"
+                    type="number"
+                    name="attack_defense_stats"
+                    min="1"
+                    value={data.attack_defense_stats ?? ''}
                     className="mt-1 block w-full"
-                    onChange={(e) => setDataField('generation', e.target.value)}
+                    onChange={(e) => setDataField('attack_defense_stats', Number(e.target.value))}
                 />
 
-                <InputError message={getError('generation')} />
+                <InputError message={getError('attack_defense_stats')} className="mt-2" />
             </div>
         </div>
     )

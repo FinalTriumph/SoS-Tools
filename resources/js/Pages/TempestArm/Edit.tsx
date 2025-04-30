@@ -1,5 +1,5 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { TempestArm } from '@/types';
+import { TempestArm } from '@/types/entities/tempestArm';
 import { Head } from '@inertiajs/react';
 import TempestArmInformationForm from './Partials/TempestArmInformationForm';
 

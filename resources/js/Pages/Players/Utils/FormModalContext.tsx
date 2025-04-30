@@ -1,4 +1,4 @@
-import { Player } from '@/types';
+import { Player } from '@/types/entities/player';
 import { FormModalType } from './FormModalType';
 import { createContext, useContext } from 'react';
 

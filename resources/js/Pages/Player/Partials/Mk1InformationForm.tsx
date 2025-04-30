@@ -4,7 +4,7 @@ import PrimaryButton from '@/Components/PrimaryButton';
 import SecondaryButton from '@/Components/SecondaryButton';
 import TextInput from '@/Components/TextInput';
 import SelectInput from '@/Components/SelectInput';
-import { Mk1 } from '@/types';
+import { Mk } from '@/types/entities/mk';
 import { Transition } from '@headlessui/react';
 import { useForm } from '@inertiajs/react';
 import { FormEventHandler, useState } from 'react';
@@ -26,7 +26,7 @@ interface FormData {
 
 interface Mk1InformationFormProps {
     playerId: number,
-    mk1: Mk1 | null,
+    mk1: Mk | null,
     onSuccess?: () => void;
 }
 

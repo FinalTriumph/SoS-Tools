@@ -1,7 +1,7 @@
 import SecondaryButton from '@/Components/SecondaryButton';
 import Modal from '@/Components/Modal';
 import SlideDown from '@/Components/SlideDown';
-import { TempestArm, TempestArmStat } from '@/types';
+import { TempestArm, TempestArmStat } from '@/types/entities/tempestArm';
 import { generateUniqueId } from '@/Utils/idUtils';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';

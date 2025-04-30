@@ -1,4 +1,4 @@
-import { TempestArmStats } from '@/types';
+import { TempestArmStats } from '@/types/entities/tempestArm';
 import { getTailwindColorName } from '../../Players/Utils/colorUtils';
 import { getStatNameStyle, formatStatValue } from '../Utils/statsUtils';
 

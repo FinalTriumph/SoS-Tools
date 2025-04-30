@@ -1,13 +1,11 @@
 import PrimaryButton from '@/Components/PrimaryButton';
 import SecondaryButton from '@/Components/SecondaryButton';
-import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
-import SelectInput from '@/Components/SelectInput';
-import TextInput from '@/Components/TextInput';
-import { Hero } from '@/types';
+import { Hero, HeroGeneral, HeroTempestArms } from '@/types/entities/hero';
 import { Transition } from '@headlessui/react';
 import { useForm } from '@inertiajs/react';
 import { FormEventHandler } from 'react';
+import General from './HeroInformationForm/General';
+import TempestArms from './HeroInformationForm/TempestArms';
 
 interface FormData {
     player_id: number | null;
@@ -16,6 +14,8 @@ interface FormData {
     troop_type: string | null;
     type: string | null;
     attack_defense_stats: number | null;
+    attack_tempest_arm_id: number | null;
+    defense_tempest_arm_id: number | null;
     [key: string]: any;
 }
 
@@ -43,6 +43,8 @@ export default function HeroInformationForm({
         troop_type: hero?.troop_type ?? null,
         type: hero?.type ?? null,
         attack_defense_stats: hero?.attack_defense_stats ?? null,
+        attack_tempest_arm_id: hero?.attack_tempest_arm_id ?? null,
+        defense_tempest_arm_id: hero?.defense_tempest_arm_id ?? null,
     });
 
     const { delete: destroy } = useForm();
@@ -78,111 +80,35 @@ export default function HeroInformationForm({
             </header>
 
             <form onSubmit={submit} className="mt-6 space-y-6">
-                <div>
-                    <InputLabel htmlFor="player_id" value="Player" />
-    
-                    <SelectInput
-                        id="player_id"
-                        name="player_id"
-                        value={data.player_id ?? ''}
-                        options={[
-                            { value: '', label: '' },
-                            ...(players?.map(player => ({
-                                value: player.id,
-                                label: player.username,
-                            })) || [])
-                        ]}
-                        className="mt-1 block w-full"
-                        onChange={(e) => setData('player_id', Number(e.target.value))}
-                    />
-    
-                    <InputError message={errors.player_id} />
-                </div>
-
-                <div className="mt-4">
-                    <InputLabel htmlFor="name" value="Name" />
-
-                    <TextInput
-                        id="name"
-                        name="name"
-                        value={data.name ?? ''}
-                        className="mt-1 block w-full"
-                        onChange={(e) => setData('name', e.target.value)}
-                    />
-    
-                    <InputError message={errors.name} className="mt-2" />
-                </div>
-
-                <div className="mt-4">
-                    <InputLabel htmlFor="generation" value="Generation" />
-
-                    <TextInput
-                        id="generation"
-                        type="number"
-                        name="generation"
-                        min="1"
-                        value={data.generation ?? ''}
-                        className="mt-1 block w-full"
-                        onChange={(e) => setData('generation', Number(e.target.value))}
+                <div className="flex flex-col justify-between lg:flex-row lg:gap-8">
+                    <General
+                        players={players}
+                        data={{
+                            player_id: data.player_id,
+                            name: data.name,
+                            generation: data.generation,
+                            troop_type: data.troop_type,
+                            type: data.type,
+                            attack_defense_stats: data.attack_defense_stats,
+                        }}
+                        setDataField={(field: keyof HeroGeneral, value: string | number) => setData(field, value)}
+                        getError={(field: keyof HeroGeneral) => errors[field]}
                     />
 
-                    <InputError message={errors.generation} className="mt-2" />
-                </div>
+                    {hero && (
+                        <>
+                            <hr className="my-6 lg:hidden" />
 
-                <div>
-                    <InputLabel htmlFor="troop_type" value="Troop Type" />
-    
-                    <SelectInput
-                        id="troop_type"
-                        name="troop_type"
-                        value={data.troop_type ?? ''}
-                        options={[
-                            { value: '', label: '' },
-                            { value: 'infantry', label: 'Infantry' },
-                            { value: 'riders', label: 'Riders' },
-                            { value: 'hunters', label: 'Hunters' },
-                        ]}
-                        className="mt-1 block w-full"
-                        onChange={(e) => setData('troop_type', e.target.value)}
-                    />
-    
-                    <InputError message={errors.troop_type} />
-                </div>
-
-                <div>
-                    <InputLabel htmlFor="type" value="Type" />
-    
-                    <SelectInput
-                        id="type"
-                        name="type"
-                        value={data.type ?? ''}
-                        options={[
-                            { value: '', label: '' },
-                            { value: 'berserk', label: 'Berserk' },
-                            { value: 'resilience', label: 'Resilience' },
-                            { value: 'control', label: 'Control' },
-                        ]}
-                        className="mt-1 block w-full"
-                        onChange={(e) => setData('type', e.target.value)}
-                    />
-    
-                    <InputError message={errors.type} />
-                </div>
-
-                <div className="mt-4">
-                    <InputLabel htmlFor="attack_defense_stats" value="Attack/Defense Stats" />
-
-                    <TextInput
-                        id="attack_defense_stats"
-                        type="number"
-                        name="attack_defense_stats"
-                        min="1"
-                        value={data.attack_defense_stats ?? ''}
-                        className="mt-1 block w-full"
-                        onChange={(e) => setData('attack_defense_stats', Number(e.target.value))}
-                    />
-
-                    <InputError message={errors.attack_defense_stats} className="mt-2" />
+                            <TempestArms
+                                data={{
+                                    attack_tempest_arm_id: data.attack_tempest_arm_id,
+                                    defense_tempest_arm_id: data.defense_tempest_arm_id,
+                                }}
+                                setDataField={(field: keyof HeroTempestArms, value: number) => setData(field, value)}
+                                getError={(field: keyof HeroTempestArms) => errors[field]}
+                            />
+                        </>
+                    )}
                 </div>
 
                 <div className="flex items-center gap-4">

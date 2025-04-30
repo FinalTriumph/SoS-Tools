@@ -1,4 +1,4 @@
-import { Player } from '@/types';
+import { Player } from '@/types/entities/player';
 import { router } from '@inertiajs/react';
 import { FormModalType } from '../Utils/FormModalType';
 import { useFormModalContext } from '../Utils/FormModalContext';

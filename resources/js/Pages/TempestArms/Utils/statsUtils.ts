@@ -1,4 +1,4 @@
-import { TempestArmStat, TempestArmStats } from '@/types';
+import { TempestArmStat, TempestArmStats } from '@/types/entities/tempestArm';
 import { CSSProperties } from 'react';
 
 type StatColor = 'red' | 'gold' | 'purple';

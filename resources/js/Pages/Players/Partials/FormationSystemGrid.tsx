@@ -1,4 +1,4 @@
-import { FormationSystem } from '@/types';
+import { FormationSystem } from '@/types/entities/formationSystem';
 import { ColorType } from '../Utils/colorUtils';
 import ColorCell from './ColorCell';
 

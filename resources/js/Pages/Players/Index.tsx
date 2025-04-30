@@ -1,7 +1,7 @@
 import Checkbox from '@/Components/Checkbox';
 import SecondaryButton from '@/Components/SecondaryButton';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Player } from '@/types';
+import { Player } from '@/types/entities/player';
 import { Head, router } from '@inertiajs/react';
 import { useState, useRef } from 'react';
 import Filters from './Partials/Filters';

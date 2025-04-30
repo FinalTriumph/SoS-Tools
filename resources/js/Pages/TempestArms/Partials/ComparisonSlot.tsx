@@ -1,4 +1,4 @@
-import { TempestArm } from '@/types';
+import { TempestArm } from '@/types/entities/tempestArm';
 import { ucfirst } from '@/Utils/stringUtils';
 import { Type } from '../Utils/TempestArmTypes';
 import TempestArmItem from './TempestArmItem';

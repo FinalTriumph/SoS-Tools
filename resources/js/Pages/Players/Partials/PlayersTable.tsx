@@ -1,4 +1,4 @@
-import { Player } from '@/types';
+import { Player } from '@/types/entities/player';
 import { RefObject } from 'react';
 import { FormModalProvider } from '../Utils/FormModalProvider';
 import FormModalManager from './FormModalManager';

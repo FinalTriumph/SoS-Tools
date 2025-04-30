@@ -6,7 +6,7 @@ import {
     TempestArmStat,
     TempestArmStats,
     TempestArmSkill,
-} from '@/types';
+} from '@/types/entities/tempestArm';
 import { Transition } from '@headlessui/react';
 import { useForm } from '@inertiajs/react';
 import { FormEventHandler } from 'react';
