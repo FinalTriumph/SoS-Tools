@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Hero\StoreRequest;
 use App\Http\Requests\Hero\UpdateRequest;
 use App\Models\Hero;
+use App\Models\TempestArm;
 
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -71,6 +72,10 @@ class HeroController extends Controller
         return Inertia::render('Hero/Edit', [
             'players' => Auth::user()->players()->select('id', 'username')->get(),
             'hero' => $hero,
+            'tempestArms' => TempestArm::where('player_id', $hero->player_id)
+                ->where('troop_type', $hero->troop_type)
+                // ->with(['heroAsAttack', 'heroAsDefense'])
+                ->get()
         ]);
     }
 

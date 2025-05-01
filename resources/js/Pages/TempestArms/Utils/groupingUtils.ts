@@ -1,11 +1,27 @@
 import { TempestArm } from '@/types/entities/tempestArm';
 import { isValidTroopTypeAndType, TroopType, Type } from './TempestArmTypes';
 
-type GroupedTempestArms = Record<string, Record<string, TempestArm[]>>;
+type GroupedByType = Record<Type, TempestArm[]>;
+type GroupedByTroopType = Record<TroopType, Record<string, TempestArm[]>>;
+
+export const groupByType = (
+    tempestArms: TempestArm[]
+): GroupedByType => {
+    return tempestArms.reduce((acc, tempestArm) => {
+        if (!isValidTroopTypeAndType(tempestArm.troop_type, tempestArm.type)) {
+            return acc;
+        }
+
+        acc[tempestArm.type as Type] ??= [];
+        acc[tempestArm.type as Type].push(tempestArm);
+
+        return acc;
+    }, {} as GroupedByType);
+};
 
 export const groupByTroopType = (
     tempestArms: TempestArm[]
-): GroupedTempestArms => {
+): GroupedByTroopType => {
     return tempestArms.reduce((acc, tempestArm) => {
         if (!isValidTroopTypeAndType(tempestArm.troop_type, tempestArm.type)) {
             return acc;
@@ -17,5 +33,5 @@ export const groupByTroopType = (
         acc[tempestArm.troop_type as TroopType][tempestArm.type as Type].push(tempestArm);
 
         return acc;
-    }, {} as GroupedTempestArms);
+    }, {} as GroupedByTroopType);
 };

@@ -1,14 +1,17 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Hero } from '@/types/entities/hero';
+import { TempestArm } from '@/types/entities/tempestArm';
 import { Head } from '@inertiajs/react';
 import HeroInformationForm from './Partials/HeroInformationForm';
 
 export default function Create({
     players,
     hero,
+    tempestArms,
 }: {
     players: { id: number; username: string }[];
     hero: Hero;
+    tempestArms: TempestArm[];
 }) {
     return (
         <AuthenticatedLayout
@@ -26,6 +29,7 @@ export default function Create({
                         <HeroInformationForm
                             players={players}
                             hero={hero}
+                            tempestArms={tempestArms}
                         />
                     </div>
                 </div>

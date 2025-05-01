@@ -1,6 +1,7 @@
 import PrimaryButton from '@/Components/PrimaryButton';
 import SecondaryButton from '@/Components/SecondaryButton';
 import { Hero, HeroGeneral, HeroTempestArms } from '@/types/entities/hero';
+import { TempestArm } from '@/types/entities/tempestArm';
 import { Transition } from '@headlessui/react';
 import { useForm } from '@inertiajs/react';
 import { FormEventHandler } from 'react';
@@ -21,11 +22,13 @@ interface FormData {
 
 interface HeroInformationFormProps {
     hero?: Hero | null;
+    tempestArms?: TempestArm[];
     players: { id: number; username: string }[];
 }
 
 export default function HeroInformationForm({
     hero,
+    tempestArms,
     players,
 }: HeroInformationFormProps) {
     const {
@@ -80,7 +83,7 @@ export default function HeroInformationForm({
             </header>
 
             <form onSubmit={submit} className="mt-6 space-y-6">
-                <div className="flex flex-col justify-between lg:flex-row lg:gap-8">
+                <div className={hero ? 'grid grid-cols-1 gap-6 lg:grid-cols-2' : ''}>
                     <General
                         players={players}
                         data={{
@@ -95,19 +98,16 @@ export default function HeroInformationForm({
                         getError={(field: keyof HeroGeneral) => errors[field]}
                     />
 
-                    {hero && (
-                        <>
-                            <hr className="my-6 lg:hidden" />
-
-                            <TempestArms
-                                data={{
-                                    attack_tempest_arm_id: data.attack_tempest_arm_id,
-                                    defense_tempest_arm_id: data.defense_tempest_arm_id,
-                                }}
-                                setDataField={(field: keyof HeroTempestArms, value: number) => setData(field, value)}
-                                getError={(field: keyof HeroTempestArms) => errors[field]}
-                            />
-                        </>
+                    {hero && tempestArms && (
+                        <TempestArms
+                            tempestArms={tempestArms}
+                            data={{
+                                attack_tempest_arm_id: data.attack_tempest_arm_id,
+                                defense_tempest_arm_id: data.defense_tempest_arm_id,
+                            }}
+                            setDataField={(field: keyof HeroTempestArms, value: number) => setData(field, value)}
+                            getError={(field: keyof HeroTempestArms) => errors[field]}
+                        />
                     )}
                 </div>
 

@@ -16,7 +16,7 @@ export default function General({
     getError: (field: keyof HeroGeneral) => string | undefined;
 }) {
     return(
-        <div className="flex-grow space-y-6">
+        <div className="space-y-6">
             <div>
                 <InputLabel htmlFor="player_id" value="Player" />
 
