@@ -1,7 +1,7 @@
 import { TempestArm } from '@/types/entities/tempestArm';
 import { isValidTroopTypeAndType, TroopType, Type } from './TempestArmTypes';
 
-type GroupedByType = Record<Type, TempestArm[]>;
+type GroupedByType = Record<Type, Record<number, TempestArm>>;
 type GroupedByTroopType = Record<TroopType, Record<string, TempestArm[]>>;
 
 export const groupByType = (
@@ -12,8 +12,8 @@ export const groupByType = (
             return acc;
         }
 
-        acc[tempestArm.type as Type] ??= [];
-        acc[tempestArm.type as Type].push(tempestArm);
+        acc[tempestArm.type as Type] ??= {};
+        acc[tempestArm.type as Type][tempestArm.id] = tempestArm;
 
         return acc;
     }, {} as GroupedByType);

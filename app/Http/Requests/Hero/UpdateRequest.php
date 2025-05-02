@@ -27,7 +27,25 @@ class UpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-        return $this->getValidationRulesWithSometimes();
+        $rules = $this->getValidationRulesWithSometimes();
+
+        $rules['attack_tempest_arm_id'] = [
+            'sometimes',
+            'nullable',
+            'integer',
+            'exists:tempest_arms,id',
+            Rule::unique('heroes', 'attack_tempest_arm_id')->ignore($this->route('hero')->id),
+        ];
+
+        $rules['defense_tempest_arm_id'] = [
+            'sometimes',
+            'nullable',
+            'integer',
+            'exists:tempest_arms,id',
+            Rule::unique('heroes', 'defense_tempest_arm_id')->ignore($this->route('hero')->id),
+        ];
+
+        return $rules;
     }
 
     /**

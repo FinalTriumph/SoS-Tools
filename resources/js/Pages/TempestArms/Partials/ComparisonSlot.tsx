@@ -16,7 +16,7 @@ export default function ComparisonSlot({
     slotValue,
     openModal,
 }: ComparisonSlotProps) {
-    return(
+    return (
         <div
             onClick={() => openModal(rowIndex, slotType)}
             role="button"

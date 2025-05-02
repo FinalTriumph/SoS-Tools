@@ -5,15 +5,22 @@ import TempestArmItem from '../../../TempestArms/Partials/TempestArmItem';
 
 interface TempestArmSlotProps {
     type: Type;
-    tempestArm?: TempestArm;
+    tempestArm: TempestArm | null;
+    openModal: (type: Type) => void;
 }
 
 export default function TempestArmSlot({
     type,
     tempestArm,
+    openModal,
 }: TempestArmSlotProps) {
-    return(
-        <div className="hover:opacity-80">
+    return (
+        <div
+            onClick={() => openModal(type)}
+            role="button"
+            tabIndex={0}
+            className="hover:opacity-80"
+        >
             {tempestArm ? (
                 <TempestArmItem tempestArm={tempestArm} />
             ) : (
