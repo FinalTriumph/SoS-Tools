@@ -1,6 +1,6 @@
 import Modal from '@/Components/Modal';
 import InputError from '@/Components/InputError';
-import { HeroTempestArms } from '@/types/entities/hero';
+import { HeroTempestArmsIds } from '@/types/entities/hero';
 import { TempestArm, TempestArmStat } from '@/types/entities/tempestArm';
 import { useState, useEffect } from 'react';
 import { groupByType } from '../../../TempestArms/Utils/groupingUtils';
@@ -12,9 +12,9 @@ import TempestArmSlot from './TempestArmSlot';
 
 interface TempestArmsProps {
     tempestArms: TempestArm[],
-    data: HeroTempestArms;
-    setDataField: (field: keyof HeroTempestArms, value: number) => void;
-    getError: (field: keyof HeroTempestArms) => string | undefined;
+    data: HeroTempestArmsIds;
+    setDataField: (field: keyof HeroTempestArmsIds, value: number) => void;
+    getError: (field: keyof HeroTempestArmsIds) => string | undefined;
 }
 
 export default function TempestArms({
@@ -29,7 +29,7 @@ export default function TempestArms({
 
     const groupedTempestArms = groupByType(tempestArms);
     
-    const fieldNamesByType: { [key in Type]: keyof HeroTempestArms } = {
+    const fieldNamesByType: { [key in Type]: keyof HeroTempestArmsIds } = {
         [Type.ATTACK]: 'attack_tempest_arm_id',
         [Type.DEFENSE]: 'defense_tempest_arm_id',
     };
@@ -63,7 +63,7 @@ export default function TempestArms({
         setIsModalOpen(false);
     };
 
-    const selectTempestArm = (tempestArm: TempestArm, field: keyof HeroTempestArms): void => {
+    const selectTempestArm = (tempestArm: TempestArm, field: keyof HeroTempestArmsIds): void => {
         if (selectedSlotType === null) return;
 
         const oldTempestArmId = data[field];

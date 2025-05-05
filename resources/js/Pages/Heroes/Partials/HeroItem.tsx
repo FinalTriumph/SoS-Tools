@@ -1,6 +1,7 @@
 import { Hero } from '@/types/entities/hero';
 import { usePlayersListContext } from '@/Utils/PlayersListContext';
 import { ucfirst } from '@/Utils/stringUtils';
+import TempestArmItem from '../../TempestArms/Partials/TempestArmItem';
 
 interface HeroItemProps {
     hero: Hero,
@@ -26,6 +27,20 @@ export default function HeroItem({
                 <div className="p-2 bg-slate-200 rounded-lg">{ucfirst(hero.troop_type)}</div>
                 <div className="p-2 bg-slate-200 rounded-lg">{hero.attack_defense_stats}%</div>
                 <div className="p-2 bg-slate-300 rounded-lg">{ucfirst(hero.type)}</div>
+            </div>
+
+            <div className="mt-4 grid grid-cols-2 gap-2">
+                <div>{hero.attack_tempest_arm ? (
+                    <TempestArmItem tempestArm={hero.attack_tempest_arm} />
+                ) : (
+                    <div className="mt-4">No attack tempest arm</div>
+                )}</div>
+
+                <div>{hero.defense_tempest_arm ? (
+                    <TempestArmItem tempestArm={hero.defense_tempest_arm} />
+                ) : (
+                    <div className="mt-4">No defense tempest arm</div>
+                )}</div>
             </div>
 
             <div className="mt-4 mx-2 text-right text-slate-800">

@@ -1,6 +1,6 @@
 import PrimaryButton from '@/Components/PrimaryButton';
 import SecondaryButton from '@/Components/SecondaryButton';
-import { Hero, HeroGeneral, HeroTempestArms } from '@/types/entities/hero';
+import { Hero, HeroGeneral, HeroTempestArmsIds } from '@/types/entities/hero';
 import { TempestArm } from '@/types/entities/tempestArm';
 import { PlayersListProvider } from '@/Utils/PlayersListProvider';
 import { Transition } from '@headlessui/react';
@@ -107,8 +107,8 @@ export default function HeroInformationForm({
                                     attack_tempest_arm_id: data.attack_tempest_arm_id,
                                     defense_tempest_arm_id: data.defense_tempest_arm_id,
                                 }}
-                                setDataField={(field: keyof HeroTempestArms, value: number) => setData(field, value)}
-                                getError={(field: keyof HeroTempestArms) => errors[field]}
+                                setDataField={(field: keyof HeroTempestArmsIds, value: number) => setData(field, value)}
+                                getError={(field: keyof HeroTempestArmsIds) => errors[field]}
                             />
                         </PlayersListProvider>
                     )}

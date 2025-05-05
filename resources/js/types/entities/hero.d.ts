@@ -1,3 +1,5 @@
+import { TempestArm } from './tempestArm';
+
 export interface HeroGeneral {
     player_id: number | null;
     name: string | null;
@@ -7,11 +9,16 @@ export interface HeroGeneral {
     attack_defense_stats: number | null;
 }
 
-export interface HeroTempestArms {
+export interface HeroTempestArmsIds {
     attack_tempest_arm_id: number | null;
     defense_tempest_arm_id: number | null;
 }
 
-export interface Hero extends HeroGeneral, HeroTempestArms {
+export interface HeroTempestArms {
+    attack_tempest_arm: TempestArm | null;
+    defense_tempest_arm: TempestArm | null;
+}
+
+export interface Hero extends HeroGeneral, HeroTempestArmsIds, HeroTempestArms {
     id: number;
 }
