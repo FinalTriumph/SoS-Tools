@@ -13,7 +13,7 @@ import TempestArmSlot from './TempestArmSlot';
 interface TempestArmsProps {
     tempestArms: TempestArm[],
     data: HeroTempestArmsIds;
-    setDataField: (field: keyof HeroTempestArmsIds, value: number) => void;
+    setDataField: (field: keyof HeroTempestArmsIds, value: number | null) => void;
     getError: (field: keyof HeroTempestArmsIds) => string | undefined;
 }
 
@@ -88,6 +88,14 @@ export default function TempestArms({
         closeModal();
     };
 
+    const removeTempestArm = (tempestArm: TempestArm, type: Type): void => {
+        let updatedTotalStats = { ...totalStats };
+        updatedTotalStats = subtractStats(updatedTotalStats, tempestArm.stats);
+        setTotalStats(updatedTotalStats);
+
+        setDataField(fieldNamesByType[type], null);
+    };
+
     return (
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
             <div className="space-y-6">
@@ -96,6 +104,7 @@ export default function TempestArms({
                         type={Type.ATTACK}
                         tempestArm={getTempestArm(Type.ATTACK, data[fieldNamesByType[Type.ATTACK]])}
                         openModal={openModal}
+                        removeTempestArm={removeTempestArm}
                     />
 
                     <InputError message={getError('attack_tempest_arm_id')} />
@@ -106,6 +115,7 @@ export default function TempestArms({
                         type={Type.DEFENSE}
                         tempestArm={getTempestArm(Type.DEFENSE, data[fieldNamesByType[Type.DEFENSE]])}
                         openModal={openModal}
+                        removeTempestArm={removeTempestArm}
                     />
 
                     <InputError message={getError('defense_tempest_arm_id')} />

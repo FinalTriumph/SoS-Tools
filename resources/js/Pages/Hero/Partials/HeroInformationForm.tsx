@@ -107,7 +107,7 @@ export default function HeroInformationForm({
                                     attack_tempest_arm_id: data.attack_tempest_arm_id,
                                     defense_tempest_arm_id: data.defense_tempest_arm_id,
                                 }}
-                                setDataField={(field: keyof HeroTempestArmsIds, value: number) => setData(field, value)}
+                                setDataField={(field: keyof HeroTempestArmsIds, value: number | null) => setData(field, value)}
                                 getError={(field: keyof HeroTempestArmsIds) => errors[field]}
                             />
                         </PlayersListProvider>
