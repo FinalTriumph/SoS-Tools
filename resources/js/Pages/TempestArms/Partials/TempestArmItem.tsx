@@ -21,7 +21,7 @@ export default function TempestArmItem({
         >
             <div className="flex justify-between items-center font-bold">
                 <div>{ucfirst(tempestArm.type)}</div>
-                <div className="inline-block p-2 bg-orange-200 rounded-lg">
+                <div className="inline-block p-2 bg-orange-200 rounded-lg text-xs">
                     {ucfirst(tempestArm.generation)}
                 </div>
             </div>
