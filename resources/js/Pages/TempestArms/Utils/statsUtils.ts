@@ -24,7 +24,7 @@ const fontSizeThresholds: FontSizeThreshold[] = [
         },
     },
     {
-        minLength: 18,
+        minLength: 19,
         style: {
             fontSize: '90%',
             whiteSpace: 'nowrap',

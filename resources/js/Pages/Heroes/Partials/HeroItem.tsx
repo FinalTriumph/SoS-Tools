@@ -31,13 +31,13 @@ export default function HeroItem({
 
             <div className="mt-4 grid grid-cols-2 gap-2">
                 <div>{hero.attack_tempest_arm ? (
-                    <TempestArmItem tempestArm={hero.attack_tempest_arm} />
+                    <TempestArmItem tempestArm={hero.attack_tempest_arm} hideOwner />
                 ) : (
                     <div className="mt-4">No attack tempest arm</div>
                 )}</div>
 
                 <div>{hero.defense_tempest_arm ? (
-                    <TempestArmItem tempestArm={hero.defense_tempest_arm} />
+                    <TempestArmItem tempestArm={hero.defense_tempest_arm} hideOwner />
                 ) : (
                     <div className="mt-4">No defense tempest arm</div>
                 )}</div>

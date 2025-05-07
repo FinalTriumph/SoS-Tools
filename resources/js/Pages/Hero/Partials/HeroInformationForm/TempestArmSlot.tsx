@@ -26,7 +26,7 @@ export default function TempestArmSlot({
                         tabIndex={0}
                         className="hover:opacity-80"
                     >
-                        <TempestArmItem tempestArm={tempestArm} />
+                        <TempestArmItem tempestArm={tempestArm} hideOwner />
                     </div>
 
                     <button

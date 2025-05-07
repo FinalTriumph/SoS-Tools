@@ -6,10 +6,12 @@ import TempestArmItemSkill from './TempestArmItemSkill';
 
 interface TempestArmItemProps {
     tempestArm: TempestArm,
+    hideOwner?: boolean,
 }
 
 export default function TempestArmItem({
     tempestArm,
+    hideOwner = false,
 }: TempestArmItemProps) {
     const { playersById } = usePlayersListContext();
 
@@ -32,9 +34,11 @@ export default function TempestArmItem({
                 <TempestArmItemSkill skill={tempestArm.skill} />
             )}
 
-            <div className="mt-4 mx-2 text-right text-slate-800">
-                {tempestArm.player_id ? playersById[tempestArm.player_id] : '-'}
-            </div>
+            {!hideOwner && (
+                <div className="mt-4 mx-2 text-right text-slate-800">
+                    {tempestArm.player_id ? playersById[tempestArm.player_id] : '-'}
+                </div>
+            )}
         </div>
     );
 }
