@@ -45,6 +45,12 @@ trait ValidationRules
                 'min:0',
                 'max:10000',
             ],
+            'march' => [
+                'nullable',
+                'integer',
+                'min:0',
+                'max:10',
+            ],
         ];
     }
 }

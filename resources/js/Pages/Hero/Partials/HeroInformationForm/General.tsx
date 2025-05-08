@@ -123,6 +123,27 @@ export default function General({
 
                 <InputError message={getError('attack_defense_stats')} className="mt-2" />
             </div>
+
+            <div>
+                <InputLabel htmlFor="march" value="March" />
+
+                <SelectInput
+                    id="march"
+                    name="march"
+                    value={data.march ?? ''}
+                    options={[
+                        { value: '', label: '' },
+                        ...Array.from({ length: 10 }, (_, i) => ({
+                            value: i + 1,
+                            label: (i + 1).toString(),
+                        }))
+                    ]}
+                    className="mt-1 block w-full"
+                    onChange={(e) => setDataField('march', e.target.value)}
+                />
+
+                <InputError message={getError('march')} />
+            </div>
         </div>
     )
 }

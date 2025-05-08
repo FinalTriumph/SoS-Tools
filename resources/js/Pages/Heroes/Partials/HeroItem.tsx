@@ -29,6 +29,12 @@ export default function HeroItem({
             className="p-4 bg-slate-50 shadow rounded-lg"
         >
             <div className="flex justify-between items-center gap-4">
+                {hero.march && (
+                    <div className="inline-block p-2 bg-slate-100 text-slate-400 rounded-lg text-xs font-bold">
+                        {hero.march}
+                    </div>
+                )}
+
                 <div className="font-bold">
                     {hero.name}
                 </div>

@@ -16,6 +16,7 @@ interface FormData {
     troop_type: string | null;
     type: string | null;
     attack_defense_stats: number | null;
+    march: number | null;
     attack_tempest_arm_id: number | null;
     defense_tempest_arm_id: number | null;
     [key: string]: any;
@@ -47,6 +48,7 @@ export default function HeroInformationForm({
         troop_type: hero?.troop_type ?? null,
         type: hero?.type ?? null,
         attack_defense_stats: hero?.attack_defense_stats ?? null,
+        march: hero?.march ?? null,
         attack_tempest_arm_id: hero?.attack_tempest_arm_id ?? null,
         defense_tempest_arm_id: hero?.defense_tempest_arm_id ?? null,
     });
@@ -94,6 +96,7 @@ export default function HeroInformationForm({
                             troop_type: data.troop_type,
                             type: data.type,
                             attack_defense_stats: data.attack_defense_stats,
+                            march: data.march,
                         }}
                         setDataField={(field: keyof HeroGeneral, value: string | number) => setData(field, value)}
                         getError={(field: keyof HeroGeneral) => errors[field]}

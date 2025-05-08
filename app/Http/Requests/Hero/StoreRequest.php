@@ -6,6 +6,7 @@ use App\Http\Requests\Hero\ValidationRules;
 use App\Http\Requests\Hero\ValidationMessages;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreRequest extends FormRequest
 {
@@ -26,7 +27,16 @@ class StoreRequest extends FormRequest
      */
     public function rules(): array
     {
-        return $this->getValidationRules();
+        $rules = $this->getValidationRules();
+
+        $rules['march'][] = Rule::unique('heroes')
+            ->where(function ($query) {
+                return $query
+                    ->where('player_id', $this->input('player_id'))
+                    ->where('troop_type', $this->input('troop_type'));
+            });
+
+        return $rules;
     }
 
     /**

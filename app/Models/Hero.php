@@ -19,6 +19,7 @@ class Hero extends Model
         'troop_type',
         'type',
         'attack_defense_stats',
+        'march',
         'attack_tempest_arm_id',
         'defense_tempest_arm_id',
     ];

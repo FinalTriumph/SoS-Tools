@@ -29,6 +29,14 @@ class UpdateRequest extends FormRequest
     {
         $rules = $this->getValidationRulesWithSometimes();
 
+        $rules['march'][] = Rule::unique('heroes')
+            ->where(function ($query) {
+                return $query
+                    ->where('player_id', $this->input('player_id'))
+                    ->where('troop_type', $this->input('troop_type'));
+            })
+            ->ignore($this->route('hero')->id);
+
         $rules['attack_tempest_arm_id'] = [
             'sometimes',
             'nullable',

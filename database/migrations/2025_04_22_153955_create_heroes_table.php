@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('troop_type');
             $table->string('type');
             $table->integer('attack_defense_stats');
+            $table->integer('march')->nullable();
 
             $table->foreignId('attack_tempest_arm_id')
                 ->nullable()

@@ -7,6 +7,7 @@ export interface HeroGeneral {
     troop_type: string | null;
     type: string | null;
     attack_defense_stats: number | null;
+    march: number | null;
 }
 
 export interface HeroTempestArmsIds {
