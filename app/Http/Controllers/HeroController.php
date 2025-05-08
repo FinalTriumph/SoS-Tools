@@ -36,6 +36,7 @@ class HeroController extends Controller
         return Inertia::render('Heroes/Index', [
             'heroes' => Hero::whereIn('player_id', $playerId ? [$playerId] : $playerIds)
                 ->with('attackTempestArm', 'defenseTempestArm')
+                ->orderBy('generation', 'desc')
                 ->get(),
             'players' => $players,
             'selectedPlayerId' => $playerId,
