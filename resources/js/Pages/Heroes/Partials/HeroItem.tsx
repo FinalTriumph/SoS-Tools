@@ -1,15 +1,17 @@
 import { Hero } from '@/types/entities/hero';
 import { usePlayersListContext } from '@/Utils/PlayersListContext';
 import { ucfirst } from '@/Utils/stringUtils';
-import TempestArmItem from '../../TempestArms/Partials/TempestArmItem';
 import { getTailwindColorName } from '../../Players/Utils/colorUtils';
+import TempestArmItemSkill from '../../TempestArms/Partials/TempestArmItemSkill';
 
 interface HeroItemProps {
-    hero: Hero,
+    hero: Hero;
+    handleHeroClick: (id: number) => void; 
 }
 
 export default function HeroItem({
     hero,
+    handleHeroClick,
 }: HeroItemProps) {
     const { playersById } = usePlayersListContext();
 
@@ -35,7 +37,13 @@ export default function HeroItem({
                     </div>
                 )}
 
-                <div className="font-bold">
+                <div
+                    key={hero.id}
+                    onClick={() => handleHeroClick(hero.id)}
+                    role="button"
+                    tabIndex={0}
+                    className="font-bold hover:opacity-80"
+                >
                     {hero.name}
                 </div>
 
@@ -56,18 +64,22 @@ export default function HeroItem({
                 </div>
             </div>
 
-            <div className="mt-4 grid grid-cols-2 gap-2">
-                <div>{hero.attack_tempest_arm ? (
-                    <TempestArmItem tempestArm={hero.attack_tempest_arm} hideOwner />
-                ) : (
-                    <div className="mt-4 mx-4">No attack tempest arm</div>
-                )}</div>
+            <div className="text-xs mt-4 grid grid-cols-2 gap-2">
+                <div>
+                    {hero.attack_tempest_arm ? (
+                        <TempestArmItemSkill skill={hero.attack_tempest_arm.skill} />
+                    ) : (
+                        <div className="mt-4 mx-4">No attack tempest arm</div>
+                    )}
+                </div>
 
-                <div>{hero.defense_tempest_arm ? (
-                    <TempestArmItem tempestArm={hero.defense_tempest_arm} hideOwner />
-                ) : (
-                    <div className="mt-4 mx-4">No defense tempest arm</div>
-                )}</div>
+                <div>
+                    {hero.defense_tempest_arm ? (
+                        <TempestArmItemSkill skill={hero.defense_tempest_arm.skill} />
+                    ) : (
+                        <div className="mt-4 mx-4">No defense tempest arm</div>
+                    )}
+                </div>
             </div>
 
             <div className="mt-4 mx-2 text-right text-sm text-slate-800">
